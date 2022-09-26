@@ -1,9 +1,12 @@
-import {Route, Switch} from "react-router-dom";
+import React from 'react';
+import { Routes ,Route } from 'react-router-dom';
+import Header from "../Header/Header";
 
 function App() {
   return (
     <div>
-      <Switch>
+      <Header />
+      <Routes>
         <Route path="/">
 
         </Route>
@@ -22,7 +25,7 @@ function App() {
         <Route path="/signup">
 
         </Route>
-      </Switch>
+      </Routes>
     </div>
   );
 }

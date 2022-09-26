@@ -8,15 +8,14 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^2.1.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "movies-explorer/node_modules/.bin/react-scripts start",
-    "build": "movies-explorer/node_modules/.bin/react-scripts build",
-    "test": "movies-explorer/node_modules/.bin/react-scripts test",
-    "eject": "movies-explorer/node_modules/.bin/react-scripts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +34,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "react-router-dom": "^6.4.1"
   }
 }
