@@ -1,15 +1,15 @@
 import React from 'react';
 import { Routes ,Route } from 'react-router-dom';
 import Header from "../Header/Header";
+import Main from "../Main/Main";
 
 function App() {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/">
 
-        </Route>
+      <Routes>
+        <Route path="/" element={ <Main /> }></Route>
         <Route path="/movies">
 
         </Route>

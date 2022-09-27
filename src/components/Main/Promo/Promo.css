@@ -1,0 +1,21 @@
+.promo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 17px;
+    border-radius: 14px;
+    background-color: #272727;
+    min-height: 292px;
+}
+.promo__header {
+    margin: 0;
+    font-weight: 400;
+    font-size: 29px;
+    line-height: 37px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #fff;
+    padding-top: 220px;
+    padding-bottom: 212px;
+}
