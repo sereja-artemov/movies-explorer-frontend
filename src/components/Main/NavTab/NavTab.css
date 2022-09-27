@@ -10,16 +10,19 @@
 }
 .nav-tab__item {
     width: 33.3%;
-    padding: 5px 10px 7px 10px;
-    border-radius: 6px;
-    background-color: #303030;
     text-align: center;
 }
 .nav-tab__link {
+    display: block;
     font-style: normal;
     font-weight: 500;
     font-size: 10px;
     line-height: 16px;
     color: #fff;
     text-decoration: none;
+
+    padding: 5px 10px;
+    border-radius: 6px;
+    background-color: #303030;
+    text-align: center;
 }
