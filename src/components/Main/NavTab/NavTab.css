@@ -1,5 +1,6 @@
 .nav-tab {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     vertical-align: bottom;
     gap: 6px;
@@ -9,7 +10,8 @@
     list-style: none;
 }
 .nav-tab__item {
-    width: 33.3%;
+    width: 31.5%;
+    max-width: 96px;
     text-align: center;
 }
 .nav-tab__link {
