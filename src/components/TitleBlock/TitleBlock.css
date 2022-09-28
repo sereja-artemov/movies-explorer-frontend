@@ -1,0 +1,13 @@
+.title-block {
+    padding-top: 70px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid #DADADA;
+}
+.title-block__title {
+    margin: 0;
+    margin-bottom: 28px;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+}
