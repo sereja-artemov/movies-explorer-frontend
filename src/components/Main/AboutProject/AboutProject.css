@@ -1,0 +1,27 @@
+.about-project__text-block {
+    margin: 0;
+    margin-bottom: 60px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    list-style: none;
+}
+
+.about-project__text-title {
+    margin: 0;
+    margin-bottom: 16px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+}
+
+.about-project__text-content {
+    margin: 0;
+}
+
+.timeline {
+    display: flex;
+}
