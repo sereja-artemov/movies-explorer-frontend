@@ -1,0 +1,35 @@
+.about-me {
+    padding-bottom: 70px;
+}
+.about-me__content {
+    display: flex;
+    flex-direction: column;
+}
+.about-me__img {
+    margin-bottom: 40px;
+    border-radius: 10px;
+}
+.about-me__name {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+}
+.about-me__status {
+    margin: 0;
+    margin-bottom: 20px;
+}
+.about-me__description {
+    margin: 0;
+    margin-bottom: 40px;
+}
+.about-me__github-link {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+}
