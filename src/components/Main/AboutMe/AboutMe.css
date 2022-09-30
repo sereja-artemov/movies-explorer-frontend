@@ -6,6 +6,7 @@
     flex-direction: column;
 }
 .about-me__img {
+    max-width: 295px;
     margin-bottom: 40px;
     border-radius: 10px;
 }

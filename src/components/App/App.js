@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes ,Route } from 'react-router-dom';
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
 
 function App() {
   return (
@@ -10,9 +11,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={ <Main /> }></Route>
-        <Route path="/movies">
-
-        </Route>
+        <Route path="/movies" element={ <Movies /> }></Route>
         <Route path="/saved-movies">
 
         </Route>
