@@ -1,0 +1,10 @@
+.movies-list {
+    margin: 0;
+    padding: 0;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 39px;
+}
