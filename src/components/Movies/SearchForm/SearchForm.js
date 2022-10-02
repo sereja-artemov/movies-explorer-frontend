@@ -1,4 +1,5 @@
 import React from 'react';
+import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = () => {
     return (
@@ -13,12 +14,7 @@ const SearchForm = () => {
                 </label>
             </div>
             <div className="search-form__checkbox-wrapper">
-
-                <label htmlFor="short-films" className="form__radio-label search-form__label">
-                    <input className="form__checkbox search-form__checkbox" id="short-films" name="film-type" type="checkbox" value="Короткометражки"/>
-                    <span className="form__checkbox-indicator search-form__checkbox-indicator"></span>
-                    Короткометражки
-                </label>
+                <FilterCheckbox label="Короткометражки" inputId="short-films" name="short-films" />
             </div>
         </form>
     );
