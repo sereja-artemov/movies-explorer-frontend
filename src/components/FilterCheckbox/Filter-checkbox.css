@@ -11,7 +11,7 @@
     width: 34px;
     height: 14px;
     border-radius: 20px;
-    background-color: #303030;
+    background-color: #343434;
     transition: .5s ease-in;
 }
 .form__radio-label {
@@ -32,7 +32,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #A0A0A0;
     animation: move-checkbox-out 1s ease;
     animation-fill-mode: both;
 }
@@ -47,16 +47,20 @@
 @keyframes move-checkbox-in {
     from {
         transform: translateX(0);
+        background-color: #A0A0A0;
     }
     to {
         transform: translateX(20px);
+        background-color: #fff;
     }
 }
 @keyframes move-checkbox-out {
     from {
         transform: translateX(20px);
+        background-color: #fff;
     }
     to {
         transform: translateX(0);
+        background-color: #A0A0A0;
     }
 }
