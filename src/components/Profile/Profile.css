@@ -1,0 +1,49 @@
+.profile {
+    padding-top: 70px;
+}
+.profile__title {
+    margin: 0 auto;
+    margin-bottom: 80px;
+    padding: 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.profile__field-wrapper {
+    position: relative;
+}
+.profile__field-wrapper:last-child {
+    border-bottom: none;
+}
+.profile__field-wrapper:last-child > .profile__input {
+    border-bottom: 1px solid transparent;
+}
+.profile__field-wrapper:last-child > .profile__input:focus {
+    border-bottom: 1px solid #fff;
+}
+.profile__input {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 16px 0;
+    background: none;
+    border: none;
+    text-align: right;
+    color: #FFFFFF;
+    border-bottom: 1px solid #424242;
+    outline: none;
+}
+.profile__label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+.profile__input:focus {
+    border-bottom: 1px solid #fff;
+}
+.profile__input:focus + .profile__label {
+    top: 30%;
+}
