@@ -44,7 +44,8 @@
     background: none;
     background-color: #313131;
 }
-.movies-card__save:hover {
+.movies-card__save:hover,
+.movies-card__delete:hover {
     cursor: pointer;
 }
 .movies-card__save-text {
@@ -75,4 +76,30 @@
     -o-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
+}
+.movies-card__delete {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    width: 21px;
+    height: 21px;
+    border: none;
+    border-radius: 50%;
+    background-color: #313131;
+}
+.movies-card__delete::after,
+.movies-card__delete::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 8px;
+    height: 2px;
+    background-color: #fff;
+}
+.movies-card__delete::before {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }

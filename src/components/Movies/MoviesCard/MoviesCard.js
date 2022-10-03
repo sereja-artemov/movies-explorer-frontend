@@ -11,6 +11,9 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved }) => {
             <button className={`movies-card__save ${isSaved}`}>
                 <span className="movies-card__save-text">Сохранить</span>
             </button>
+            {/*Показываем кнопку удаления только, если элемент сохранен и только на странице сохраненок*/}
+            {/*{ onSavedPage && <button className="movies-card__delete"></button> }*/}
+            <button className="movies-card__delete"></button>
         </li>
     );
 };
