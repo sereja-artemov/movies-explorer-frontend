@@ -10,7 +10,7 @@ const Header = () => {
             </Link>
             <div className="header__auth">
                 <Link to="/signup" className="header__auth-signup">Регистрация</Link>
-                <Link to="/signin" className="header__auth-signin">Войти</Link>
+                <Link to="/signin" className="header__auth-signin btn">Войти</Link>
             </div>
                 <button className="header__menu-btn"></button>
             <nav className="main-nav">

@@ -26,10 +26,6 @@
     line-height: 16px;
     font-weight: 500;
     color: #000;
-    text-decoration: none;
-    padding: 9px 12px;
-    border-radius: 3px;
-    background-color: rgb(61, 220, 132);
 }
 .header__auth-signin:hover {
     background-color: rgba(61, 220, 132, 0.8);
