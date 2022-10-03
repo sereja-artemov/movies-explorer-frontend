@@ -2,6 +2,12 @@
     padding-top: 70px;
     padding-bottom: 40px;
 }
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
 .profile__title {
     margin: 0 auto;
     margin-bottom: 80px;
@@ -11,6 +17,16 @@
     line-height: 29px;
     text-align: center;
     color: #FFFFFF;
+}
+.profile__fields {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.profile__fields--settings {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 .profile__field-wrapper {
     display: flex;
@@ -38,4 +54,25 @@
 }
 .profile__input:focus + .profile__label {
     color: #3DDC84;
+}
+.profile__form-submit {
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: 12px;
+    line-height: 15px;
+}
+.profile__logout {
+    padding: 0;
+    border: none;
+    background: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #EE3465;
+}
+.profile__form-submit,
+.profile__logout {
+    cursor: pointer;
 }
