@@ -1,0 +1,28 @@
+.not-found {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.not-found__title {
+    margin: 0;
+    font-size: 80px;
+    line-height: 97px;
+}
+.not-found__text {
+    margin: 0;
+    font-size: 12px;
+    line-height: 15px;
+}
+.not-found__back {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 15px;
+    color: #4285F4;
+}
