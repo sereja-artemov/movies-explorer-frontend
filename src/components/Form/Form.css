@@ -78,7 +78,7 @@
     margin-bottom: 14px;
 }
 .form__submit:hover {
-    opacity: .8;
+    background-color: #4285F4;
 }
 .form__bottom-link {
     text-decoration: none;

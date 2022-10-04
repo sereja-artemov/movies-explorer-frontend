@@ -12,12 +12,10 @@ const Form = ({ formId, formTitle, children, textButton="Отправить", te
             <fieldset className="form__fields">
                 { children }
             </fieldset>
-
             <div className="form__bottom-block">
                 <input type="submit" className="form__submit btn" value={textButton} />
                 <p className="form__bottom-text">{textBottom} <Link to="/" className="form__bottom-link">{textLinkBottom}</Link> </p>
             </div>
-
         </form>
     );
 };
