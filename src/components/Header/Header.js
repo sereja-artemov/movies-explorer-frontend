@@ -5,6 +5,7 @@ import Navigation from "../Navigation/Navigation";
 
 const Header = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const [isLogin, setIsLogin] = useState(true); //временно для теста
 
     const handleMenuBtnClick = () => {
         isNavOpen ? setIsNavOpen(false) : setIsNavOpen(true);
@@ -15,10 +16,20 @@ const Header = () => {
             <Link to="/" className="header__logo">
                 <img src={logo} alt="movies explorer frontend логотип" className="header__logo-img"/>
             </Link>
-            <div className="header__auth">
-                <Link to="/signup" className="header__auth-signup">Регистрация</Link>
-                <Link to="/signin" className="header__auth-signin btn">Войти</Link>
-            </div>
+
+            { isLogin &&
+                <nav className="header__nav">
+                    <Link to="/movies" className="header__link">Фильмы</Link>
+                    <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
+                    <Link to="/profile" className="header__link header__account-link">Аккаунт</Link>
+                </nav>
+            }
+            { !isLogin &&
+                <div className="header__auth">
+                    <Link to="/signup" className="header__auth-signup">Регистрация</Link>
+                    <Link to="/signin" className="header__auth-signin btn">Войти</Link>
+                </div>
+            }
                 <Navigation isOpen={isNavOpen} />
                 <button onClick={handleMenuBtnClick} className={`header__menu-btn ${isNavOpen && `header__menu-btn--opened`}`}></button>
         </header>
