@@ -12,7 +12,7 @@ const Header = () => {
     }
 
     return (
-        <header className="header container">
+        <header className="header container-fluid">
             <Link to="/" className="header__logo">
                 <img src={logo} alt="movies explorer frontend логотип" className="header__logo-img"/>
             </Link>

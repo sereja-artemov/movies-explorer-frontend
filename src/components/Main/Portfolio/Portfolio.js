@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const Portfolio = () => {
     return (
-        <section className="portfolio">
+        <section className="portfolio container">
             <h2 className="portfolio__title">Портфолио</h2>
             <ul className="portfolio__list">
                 <li className="portfolio__list-item">

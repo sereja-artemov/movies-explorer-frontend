@@ -7,8 +7,8 @@ import Portfolio from "./Portfolio/Portfolio";
 
 const Main = () => {
     return (
-        <main className="main-content container">
-            <Promo/>
+        <main className="main-content">
+            <Promo />
             <AboutProject />
             <Techs />
             <AboutMe />

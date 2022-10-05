@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const AboutMe = () => {
     return (
-        <section className="about-me">
+        <section className="about-me container">
             <TitleBlock title="Студент" />
             <div className="about-me__content">
                 <img src={aboutMeImage} alt="" className="about-me__img"/>

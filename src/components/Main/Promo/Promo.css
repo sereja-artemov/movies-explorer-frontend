@@ -19,3 +19,15 @@
     padding-top: 220px;
     padding-bottom: 212px;
 }
+@media (min-width: 768px) {
+    .promo {
+        padding-bottom: 30px;
+    }
+    .nav-tab__link {
+        font-size: 12px;
+        padding: 10px 17px;
+    }
+    .nav-tab {
+        gap: 10px;
+    }
+}

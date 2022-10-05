@@ -124,12 +124,20 @@
     display: none;
     flex-wrap: wrap;
 }
+@media (min-width: 768px) {
+    .header {
+        padding: 18px 10px;
+    }
+}
 @media (min-width: 1280px) {
     .header__nav {
         display: flex;
     }
     .header__menu-btn {
         display: none;
+    }
+    .header {
+        padding: 18px 30px;
     }
 }
 @media (max-width: 768px) {

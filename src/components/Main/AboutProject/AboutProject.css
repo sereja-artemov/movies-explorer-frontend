@@ -51,3 +51,8 @@
     text-align: center;
     color: #A0A0A0;
 }
+@media screen and (max-width: 768px) {
+    .about-project {
+        padding: 0 18px;
+    }
+}

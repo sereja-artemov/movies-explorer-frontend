@@ -3,7 +3,7 @@ import TitleBlock from '../../TitleBlock/TitleBlock';
 
 const AboutProject = () => {
     return (
-        <section className="about-project">
+        <section className="about-project container">
             <TitleBlock title="О проекте" />
             <ul className="about-project__text-block">
                 <li className="about-project__text-wrapper">
