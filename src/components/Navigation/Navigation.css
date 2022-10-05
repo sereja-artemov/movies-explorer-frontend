@@ -81,7 +81,7 @@
 .navigation--open .navigation__account-link {
     margin-top: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .navigation {
         display: flex;
     }
