@@ -18,11 +18,7 @@ const Header = () => {
             </Link>
 
             { isLogin &&
-                <nav className="header__nav">
-                    <Link to="/movies" className="header__link">Фильмы</Link>
-                    <Link to="/saved-movies" className="header__link">Сохранённые фильмы</Link>
-                    <Link to="/profile" className="header__link header__account-link">Аккаунт</Link>
-                </nav>
+                <Navigation isOpen={isNavOpen} />
             }
             { !isLogin &&
                 <div className="header__auth">
@@ -30,8 +26,10 @@ const Header = () => {
                     <Link to="/signin" className="header__auth-signin btn">Войти</Link>
                 </div>
             }
-                <Navigation isOpen={isNavOpen} />
+
+            { isLogin &&
                 <button onClick={handleMenuBtnClick} className={`header__menu-btn ${isNavOpen && `header__menu-btn--opened`}`}></button>
+            }
         </header>
     );
 };

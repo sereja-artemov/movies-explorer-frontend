@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 const Navigation = ({ isOpen }) => {
     return (
-        <nav className={`navigation ${isOpen && `navigation--opened`}`}>
+        <nav className={`navigation ${isOpen && "navigation--open"} `}>
             <ul className="navigation__list">
                 <li className="navigation__list-item">
                     <NavLink to="/" className="navigation__link" activeClassName="navigation__link--active">Главная</NavLink>
