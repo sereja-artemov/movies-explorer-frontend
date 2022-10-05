@@ -1,7 +1,9 @@
 .navigation {
     box-sizing: border-box;
     position: fixed;
-    display: flex;
+    top: 0;
+    right: 0;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -9,6 +11,12 @@
     height: 100vh;
     padding: 144px 14px 48px 14px;
     background-color: #202020
+}
+.navigation--opened {
+    display: flex;
+}
+.navigation--opened + .header__menu-btn {
+    position: fixed;
 }
 .navigation__list {
     margin: 0;

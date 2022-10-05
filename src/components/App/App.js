@@ -14,7 +14,6 @@ function App() {
     const { pathname } = useLocation();
   return (
     <div>
-        <Navigation />
         { (pathname === '/' || pathname === '/movies' || pathname === '/saved-movies' || pathname === '/profile') && <Header /> }
       <Routes>
         <Route path="/" element={ <Main /> }></Route>
