@@ -82,7 +82,24 @@
 .navigation--open .navigation__account-link {
     margin-top: auto;
 }
-@media (min-width: 769px) {
+@media (min-width: 768px) {
+    .navigation--open {
+        width: 520px;
+        right: 0;
+        left: auto;
+    }
+    .navigation--open {
+        padding: 159px 90px 92px;
+    }
+    .navigation__list-item {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .navigation--open .navigation__list-item {
+        margin-bottom: 28px;
+    }
+}
+@media (min-width: 1279px) {
     .navigation {
         display: flex;
     }

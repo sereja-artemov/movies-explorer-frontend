@@ -138,7 +138,7 @@
         padding: 18px 70px;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 1279px) {
     .header__menu-btn {
         display: block;
     }
