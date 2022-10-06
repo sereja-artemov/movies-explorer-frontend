@@ -1,5 +1,5 @@
 .techs {
-    margin-bottom: 70px;
+    padding-bottom: 70px;
 }
 .techs__title {
     margin: 0;
@@ -35,4 +35,43 @@
     font-size: 12px;
     line-height: 15px;
     letter-spacing: -0.04em;
+}
+@media (min-width: 768px) {
+    .techs {
+        background-color: #272727;
+        padding-bottom: 90px;
+    }
+    .techs__title {
+        margin-top: 10px;
+        font-size: 50px;
+        line-height: 58px;
+        margin-bottom: 22px;
+    }
+    .techs__description {
+        margin-bottom: 83px;
+        max-width: 460px;
+    }
+    .techs__card {
+        width: 100%;
+        justify-content: center;
+    }
+}
+@media (min-width: 768px) {
+    .techs {
+        padding-bottom: 110px;
+    }
+    .techs__description {
+        margin-bottom: 100px;
+        max-width: 460px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+@media (min-width: 1280px) {
+    .techs__card-item {
+        width: 90px;
+        height: 60px;
+        font-size: 14px;
+        line-height: 17px;
+    }
 }
