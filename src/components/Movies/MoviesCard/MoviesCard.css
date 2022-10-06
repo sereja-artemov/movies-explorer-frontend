@@ -6,6 +6,8 @@
     /*border-radius: 6px;*/
 }
 .movies-card__image {
+    width: 100%;
+    height: auto;
     border-radius: 6px;
     margin-bottom: 16px;
 }
@@ -102,4 +104,13 @@
 }
 .movies-card__delete::before {
     transform: translate(-50%, -50%) rotate(-45deg);
+}
+@media (min-width: 768px) {
+    .movies-card {
+        width: 339px;
+        padding-bottom: 17px;
+    }
+    .movies__list {
+        padding-bottom: 0;
+    }
 }

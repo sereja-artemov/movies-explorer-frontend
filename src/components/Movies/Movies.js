@@ -4,7 +4,7 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
 const Movies = () => {
     return (
-        <section className="movies container">
+        <section className="movies">
             <SearchForm />
             <MoviesCardList />
         </section>

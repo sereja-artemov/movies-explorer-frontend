@@ -64,3 +64,8 @@
         background-color: #A0A0A0;
     }
 }
+@media (min-width: 768px) {
+    .form__radio-label {
+        font-size: 14px;
+    }
+}
