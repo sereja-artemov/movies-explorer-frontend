@@ -12,3 +12,20 @@
     letter-spacing: -0.04em;
     color: #FFFFFF;
 }
+@media (min-width: 768px) {
+    .title-block {
+        padding-top: 90px;
+        margin-bottom: 70px;
+    }
+    .title-block__title {
+        font-size: 22px;
+        line-height: 27px;
+        margin-bottom: 23px;
+    }
+}
+@media (min-width: 1280px) {
+    .title-block {
+        padding-top: 110px;
+        margin-bottom: 70px;
+    }
+}

@@ -37,3 +37,25 @@
     border-radius: 10px;
     background-color: transparent;
 }
+
+@media (min-width: 768px) {
+    .root {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .btn {
+        font-size: 12px;
+        line-height: 16px;
+        padding: 9px 20px;
+    }
+    .btn--stroke {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+@media (min-width: 1280px) {
+    .root {
+        font-size: 14px;
+        line-height: 22px;
+    }
+}
