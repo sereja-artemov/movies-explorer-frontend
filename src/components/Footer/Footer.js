@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <footer className="footer">
+        <footer className="footer container">
             <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</p>
             <div className="footer__content-wrapper">
                 <ul className="footer__list">

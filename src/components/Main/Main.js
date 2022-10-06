@@ -8,7 +8,9 @@ import Portfolio from "./Portfolio/Portfolio";
 const Main = () => {
     return (
         <main className="main-content">
-            <Promo />
+            <div className="container-fluid">
+                <Promo />
+            </div>
             <AboutProject />
             <Techs />
             <AboutMe />

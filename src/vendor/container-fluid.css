@@ -1,14 +1,15 @@
 .container-fluid {
   max-width: 1920px;
-  margin: 0 14px;
+  margin: 0 auto;
+  padding: 0 14px;
 }
 @media screen and (min-width: 768px) {
   .container-fluid {
-    margin: 0 20px;
+    padding: 0 20px;
   }
 }
 @media screen and (min-width: 1280px) {
   .container-fluid {
-    margin: 0 40px;
+    padding: 0 40px;
   }
 }

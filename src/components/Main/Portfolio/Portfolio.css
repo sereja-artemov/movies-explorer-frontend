@@ -61,3 +61,22 @@
 .portfolio__arrow-icon:hover > path {
     fill: #202020 !important;
 }
+
+@media (min-width: 768px) {
+    .portfolio__title {
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 50px;
+    }
+    .portfolio__link {
+        font-size: 28px;
+        line-height: 50px;
+        padding: 19px 0;
+    }
+    .portfolio__arrow-icon {;
+        max-width: 15px;
+    }
+    .portfolio {
+        margin-bottom: 105px;
+    }
+}

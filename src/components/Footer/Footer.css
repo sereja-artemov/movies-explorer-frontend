@@ -38,3 +38,39 @@
     line-height: 15px;
     color: #8B8B8B;
 }
+@media (min-width: 768px) {
+    .footer__text {
+        font-size: 13px;
+        line-height: 16px;
+        padding-bottom: 20px;
+        margin-bottom: 0;
+    }
+    .footer__content-wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+    }
+    .footer__list {
+        margin-bottom: 0;
+        display: flex;
+        gap: 20px;
+    }
+    .footer__list-item {
+        margin-bottom: 0;
+    }
+    .footer {
+        padding-bottom: 0;
+    }
+    .footer__link {
+        font-size: 13px;
+        line-height: 16px;
+        font-weight: 400;
+    }
+    .footer__copyright {
+        font-size: 13px;
+        line-height: 16px;
+        color: #fff;
+    }
+}
