@@ -89,3 +89,9 @@
         padding-bottom: 51px;
     }
 }
+@media (min-width: 1280px) {
+    .search-form {
+        padding-top: 60px;
+        padding-bottom: 70px;
+    }
+}

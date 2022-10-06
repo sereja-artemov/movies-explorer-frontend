@@ -113,4 +113,11 @@
     .movies__list {
         padding-bottom: 0;
     }
+    .movies-card__name {
+        font-size: 13px;
+        line-height: 16px;
+    }
+    .movies-card__duration {
+        font-size: 11px;
+    }
 }
