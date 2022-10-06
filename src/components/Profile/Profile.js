@@ -3,9 +3,9 @@ import React from 'react';
 const Profile = () => {
     return (
         <section className="profile container">
-            <h1 className="profile__title">Привет, Виталий!</h1>
             <form action="POST" className="profile__form">
                 <fieldset className="profile__fields">
+                    <h1 className="profile__title">Привет, Виталий!</h1>
                     <div className="profile__field-wrapper">
                         <input id="profile-name" type="text" className="profile__input" placeholder="Ваше имя" />
                         <label htmlFor="profile-name" className="profile__label">Имя</label>

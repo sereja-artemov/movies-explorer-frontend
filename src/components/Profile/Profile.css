@@ -7,6 +7,8 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
+    margin: 0 auto;
+    max-width: 410px;
 }
 .profile__title {
     margin: 0 auto;
@@ -75,4 +77,25 @@
 .profile__form-submit,
 .profile__logout {
     cursor: pointer;
+}
+@media (min-width: 738px) {
+    .profile__form {
+        justify-content: center;
+    }
+    .profile__title {
+        margin-bottom: 96px;
+    }
+    .profile__fields {
+        margin-bottom: 210px;
+    }
+    .profile__field-wrapper {
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .profile__form-submit {
+        font-size: 13px;
+    }
+    .profile__logout {
+        font-size: 13px;
+    }
 }
