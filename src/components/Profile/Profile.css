@@ -79,12 +79,14 @@
     cursor: pointer;
 }
 .profile__btn {
+    display: none;
     background-color: #4285F4;
     color: #fff;
     padding: 13px 20px 15px 20px;
     border: none;
 }
 .profile__error {
+    display: none;
     text-align: center;
     font-size: 11px;
     line-height: 13px;

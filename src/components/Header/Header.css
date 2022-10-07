@@ -3,6 +3,7 @@
     justify-content: flex-end;
     align-items: center;
     padding: 18px 14px;
+    margin: 0 auto;
 }
 .header__logo {
     width: 38px;
