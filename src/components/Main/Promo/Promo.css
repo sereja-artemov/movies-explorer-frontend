@@ -1,8 +1,11 @@
 .promo {
+    box-sizing: border-box;
+    max-width: 1440px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+    margin: 0 auto;
     padding: 17px;
     border-radius: 14px;
     background-color: #272727;
