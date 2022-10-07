@@ -9,10 +9,12 @@ const Register = () => {
                     <label className="form__label">
                         Имя
                         <input type="text" className="form__input" placeholder="Имя" />
+                        <span className="form__validation-error">Что-то пошло не так...</span>
                     </label>
                     <label className="form__label">
                         E-mail
                         <input type="email" className="form__input" placeholder="E-mail" />
+                        <span className="form__validation-error">Что-то пошло не так...</span>
                     </label>
                     <label className="form__label">
                         Пароль

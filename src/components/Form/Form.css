@@ -61,9 +61,10 @@
     border: 1px solid #3DDC84;
 }
 .form__validation-error {
+    display: none;
     position: absolute;
     left: 0;
-    bottom: -38px;
+    bottom: -32px;
     font-size: 10px;
     line-height: 12px;
     color: #EE3465;
