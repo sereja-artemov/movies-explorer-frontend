@@ -19,6 +19,9 @@
     text-decoration: none;
     margin-bottom: 24px;
 }
+.navigation__link--active {
+    font-weight: 500;
+}
 .navigation__link--active::after {
     content: "";
     position: absolute;

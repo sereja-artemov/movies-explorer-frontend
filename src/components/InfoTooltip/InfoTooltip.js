@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Popup from "./Popup";
+import Popup from "../Popup/Popup";
 
 
-const InfoTooltip = ({ isOpen, onClose, text, image }) => {
+const InfoTooltip = ({ isOpen, onClose, text }) => {
   return (
     <Popup
       id="info-tooltip"
@@ -11,11 +11,6 @@ const InfoTooltip = ({ isOpen, onClose, text, image }) => {
       onClose={onClose}
       content={
         <>
-          <img
-            src={image}
-            alt="Изображение статуса события"
-            className="info-tooltip__img"
-          />
           <p className="info-tooltip__text">{text}</p>
         </>
       }

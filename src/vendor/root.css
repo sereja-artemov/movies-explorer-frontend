@@ -25,6 +25,7 @@
 .btn:hover,
 .btn--stroke:hover {
     cursor: pointer;
+    opacity: .8;
 }
 .btn--stroke {
     padding: 9px 12px;

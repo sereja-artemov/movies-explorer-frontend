@@ -78,6 +78,18 @@
 .profile__logout {
     cursor: pointer;
 }
+.profile__btn {
+    background-color: #4285F4;
+    color: #fff;
+    padding: 13px 20px 15px 20px;
+    border: none;
+}
+.profile__error {
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
+    color: #EE3465;
+}
 @media (min-width: 738px) {
     .profile__form {
         justify-content: center;

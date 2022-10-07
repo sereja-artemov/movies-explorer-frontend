@@ -18,6 +18,8 @@ const Profile = () => {
                 <fieldset className="profile__fields profile__fields--settings">
                     <input type="submit" className="profile__form-submit" value="Редактировать"/>
                     <button className="profile__logout">Выйти из аккаунта</button>
+                    <button className="profile__btn btn">Сохранить</button>
+                    <span className="profile__error">При обновлении профиля произошла ошибка.</span>
                 </fieldset>
             </form>
 

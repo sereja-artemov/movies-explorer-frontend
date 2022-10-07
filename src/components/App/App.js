@@ -9,6 +9,7 @@ import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Navigation from "../Navigation/Navigation";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
     const { pathname } = useLocation();
