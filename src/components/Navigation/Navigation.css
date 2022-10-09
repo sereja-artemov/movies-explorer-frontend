@@ -122,4 +122,7 @@
   .navigation {
     display: flex;
   }
+  .navigation__list-item--hidden {
+    display: none;
+  }
 }

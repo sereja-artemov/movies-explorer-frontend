@@ -8,6 +8,18 @@ const Navigation = ({ isOpen }) => {
       <div className={`overlay ${isOpen && "overlay--active"} `}></div>
       <nav className={`navigation ${isOpen && "navigation--open"} `}>
         <ul className="navigation__list">
+          <li className="navigation__list-item navigation__list-item--hidden">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive
+                  ? `navigation__link ${activeClassName}`
+                  : "navigation__link"
+              }
+            end >
+              Главная
+            </NavLink>
+          </li>
           <li className="navigation__list-item">
             <NavLink
               to="/movies"
