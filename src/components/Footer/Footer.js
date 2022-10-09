@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,14 +9,14 @@ const Footer = () => {
       <div className="footer__content-wrapper">
         <ul className="footer__list">
           <li className="footer__list-item">
-            <Link to="" className="footer__link">
+            <a href="https://practicum.yandex.ru/" target="_blank" className="footer__link">
               Яндекс.Практикум
-            </Link>
+            </a>
           </li>
           <li className="footer__list-item">
-            <Link to="" className="footer__link">
+            <a href="https://github.com/sereja-artemov" target="_blank" className="footer__link">
               Github
-            </Link>
+            </a>
           </li>
         </ul>
         <span className="footer__copyright">©2022</span>

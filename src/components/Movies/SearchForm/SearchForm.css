@@ -89,7 +89,6 @@
   top: 0;
   width: 15px;
   height: 10px;
-  background-image: url("../../../images/search-icon.svg");
 }
 
 @media (min-width: 768px) {

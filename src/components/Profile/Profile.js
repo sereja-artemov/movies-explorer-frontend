@@ -12,6 +12,7 @@ const Profile = () => {
               type="text"
               className="profile__input"
               placeholder="Ваше имя"
+              required
             />
             <label htmlFor="profile-name" className="profile__label">
               Имя
@@ -23,6 +24,7 @@ const Profile = () => {
               type="email"
               className="profile__input"
               placeholder="Ваша почта"
+              required
             />
             <label htmlFor="profile-email" className="profile__label">
               E-mail
@@ -35,8 +37,12 @@ const Profile = () => {
             className="profile__form-submit"
             value="Редактировать"
           />
-          <button className="profile__logout">Выйти из аккаунта</button>
-          <button className="profile__btn btn">Сохранить</button>
+          <button type="button" className="profile__logout">
+            Выйти из аккаунта
+          </button>
+          <button type="button" className="profile__btn btn">
+            Сохранить
+          </button>
           <span className="profile__error">
             При обновлении профиля произошла ошибка.
           </span>

@@ -3,7 +3,7 @@ import TitleBlock from "../../TitleBlock/TitleBlock";
 
 const Techs = () => {
   return (
-    <section className="techs">
+    <section id="techs" className="techs">
       <div className="container">
         <TitleBlock title="Технологии" />
         <h2 className="techs__title">7 технологий</h2>

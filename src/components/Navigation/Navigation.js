@@ -10,19 +10,6 @@ const Navigation = ({ isOpen }) => {
         <ul className="navigation__list">
           <li className="navigation__list-item">
             <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? `navigation__link ${activeClassName}`
-                  : "navigation__link"
-              }
-              end
-            >
-              Главная
-            </NavLink>
-          </li>
-          <li className="navigation__list-item">
-            <NavLink
               to="/movies"
               className={({ isActive }) =>
                 isActive

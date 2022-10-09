@@ -18,6 +18,7 @@ const Login = () => {
                 type="email"
                 className="form__input"
                 placeholder="E-mail"
+                required
               />
               <span className="form__validation-error">
                 Что-то пошло не так...
@@ -30,6 +31,7 @@ const Login = () => {
                 className="form__input"
                 placeholder="Пароль"
                 autoComplete="on"
+                required
               />
               <span className="form__validation-error">
                 Что-то пошло не так...
