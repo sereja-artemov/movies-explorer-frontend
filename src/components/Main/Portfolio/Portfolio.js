@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Portfolio = () => {
   return (
@@ -7,9 +6,9 @@ const Portfolio = () => {
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list">
         <li className="portfolio__list-item">
-          <Link to="" className="portfolio__link">
+          <a href="https://github.com/sereja-artemov/how-to-learn" target="_blank" className="portfolio__link">
             Статичный сайт
-          </Link>
+          </a>
           <svg
             className="portfolio__arrow-icon"
             width="15"
@@ -25,9 +24,9 @@ const Portfolio = () => {
           </svg>
         </li>
         <li className="portfolio__list-item">
-          <Link to="" className="portfolio__link">
+          <a href="https://github.com/sereja-artemov/russian-travel" target="_blank" className="portfolio__link">
             Адаптивный сайт
-          </Link>
+          </a>
           <svg
             className="portfolio__arrow-icon"
             width="15"
@@ -43,9 +42,9 @@ const Portfolio = () => {
           </svg>
         </li>
         <li className="portfolio__list-item">
-          <Link to="" className="portfolio__link">
+          <a href="https://github.com/sereja-artemov/react-mesto-api-full" target="_blank" className="portfolio__link">
             Одностраничное приложение
-          </Link>
+          </a>
           <svg
             className="portfolio__arrow-icon"
             width="15"

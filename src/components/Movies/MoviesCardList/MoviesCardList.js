@@ -23,7 +23,7 @@ const MoviesCardList = () => {
           duration="1ч 17м"
         />
       </ul>
-      <button className="movies__btn btn--stroke">Еще</button>
+      <button type="button" className="movies__btn btn--stroke">Еще</button>
     </>
   );
 };

@@ -6,16 +6,17 @@ const SearchForm = () => {
     <form id="search-form" method="post" className="search-form">
       <div className="search-form__field-wrapper">
         <input
-          type="email"
-          name="email"
+          type="text"
+          name="text"
           className="search-form__search-input"
           placeholder="Фильм"
+          required
         />
         <label
           htmlFor="search-film-submit"
           className="search-form__submit-label"
         >
-          <input
+          <button
             id="search-film-submit"
             type="submit"
             name="submit"

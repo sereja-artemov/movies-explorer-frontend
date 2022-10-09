@@ -35,6 +35,7 @@ const Header = () => {
 
       {isLogin && (
         <button
+          type="button"
           onClick={handleMenuBtnClick}
           className={`header__menu-btn ${
             isNavOpen && `header__menu-btn--opened`
