@@ -1,27 +1,30 @@
 .movies__list {
-    margin: 0;
-    padding: 50px 0 10px;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 39px;
-    margin-bottom: 50px;
+  margin: 0;
+  padding: 50px 0 10px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 39px;
+  margin-bottom: 50px;
 }
+
 .movies__btn {
-    display: block;
-    margin: 0 auto;
-    padding: 11px 20px 9px 20px;
-    width: 100%;
-    max-width: 240px;
+  display: block;
+  margin: 0 auto;
+  padding: 11px 20px 9px 20px;
+  width: 100%;
+  max-width: 240px;
 }
+
 @media (min-width: 768px) {
-    .movies__list {
-        justify-content: center;
-        padding-top: 80px;
-        gap: 30px;
-    }
-    .movies__btn {
-        max-width: 320px;
-    }
+  .movies__list {
+    justify-content: center;
+    padding-top: 80px;
+    gap: 30px;
+  }
+
+  .movies__btn {
+    max-width: 320px;
+  }
 }

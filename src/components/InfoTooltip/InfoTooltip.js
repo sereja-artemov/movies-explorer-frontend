@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Popup from "../Popup/Popup";
 
-
 const InfoTooltip = ({ isOpen, onClose, text }) => {
   return (
     <Popup
