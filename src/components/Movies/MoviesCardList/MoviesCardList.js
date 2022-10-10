@@ -14,6 +14,7 @@ const MoviesCardList = ({moviesData}) => {
             return <MoviesCard
               key={movie.id}
               imgLink={MOVIES_SERVER_URL + movie.image.url}
+              trailerLink={movie.trailerLink}
               imgAlt={movie.nameRU}
               name={movie.nameRU}
               duration={toHoursAndMinutes(movie.duration)}

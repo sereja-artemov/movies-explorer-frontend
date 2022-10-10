@@ -3,9 +3,10 @@
   width: 100%;
   max-width: 360px;
   min-height: 199px;
-  /*border-radius: 6px;*/
 }
-
+.movies-card__link {
+  text-decoration: none;
+}
 .movies-card__image {
   width: 100%;
   height: auto;
@@ -24,6 +25,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
+  color: #fff;
 }
 
 .movies-card__duration {
