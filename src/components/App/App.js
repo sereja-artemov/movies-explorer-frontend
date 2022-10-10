@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -8,9 +8,21 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import {getMovies} from "../../utils/MainApi";
 
 function App() {
+
   const { pathname } = useLocation();
+  const [moviesData, setMoviesData] = useState([]);
+
+  useEffect(() => {
+    getMovies()
+      .then((data) => {
+        setMoviesData(data);
+      })
+      .catch(err => err);
+  }, [])
+
   return (
     <div>
       {(pathname === "/" ||
@@ -19,7 +31,7 @@ function App() {
         pathname === "/profile") && <Header />}
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/movies" element={<Movies />}></Route>
+        <Route path="/movies" element={<Movies moviesData={moviesData} />}></Route>
         <Route path="/saved-movies" element={<Movies />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signin" element={<Login />}></Route>
