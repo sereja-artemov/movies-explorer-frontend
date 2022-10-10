@@ -14,6 +14,7 @@ function App() {
 
   const { pathname } = useLocation();
   const [moviesData, setMoviesData] = useState([]);
+  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     getMovies()
@@ -21,7 +22,21 @@ function App() {
         setMoviesData(data);
       })
       .catch(err => err);
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [])
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
+
+  function handleResize() {
+    setWindowInnerWidth(window.innerWidth);
+  }
 
   return (
     <div>
