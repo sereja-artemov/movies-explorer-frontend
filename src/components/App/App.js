@@ -46,7 +46,7 @@ function App() {
         pathname === "/profile") && <Header />}
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/movies" element={<Movies moviesData={moviesData} />}></Route>
+        <Route path="/movies" element={<Movies moviesData={moviesData} windowInnerWidth={windowInnerWidth} />}></Route>
         <Route path="/saved-movies" element={<Movies />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signin" element={<Login />}></Route>
