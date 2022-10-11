@@ -6,12 +6,10 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
 const MoviesCardList = ({moviesData, windowInnerWidth}) => {
 
-  const [movieCards, setMovieCards] = useState([]);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(1);
 
   useEffect(() => {
-    setMovieCards(moviesData);
     checkCardsAmount();
   })
 
@@ -29,7 +27,7 @@ const MoviesCardList = ({moviesData, windowInnerWidth}) => {
   }
 
   const handleLoadMoreCards = () => {
-
+    setMoreCardsAmount(moreCardsAmount + 4);
   }
 
   console.log(cardsAmount, moreCardsAmount)
@@ -38,8 +36,8 @@ const MoviesCardList = ({moviesData, windowInnerWidth}) => {
     <>
       <ul className="movies__list">
 
-        { movieCards.length === 0 ? <Preloader /> :
-          movieCards.slice(0, cardsAmount).map((movie) => {
+        { moviesData.length === 0 ? <Preloader /> :
+          moviesData.slice(0, cardsAmount).map((movie) => {
             return <MoviesCard
               key={movie.id}
               imgLink={MOVIES_SERVER_URL + movie.image.url}
