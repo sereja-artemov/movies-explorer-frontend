@@ -2,11 +2,11 @@ import React from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({moviesData, windowInnerWidth}) => {
+const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
   return (
     <section className="movies">
       <SearchForm />
-      <MoviesCardList moviesData={moviesData} windowInnerWidth={windowInnerWidth} />
+      <MoviesCardList moviesData={moviesData} windowInnerWidth={windowInnerWidth} isLoading={isLoading} />
     </section>
   );
 };

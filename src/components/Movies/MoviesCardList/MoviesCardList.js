@@ -4,7 +4,7 @@ import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
-const MoviesCardList = ({ moviesData, windowInnerWidth }) => {
+const MoviesCardList = ({ moviesData, windowInnerWidth, isLoading }) => {
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
 
@@ -38,8 +38,9 @@ const MoviesCardList = ({ moviesData, windowInnerWidth }) => {
   return (
     <>
       <ul className="movies__list">
-        {moviesData.length === 0 ? (
-          <Preloader />
+        {isLoading && <Preloader />}
+        {!isLoading && moviesData.length === 0 ? (
+          <p>Ничего не найдено</p>
         ) : (
           moviesData.slice(0, cardsAmount).map((movie) => {
             return (

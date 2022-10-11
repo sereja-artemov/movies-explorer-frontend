@@ -15,11 +15,14 @@ function App() {
   const { pathname } = useLocation();
   const [moviesData, setMoviesData] = useState([]);
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getMovies()
       .then((data) => {
         setMoviesData(data);
+        setIsLoading(false);
       })
       .catch(err => err);
 
@@ -43,7 +46,7 @@ function App() {
         pathname === "/profile") && <Header />}
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/movies" element={<Movies moviesData={moviesData} windowInnerWidth={windowInnerWidth} />}></Route>
+        <Route path="/movies" element={<Movies moviesData={moviesData} windowInnerWidth={windowInnerWidth} isLoading={isLoading} />}></Route>
         <Route path="/saved-movies" element={<Movies />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signin" element={<Login />}></Route>
