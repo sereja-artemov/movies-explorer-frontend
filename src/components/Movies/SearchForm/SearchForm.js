@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = () => {
+const SearchForm = ({ setSearchKeyword, sortArray }) => {
+
   return (
-    <form id="search-form" method="post" className="search-form">
+    <form onSubmit={sortArray} id="search-form" method="post" className="search-form">
       <div className="search-form__field-wrapper">
         <input
+          onChange={event => setSearchKeyword(event.target.value)}
           type="text"
           name="text"
           className="search-form__search-input"
