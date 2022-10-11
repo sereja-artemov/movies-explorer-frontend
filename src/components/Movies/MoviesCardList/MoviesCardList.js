@@ -56,13 +56,15 @@ const MoviesCardList = ({ moviesData, windowInnerWidth }) => {
           })
         )}
       </ul>
-      <button
-        onClick={handleLoadMoreCards}
-        type="button"
-        className="movies__btn btn--stroke"
-      >
-        Еще
-      </button>
+      { moviesData.length > cardsAmount &&
+        <button
+          onClick={handleLoadMoreCards}
+          type="button"
+          className="movies__btn btn--stroke"
+        >
+          Еще
+        </button>
+      }
     </>
   );
 };
