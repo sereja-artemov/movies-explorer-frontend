@@ -4,18 +4,29 @@ import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
-const MoviesCardList = ({ moviesData, windowInnerWidth, isLoading }) => {
+const MoviesCardList = ({ moviesData, isLoading }) => {
+
+  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
+
+
+  useEffect(() => {
+    checkCardsAmount();
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  function handleResize() {
+    setWindowInnerWidth(window.innerWidth);
+  }
 
   function handleLoadMoreCards() {
     checkCardsAmount();
     setCardsAmount(cardsAmount + moreCardsAmount);
   }
 
-  useEffect(() => {
-    checkCardsAmount();
-  }, []);
 
   const checkCardsAmount = () => {
     if (windowInnerWidth >= 1920) {

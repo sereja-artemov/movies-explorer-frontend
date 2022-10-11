@@ -14,7 +14,6 @@ function App() {
 
   const { pathname } = useLocation();
   const [moviesData, setMoviesData] = useState([]);
-  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -28,16 +27,6 @@ function App() {
 
   }, [])
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [])
-
-  function handleResize() {
-    setWindowInnerWidth(window.innerWidth);
-  }
-
   return (
     <div>
       {(pathname === "/" ||
@@ -46,7 +35,7 @@ function App() {
         pathname === "/profile") && <Header />}
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/movies" element={<Movies moviesData={moviesData} windowInnerWidth={windowInnerWidth} isLoading={isLoading} />}></Route>
+        <Route path="/movies" element={<Movies moviesData={moviesData} isLoading={isLoading} />}></Route>
         <Route path="/saved-movies" element={<Movies />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signin" element={<Login />}></Route>
