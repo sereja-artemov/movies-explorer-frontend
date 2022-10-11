@@ -23,9 +23,6 @@ function App() {
       })
       .catch(err => err);
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, [])
 
   useEffect(() => {
