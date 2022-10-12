@@ -1,9 +1,15 @@
 import React from "react";
 
-const FilterCheckbox = ({ label, inputId, name }) => {
+const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked }) => {
+
+  function handleCheck() {
+    setIsChecked(!isChecked);
+  }
+
   return (
     <label htmlFor={inputId} className="form__radio-label">
       <input
+        onClick={handleCheck}
         className="filter__checkbox"
         id={inputId}
         name={name}
