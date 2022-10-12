@@ -8,7 +8,7 @@ const Header = () => {
   const [isLogin, setIsLogin] = useState(true); //временно для теста
 
   const handleMenuBtnClick = () => {
-    isNavOpen ? setIsNavOpen(false) : setIsNavOpen(true);
+    setIsNavOpen(!isNavOpen);
   };
 
   return (
