@@ -9,12 +9,12 @@ const Footer = () => {
       <div className="footer__content-wrapper">
         <ul className="footer__list">
           <li className="footer__list-item">
-            <a href="https://practicum.yandex.ru/" target="_blank" className="footer__link">
+            <a rel="noreferrer noopener" href="https://practicum.yandex.ru/" target="_blank" className="footer__link">
               Яндекс.Практикум
             </a>
           </li>
           <li className="footer__list-item">
-            <a href="https://github.com/sereja-artemov" target="_blank" className="footer__link">
+            <a rel="noreferrer noopener" href="https://github.com/sereja-artemov" target="_blank" className="footer__link">
               Github
             </a>
           </li>

@@ -7,7 +7,7 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, trailerLink }) =
 
   return (
     <li className="movies-card">
-      <a href={trailerLink} target="_blank" className="movies-card__link">
+      <a rel="noreferrer noopener" href={trailerLink} target="_blank" className="movies-card__link">
           <img src={imgLink} alt={imgAlt} className="movies-card__image" />
         <div className="movies-card__description">
           <h2 className="movies-card__name">{name}</h2>
