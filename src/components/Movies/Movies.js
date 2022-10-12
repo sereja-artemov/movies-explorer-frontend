@@ -41,7 +41,6 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
       }
     })
     setFilteredArray(filteredArr);
-
   }
 
   return (

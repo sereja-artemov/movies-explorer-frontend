@@ -9,6 +9,7 @@ import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import {getMovies} from "../../utils/MainApi";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
 
@@ -36,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/movies" element={<Movies moviesData={moviesData} isLoading={isLoading} />}></Route>
-        <Route path="/saved-movies" element={<Movies />}></Route>
+        {/*<Route path="/saved-movies" element={<SavedMovies isLoading={isLoading} />}></Route>*/}
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signin" element={<Login />}></Route>
         <Route path="/signup" element={<Register />}></Route>
