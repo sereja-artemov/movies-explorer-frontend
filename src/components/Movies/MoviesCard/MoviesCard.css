@@ -57,6 +57,7 @@
 .movies-card__save:hover,
 .movies-card__delete:hover {
   cursor: pointer;
+  background-color: #EE3465;
 }
 
 .movies-card__save-text {
