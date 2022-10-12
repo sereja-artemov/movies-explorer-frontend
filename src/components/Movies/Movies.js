@@ -7,17 +7,25 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-  const [isSaveOnLocalStorage, setIsSaveOnLocalStorage] = useState(false);
 
-  const localStorageMoviesData = {
-    checked: isChecked,
-    moviesArr: filteredArray,
-    keyword: searchKeyword,
-  }
-  localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
+  useEffect(() => {
+    setIsChecked(localStorageMoviesObj.checked);
+  }, [])
 
-   const localStorageMovies = JSON.parse(localStorage.getItem('moviesPageData'));
+  useEffect(() => {
 
+    const localStorageMoviesData = {
+      checked: isChecked,
+      moviesArr: filteredArray,
+      keyword: searchKeyword,
+    }
+    localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
+
+  }, [isChecked, filteredArray, searchKeyword])
+
+
+   const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
+  console.log(localStorageMoviesObj)
   function sortArray(event) {
     event.preventDefault();
     const filteredArr = moviesData.filter(movie => {
@@ -32,8 +40,8 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
 
   return (
     <section className="movies">
-      <SearchForm setSearchKeyword={setSearchKeyword} sortArray={sortArray} setIsChecked={setIsChecked} isChecked={isChecked} localStorageMovies={localStorageMovies}/>
-      <MoviesCardList moviesData={moviesData} windowInnerWidth={windowInnerWidth} isLoading={isLoading} filteredArray={filteredArray} />
+      <SearchForm setSearchKeyword={setSearchKeyword} sortArray={sortArray} setIsChecked={setIsChecked} isChecked={isChecked} localStorageMoviesObj={localStorageMoviesObj}/>
+      <MoviesCardList windowInnerWidth={windowInnerWidth} isLoading={isLoading} filteredArray={filteredArray} />
     </section>
   );
 };

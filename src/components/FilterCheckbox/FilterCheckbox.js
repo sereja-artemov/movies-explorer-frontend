@@ -1,6 +1,6 @@
 import React from "react";
 
-const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked, localStorageMovies }) => {
+const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked }) => {
 
   function handleCheck() {
     setIsChecked(!isChecked);
@@ -9,13 +9,13 @@ const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked, localSt
   return (
     <label htmlFor={inputId} className="form__radio-label">
       <input
-        onClick={handleCheck}
+        onChange={handleCheck}
         className="filter__checkbox"
         id={inputId}
         name={name}
         type="checkbox"
         value={label}
-        checked={localStorageMovies.checked}
+        checked={isChecked}
       />
       <span className="filter__checkbox-indicator"></span>
       {label}

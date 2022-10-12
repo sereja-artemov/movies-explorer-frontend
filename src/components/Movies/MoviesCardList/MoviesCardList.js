@@ -4,12 +4,11 @@ import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
-const MoviesCardList = ({ moviesData, isLoading, filteredArray }) => {
+const MoviesCardList = ({ isLoading, filteredArray }) => {
 
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
-
 
   useEffect(() => {
     checkCardsAmount();

@@ -1,12 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked, localStorageMovies }) => {
+const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked, localStorageMoviesObj }) => {
+
+  const searchInput = useRef();
+
+  useEffect(() => {
+    searchInput.current.value = localStorageMoviesObj.keyword;
+  }, [])
 
   return (
     <form onSubmit={sortArray} id="search-form" method="post" className="search-form">
       <div className="search-form__field-wrapper">
         <input
+          ref={searchInput}
           onChange={event => setSearchKeyword(event.target.value)}
           type="text"
           name="text"
@@ -44,7 +51,6 @@ const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked, loca
       </div>
       <div className="search-form__checkbox-wrapper">
         <FilterCheckbox
-          localStorageMovies={localStorageMovies}
           isChecked={isChecked}
           setIsChecked={setIsChecked}
           label="Короткометражки"
