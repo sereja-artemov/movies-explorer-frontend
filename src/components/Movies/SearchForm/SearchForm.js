@@ -6,7 +6,9 @@ const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked, loca
   const searchInput = useRef();
 
   useEffect(() => {
-    searchInput.current.value = localStorageMoviesObj.keyword;
+    if (localStorage.getItem('moviesPageData')) {
+      searchInput.current.value = localStorageMoviesObj.keyword;
+    }
   }, [])
 
   return (

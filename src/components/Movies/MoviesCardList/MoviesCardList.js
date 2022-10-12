@@ -48,7 +48,7 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
   return (
     <>
       <ul className="movies__list">
-        {isLoading && <Preloader />}
+        {(isLoading && filteredArray.length === 0) && <Preloader />}
         {!isLoading && filteredArray.length === 0 ? (
           <p>Ничего не найдено</p>
         ) : (

@@ -9,8 +9,11 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
-    setIsChecked(localStorageMoviesObj.checked);
-    setSearchKeyword(localStorageMoviesObj.keyword);
+    if (localStorage.getItem('moviesPageData')) {
+      setIsChecked(localStorageMoviesObj.checked);
+      setSearchKeyword(localStorageMoviesObj.keyword);
+      setFilteredArray(localStorageMoviesObj.moviesArr);
+    }
   }, [])
 
   useEffect(() => {
@@ -22,7 +25,7 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
     }
     localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
 
-  }, [isChecked, searchKeyword])
+  }, [isChecked, searchKeyword, filteredArray])
 
 
    const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
@@ -38,6 +41,7 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
       }
     })
     setFilteredArray(filteredArr);
+
   }
 
   return (
