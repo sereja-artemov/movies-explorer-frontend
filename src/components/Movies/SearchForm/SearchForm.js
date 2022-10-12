@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked }) => {
+const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked, localStorageMovies }) => {
 
   return (
     <form onSubmit={sortArray} id="search-form" method="post" className="search-form">
@@ -44,6 +44,7 @@ const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked }) =>
       </div>
       <div className="search-form__checkbox-wrapper">
         <FilterCheckbox
+          localStorageMovies={localStorageMovies}
           isChecked={isChecked}
           setIsChecked={setIsChecked}
           label="Короткометражки"

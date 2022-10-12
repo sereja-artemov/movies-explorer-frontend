@@ -7,6 +7,16 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [isSaveOnLocalStorage, setIsSaveOnLocalStorage] = useState(false);
+
+  const localStorageMoviesData = {
+    checked: isChecked,
+    moviesArr: filteredArray,
+    keyword: searchKeyword,
+  }
+  localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
+
+   const localStorageMovies = JSON.parse(localStorage.getItem('moviesPageData'));
 
   function sortArray(event) {
     event.preventDefault();
@@ -22,7 +32,7 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
 
   return (
     <section className="movies">
-      <SearchForm setSearchKeyword={setSearchKeyword} sortArray={sortArray} setIsChecked={setIsChecked} isChecked={isChecked} />
+      <SearchForm setSearchKeyword={setSearchKeyword} sortArray={sortArray} setIsChecked={setIsChecked} isChecked={isChecked} localStorageMovies={localStorageMovies}/>
       <MoviesCardList moviesData={moviesData} windowInnerWidth={windowInnerWidth} isLoading={isLoading} filteredArray={filteredArray} />
     </section>
   );

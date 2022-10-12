@@ -1,6 +1,6 @@
 import React from "react";
 
-const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked }) => {
+const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked, localStorageMovies }) => {
 
   function handleCheck() {
     setIsChecked(!isChecked);
@@ -15,6 +15,7 @@ const FilterCheckbox = ({ label, inputId, name, setIsChecked, isChecked }) => {
         name={name}
         type="checkbox"
         value={label}
+        checked={localStorageMovies.checked}
       />
       <span className="filter__checkbox-indicator"></span>
       {label}
