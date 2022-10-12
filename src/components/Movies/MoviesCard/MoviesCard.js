@@ -9,6 +9,7 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, trailerLink }) =
     <li className="movies-card">
       <a rel="noreferrer noopener" href={trailerLink} target="_blank" className="movies-card__link">
           <img src={imgLink} alt={imgAlt} className="movies-card__image" />
+      </a>
         <div className="movies-card__description">
           <h2 className="movies-card__name">{name}</h2>
           <span className="movies-card__duration">{duration}</span>
@@ -22,7 +23,6 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, trailerLink }) =
         { (pathname === "/saved-movies" && isSaved) && (
           <button className="movies-card__delete"></button>
         ) }
-      </a>
     </li>
   );
 };
