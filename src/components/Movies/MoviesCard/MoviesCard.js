@@ -1,9 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, trailerLink }) => {
+const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, setIsSaved, trailerLink }) => {
 
   const { pathname } = useLocation();
+
+  function handleSaveButton() {
+
+  }
 
   return (
     <li className="movies-card">
@@ -15,7 +19,7 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, trailerLink }) =
           <span className="movies-card__duration">{duration}</span>
         </div>
         { pathname === "/movies" &&
-          <button type="button" className={`movies-card__save ${isSaved}`}>
+          <button onClick={handleSaveButton} type="button" className={`movies-card__save ${isSaved && 'movies-card__save--saved'}`}>
             <span className="movies-card__save-text">Сохранить</span>
           </button>
         }

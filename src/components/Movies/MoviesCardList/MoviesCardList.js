@@ -9,6 +9,7 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     checkCardsAmount();
@@ -61,7 +62,8 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
                 imgAlt={movie.nameRU}
                 name={movie.nameRU}
                 duration={toHoursAndMinutes(movie.duration)}
-                isSaved="movies-card__save--saved"
+                isSaved={isSaved}
+                setIsSaved={setIsSaved}
               />
             );
           })
