@@ -3,9 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import Navigation from "../Navigation/Navigation";
 
-const Header = () => {
+const Header = ({ isLoggedIn }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(true); //временно для теста
 
   const handleMenuBtnClick = () => {
     setIsNavOpen(!isNavOpen);
@@ -21,8 +20,8 @@ const Header = () => {
         />
       </Link>
 
-      {isLogin && <Navigation isOpen={isNavOpen} />}
-      {!isLogin && (
+      {isLoggedIn && <Navigation isOpen={isNavOpen} />}
+      {!isLoggedIn && (
         <div className="header__auth">
           <Link to="/signup" className="header__auth-signup">
             Регистрация
@@ -33,7 +32,7 @@ const Header = () => {
         </div>
       )}
 
-      {isLogin && (
+      {isLoggedIn && (
         <button
           type="button"
           onClick={handleMenuBtnClick}
