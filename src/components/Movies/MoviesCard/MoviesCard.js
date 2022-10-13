@@ -4,7 +4,7 @@ import {createMovie, getSavedMovies} from "../../../utils/MoviesApi";
 import {MOVIES_SERVER_URL} from "../../../utils/constants";
 import {toHoursAndMinutes} from "../../../utils/timeConverter";
 
-const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, setIsSaved, trailerLink }) => {
+const MoviesCard = ({ id, imgLink, name, duration, imgAlt, isSaved, setIsSaved, trailerLink, filteredArray }) => {
 
   const { pathname } = useLocation();
   const [savedMoviesArr, setSavedMoviesArr] = useState([]);
@@ -19,15 +19,19 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, setIsSaved, trai
 
   function handleSaveButton(event) {
     console.log('Отправляем запрос на сохранение фильма');
-    console.log(event.currentTarget);
+    const currentTarget = event.currentTarget.attributes.movieid.value;
+    const movieToSave = filteredArray.find(movie => {
+      return movie.id === Number(currentTarget)
+    });
+
     //тут делаем запрос к api для сохранения фильмов
     createMovie({
-      imgLink: '',
-      trailerLink: '',
-      imgAlt: '',
-      name: '',
-      duration: '',
-      isSaved: '',
+      imgLink: MOVIES_SERVER_URL + movieToSave.image.url,
+      trailerLink: movieToSave.trailerLink,
+      imgAlt: movieToSave.nameRU,
+      name: movieToSave.nameRU,
+      duration: movieToSave.duration,
+      isSaved: true,
     })
       .then((res) => {
         console.log('Фильм сохранен');
@@ -45,7 +49,7 @@ const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, setIsSaved, trai
           <span className="movies-card__duration">{duration}</span>
         </div>
         { pathname === "/movies" &&
-          <button onClick={handleSaveButton} type="button" className={`movies-card__save ${isSaved && 'movies-card__save--saved'}`}>
+          <button onClick={handleSaveButton} movieid={id} type="button" className={`movies-card__save ${isSaved && 'movies-card__save--saved'}`}>
             <span className="movies-card__save-text">Сохранить</span>
           </button>
         }

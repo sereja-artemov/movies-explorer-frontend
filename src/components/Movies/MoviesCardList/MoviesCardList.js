@@ -60,6 +60,7 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
           filteredArray.slice(0, cardsAmount).map((movie) => {
             return (
               <MoviesCard
+                id={movie.id}
                 key={movie.id}
                 imgLink={MOVIES_SERVER_URL + movie.image.url}
                 trailerLink={movie.trailerLink}
@@ -68,6 +69,7 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
                 duration={toHoursAndMinutes(movie.duration)}
                 isSaved={isSaved}
                 setIsSaved={setIsSaved}
+                filteredArray={filteredArray}
               />
             );
           })
