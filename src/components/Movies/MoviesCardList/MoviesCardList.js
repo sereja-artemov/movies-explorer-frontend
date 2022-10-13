@@ -3,9 +3,11 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
+import {useLocation} from "react-router-dom";
 
 const MoviesCardList = ({ isLoading, filteredArray }) => {
 
+  const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
@@ -48,7 +50,8 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
 
   return (
     <>
-      <ul className="movies__list">
+      { pathname === '/movies' &&
+        <ul className="movies__list">
         {(isLoading && filteredArray.length === 0) && <Preloader />}
         {!isLoading && filteredArray.length === 0 ? (
           <p>Ничего не найдено</p>
@@ -69,7 +72,8 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
           })
         )}
       </ul>
-      { (filteredArray.length > cardsAmount) &&
+      }
+      { (pathname === '/movies' && filteredArray.length > cardsAmount) &&
         <button
           onClick={handleLoadMoreCards}
           type="button"

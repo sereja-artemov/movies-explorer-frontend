@@ -37,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/movies" element={<Movies moviesData={moviesData} isLoading={isLoading} />}></Route>
-        {/*<Route path="/saved-movies" element={<SavedMovies isLoading={isLoading} />}></Route>*/}
+        <Route path="/saved-movies" element={<SavedMovies />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/signin" element={<Login />}></Route>
         <Route path="/signup" element={<Register />}></Route>
