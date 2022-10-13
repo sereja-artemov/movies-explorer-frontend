@@ -1,12 +1,38 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
+import {createMovie, getSavedMovies} from "../../../utils/MoviesApi";
+import {MOVIES_SERVER_URL} from "../../../utils/constants";
+import {toHoursAndMinutes} from "../../../utils/timeConverter";
 
 const MoviesCard = ({ imgLink, name, duration, imgAlt, isSaved, setIsSaved, trailerLink }) => {
 
   const { pathname } = useLocation();
+  const [savedMoviesArr, setSavedMoviesArr] = useState([]);
 
-  function handleSaveButton() {
+  useEffect(() => {
+    getSavedMovies()
+      .then((movies) => {
+        setSavedMoviesArr(movies);
+      })
+      .catch(err => err)
+  }, [])
 
+  function handleSaveButton(event) {
+    console.log('Отправляем запрос на сохранение фильма');
+    console.log(event.currentTarget);
+    //тут делаем запрос к api для сохранения фильмов
+    createMovie({
+      imgLink: '',
+      trailerLink: '',
+      imgAlt: '',
+      name: '',
+      duration: '',
+      isSaved: '',
+    })
+      .then((res) => {
+        console.log('Фильм сохранен');
+      })
+      .catch(err => err)
   }
 
   return (

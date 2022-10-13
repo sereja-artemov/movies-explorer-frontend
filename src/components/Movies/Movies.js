@@ -43,6 +43,7 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
     setFilteredArray(filteredArr);
   }
 
+  console.log(filteredArray)
   return (
     <section className="movies">
       <SearchForm searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword} sortArray={sortArray} setIsChecked={setIsChecked} isChecked={isChecked} localStorageMoviesObj={localStorageMoviesObj}/>

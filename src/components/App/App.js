@@ -25,7 +25,6 @@ function App() {
         setIsLoading(false);
       })
       .catch(err => err);
-
   }, [])
 
   return (

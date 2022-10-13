@@ -1,6 +1,6 @@
 import { BASE_URL } from './constants';
 
-export const getUserMovies = () => {
+export const getSavedMovies = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'GET',
     headers: {

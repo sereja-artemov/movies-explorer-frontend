@@ -50,6 +50,7 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
 
   return (
     <>
+      {/* НАЧАЛО На страницу фильмов*/}
       { pathname === '/movies' &&
         <ul className="movies__list">
         {(isLoading && filteredArray.length === 0) && <Preloader />}
@@ -82,6 +83,19 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
           Еще
         </button>
       }
+      {/* КОНЕЦ На страницу фильмов*/}
+
+      {/* НАЧАЛО На страницу сохраненных фильмов*/}
+      { pathname === '/saved-movies' &&
+        <ul className="movies__list">
+
+                <MoviesCard
+
+                />
+
+        </ul>
+      }
+      {/* КОНЕЦ На страницу сохраненных фильмов*/}
     </>
   );
 };
