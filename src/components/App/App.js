@@ -12,6 +12,7 @@ import {getMovies} from "../../utils/MainApi";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as userAuth from "../../utils/userAuth";
+import {auth} from "../../utils/userAuth";
 
 function App() {
 
@@ -33,8 +34,14 @@ function App() {
       .catch(err => err);
   }, [])
 
+  useEffect(() => {
+    checkToken();
+    isLoggedIn && navigate('/movies');
+
+  }, [isLoggedIn])
+
   function onRegister({ name, email, password }) {
-    debugger
+
     setIsLoading(true)
     userAuth.register(name, email, password)
       .then(() => {
@@ -42,6 +49,29 @@ function App() {
       })
       .catch(err => err)
       .finally(() => setIsLoading(false));
+  }
+
+  function onLogin({email, password}) {
+    setIsLoading(true)
+    userAuth.auth(email, password)
+      .then((res) => {
+        localStorage.setItem('token', res.token);
+        checkToken();
+      })
+      .catch(err => err)
+      .finally(() => setIsLoading(false));
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  }
+
+  function checkToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
   }
 
   return (
@@ -68,10 +98,10 @@ function App() {
         }></Route>
         <Route path="/profile" element={
           <ProtectedRoute isLoggedIn={isLoggedIn}>
-            <Profile />
+            <Profile handleLogout={handleLogout}/>
           </ProtectedRoute>
         }></Route>
-        <Route path="/signin" element={<Login />}></Route>
+        <Route path="/signin" element={<Login onLogin={onLogin}/>}></Route>
         <Route path="/signup" element={<Register onRegister={onRegister} />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>

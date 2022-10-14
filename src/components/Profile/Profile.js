@@ -1,6 +1,7 @@
 import React from "react";
 
-const Profile = () => {
+const Profile = ({handleLogout}) => {
+
   return (
     <section className="profile container">
       <form action="POST" className="profile__form">
@@ -37,7 +38,7 @@ const Profile = () => {
             className="profile__form-submit"
             value="Редактировать"
           />
-          <button type="button" className="profile__logout">
+          <button onClick={handleLogout} type="button" className="profile__logout">
             Выйти из аккаунта
           </button>
           <button type="button" className="profile__btn btn">
