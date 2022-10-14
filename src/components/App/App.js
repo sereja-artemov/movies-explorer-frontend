@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import {Routes, Route, useLocation, Navigate, useNavigate} from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -11,6 +11,7 @@ import Login from "../Login/Login";
 import {getMovies} from "../../utils/MainApi";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import * as userAuth from "../../utils/userAuth";
 
 function App() {
 
@@ -18,6 +19,9 @@ function App() {
   const [moviesData, setMoviesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -28,6 +32,17 @@ function App() {
       })
       .catch(err => err);
   }, [])
+
+  function onRegister({ name, email, password }) {
+    debugger
+    setIsLoading(true)
+    userAuth.register(name, email, password)
+      .then(() => {
+        navigate.push('/signin')
+      })
+      .catch(err => err)
+      .finally(() => setIsLoading(false));
+  }
 
   return (
     <div>
@@ -57,7 +72,7 @@ function App() {
           </ProtectedRoute>
         }></Route>
         <Route path="/signin" element={<Login />}></Route>
-        <Route path="/signup" element={<Register />}></Route>
+        <Route path="/signup" element={<Register onRegister={onRegister} />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
       {(pathname === "/" ||

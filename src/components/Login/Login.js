@@ -10,6 +10,7 @@ const Login = () => {
         textBottom="Ещё не зарегистрированы?"
         textButton="Войти"
         textLinkBottom="Регистрация"
+        LinkBottom="/signup"
         children={
           <>
             <label className="form__label">

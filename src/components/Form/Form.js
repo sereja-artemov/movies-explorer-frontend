@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import logoImg from "../../images/logo.svg";
 
 const Form = ({
+  onSubmit,
   formId,
   formTitle,
   children,
   textButton = "Отправить",
   textBottom = "",
   textLinkBottom = "",
+  LinkBottom,
 }) => {
   return (
-    <form id={formId} className="form">
+    <form onSubmit={onSubmit} id={formId} className="form">
       <Link to="/" className="form__logo">
         <img
           src={logoImg}
@@ -25,7 +27,7 @@ const Form = ({
         <input type="submit" className="form__submit btn" value={textButton} />
         <p className="form__bottom-text">
           {textBottom}{" "}
-          <Link to="/" className="form__bottom-link">
+          <Link to={LinkBottom} className="form__bottom-link">
             {textLinkBottom}
           </Link>
         </p>

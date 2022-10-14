@@ -5,7 +5,7 @@ export const getMovies = () => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  }).then(getData);
+  }).then(getData)
 }
 
 function getData(res) {
