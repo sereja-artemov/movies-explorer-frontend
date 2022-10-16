@@ -29,7 +29,6 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
     setCardsAmount(cardsAmount + moreCardsAmount);
   }
 
-
   const checkCardsAmount = () => {
     if (windowInnerWidth >= 1920) {
       setCardsAmount(15);

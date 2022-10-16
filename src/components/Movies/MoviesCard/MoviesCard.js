@@ -20,23 +20,40 @@ const MoviesCard = ({ id, imgLink, name, duration, imgAlt, isSaved, setIsSaved, 
   function handleSaveButton(event) {
     console.log('Отправляем запрос на сохранение фильма');
     const currentTarget = event.currentTarget.attributes.movieid.value;
+    //тут хранятся данные фильма по которому мы кликнули
     const movieToSave = filteredArray.find(movie => {
       return movie.id === Number(currentTarget)
     });
-
+    const {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      nameRU,
+      nameEN,
+      id: movieId,
+    } = movieToSave;
     //тут делаем запрос к api для сохранения фильмов
     createMovie({
-      imgLink: MOVIES_SERVER_URL + movieToSave.image.url,
-      trailerLink: movieToSave.trailerLink,
-      imgAlt: movieToSave.nameRU,
-      name: movieToSave.nameRU,
-      duration: movieToSave.duration,
-      isSaved: true,
+      country,
+      director,
+      duration: duration,
+      year,
+      description,
+      image: MOVIES_SERVER_URL + image.url,
+      trailerLink,
+      nameRU,
+      nameEN,
+      thumbnail: MOVIES_SERVER_URL + image.url,
+      movieId,
     })
       .then((res) => {
-        console.log('Фильм сохранен');
+        console.log(res);
       })
-      .catch(err => err)
+      .catch((err) => err);
   }
 
   return (
