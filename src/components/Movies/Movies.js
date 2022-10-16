@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
+const Movies = ({moviesData, isLoading}) => {
 
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
 
   useEffect(() => {
     if (localStorage.getItem('moviesPageData')) {
@@ -17,7 +18,6 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
   }, [])
 
   useEffect(() => {
-
     const localStorageMoviesData = {
       checked: isChecked,
       moviesArr: filteredArray,
@@ -27,10 +27,7 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
 
   }, [isChecked, searchKeyword, filteredArray])
 
-
-   const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
-  console.log(searchKeyword)
-
+  //Поиск по ключевому слову
   function sortArray(event) {
     event.preventDefault();
     const filteredArr = moviesData.filter(movie => {
@@ -43,7 +40,6 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
     setFilteredArray(filteredArr);
   }
 
-  console.log(filteredArray);
   return (
     <section className="movies">
       <SearchForm
@@ -55,7 +51,6 @@ const Movies = ({moviesData, windowInnerWidth, isLoading}) => {
         localStorageMoviesObj={localStorageMoviesObj}
       />
       <MoviesCardList
-        windowInnerWidth={windowInnerWidth}
         isLoading={isLoading}
         filteredArray={filteredArray}
       />

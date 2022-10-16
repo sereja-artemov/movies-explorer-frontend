@@ -4,8 +4,9 @@ import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
+import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ isLoading, filteredArray }) => {
+const MoviesCardList = ({ isLoading, filteredArray}) => {
 
   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
@@ -18,7 +19,8 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [windowInnerWidth]);
+
 
   function handleResize() {
     setWindowInnerWidth(window.innerWidth);
@@ -56,7 +58,11 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
         {!isLoading && filteredArray.length === 0 ? (
           <p>Ничего не найдено</p>
         ) : (
-          filteredArray.slice(0, cardsAmount).map((movie) => {
+          filteredArray.slice(0, cardsAmount).map((movie, index) => {
+            //тут делаем проверку. Если id карточки совпадает с movieId сохраненной карточки, то устанавливаем isSaved = true
+              if (movie.id) {
+                console.log(`${index} ${movie.id}`)
+              }
             return (
               <MoviesCard
                 id={movie.id}
@@ -66,9 +72,10 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
                 imgAlt={movie.nameRU}
                 name={movie.nameRU}
                 duration={toHoursAndMinutes(movie.duration)}
+                filteredArray={filteredArray}
                 isSaved={isSaved}
                 setIsSaved={setIsSaved}
-                filteredArray={filteredArray}
+                movie={movie}
               />
             );
           })
@@ -90,10 +97,27 @@ const MoviesCardList = ({ isLoading, filteredArray }) => {
       { pathname === '/saved-movies' &&
         <ul className="movies__list">
 
+          {(isLoading && filteredArray.length === 0) && <Preloader />}
+          {!isLoading && filteredArray.length === 0 ? (
+            <p>Ничего не найдено</p>
+          ) : (
+            filteredArray.slice(0, cardsAmount).map((movie) => {
+              return (
                 <MoviesCard
-
+                  id={movie.movieId}
+                  key={movie.movieId}
+                  imgLink={movie.image}
+                  trailerLink={movie.trailerLink}
+                  imgAlt={movie.nameRU}
+                  name={movie.nameRU}
+                  duration={toHoursAndMinutes(movie.duration)}
+                  filteredArray={filteredArray}
+                  isSaved={isSaved}
+                  setIsSaved={setIsSaved}
                 />
-
+              );
+            })
+          )}
         </ul>
       }
       {/* КОНЕЦ На страницу сохраненных фильмов*/}

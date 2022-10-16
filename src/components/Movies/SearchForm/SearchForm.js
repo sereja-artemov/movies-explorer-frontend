@@ -1,27 +1,42 @@
 import React, {useEffect, useRef, useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
+import {useLocation} from "react-router-dom";
 
-const SearchForm = ({ setSearchKeyword, sortArray, setIsChecked, isChecked, localStorageMoviesObj }) => {
-
+const SearchForm = ({
+  setSearchKeyword,
+  sortArray,
+  setIsChecked,
+  isChecked,
+  localStorageMoviesObj,
+}) => {
   const searchInput = useRef();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (localStorage.getItem('moviesPageData')) {
+    if (pathname === '/movies' && localStorage.getItem("moviesPageData")) {
       searchInput.current.value = localStorageMoviesObj.keyword;
     }
-  }, [])
+    if (pathname === '/saved-movies' &&  localStorage.getItem("savedMoviesPageData")) {
+      searchInput.current.value = localStorageMoviesObj.keyword;
+    }
+  }, []);
 
   return (
-    <form onSubmit={sortArray} id="search-form" method="post" className="search-form">
+    <form
+      onSubmit={sortArray}
+      id="search-form"
+      method="post"
+      className="search-form"
+    >
       <div className="search-form__field-wrapper">
         <input
           ref={searchInput}
-          onChange={event => setSearchKeyword(event.target.value)}
+          onChange={(event) => setSearchKeyword(event.target.value)}
           type="text"
           name="text"
           className="search-form__search-input"
           placeholder="Фильм"
-          required
+
         />
         <label
           htmlFor="search-film-submit"
