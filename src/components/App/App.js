@@ -13,14 +13,13 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import  * as moviesApi from "../../utils/MoviesApi";
 import {CurrentUserContext} from "../contexts/currentUserContext";
-import {createUser} from "../../utils/MoviesApi";
+import {createUser, getSavedMovies} from "../../utils/MoviesApi";
 
 function App() {
 
   const [moviesData, setMoviesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
   const [userData, setUserData] = useState({});
 
   const navigate = useNavigate();
@@ -34,7 +33,8 @@ function App() {
         setIsLoading(false);
       })
       .catch(err => err);
-  }, [])
+
+  }, [isLoggedIn])
 
   useEffect(() => {
     checkToken();
