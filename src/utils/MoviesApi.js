@@ -6,7 +6,7 @@ export const getSavedMovies = () => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   }).then(getData);
 }
@@ -17,7 +17,7 @@ export const createMovie = (data) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
     body: JSON.stringify(data),
   }).then(getData);
@@ -29,7 +29,7 @@ export const removeMovie = (data) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   }).then(getData);
 }
@@ -40,43 +40,45 @@ export const getCurrentUser = () => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   }).then(getData);
 }
 
-export const updateUser = (data) => {
+export const updateUser = (name, email) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({name, email})
   }).then(getData);
 }
 
-export const createUser = (data) => {
+export const createUser = (name, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
-  }).then(getData);
+    body: JSON.stringify({name, email, password})
+  })
+    .then(getData)
 }
 
-export const login = (data) => {
+export const auth = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
-  }).then(getData);
+    body: JSON.stringify({email, password})
+  })
+    .then(getData)
 }
 
 function getData(res) {
