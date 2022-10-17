@@ -175,6 +175,7 @@ function App() {
                 onFilter={filterMoviesByDuration}
                 onSaveMovie={handleSaveMovie}
                 onRemoveSavedMovie={getIdAndRemoveSavedMovie}
+                setIsLoading={setIsLoading}
               />
             </ProtectedRoute>
           }
