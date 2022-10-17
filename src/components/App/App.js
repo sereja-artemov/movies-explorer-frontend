@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Routes, Route, useLocation, Navigate, useNavigate} from "react-router-dom";
+import {Routes, Route, useLocation, Navigate, useNavigate, useHistory} from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -17,24 +17,15 @@ import {createUser, getSavedMovies} from "../../utils/MoviesApi";
 
 function App() {
 
-  const [moviesData, setMoviesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [moviesData, setMoviesData] = useState([]);
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    setIsLoading(true);
-    getMovies()
-      .then((data) => {
-        setMoviesData(data);
-        setIsLoading(false);
-      })
-      .catch(err => err);
-
-  }, [isLoggedIn])
+  // const { pathname } = useLocation();
 
   useEffect(() => {
     checkToken();
@@ -74,6 +65,7 @@ function App() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     setUserData({});
+    setSavedMoviesData([]);
   }
 
   function checkToken() {
@@ -84,12 +76,7 @@ function App() {
   }
 
   return (
-    <div>
-      {(pathname === "/" ||
-        pathname === "/movies" ||
-        pathname === "/saved-movies" ||
-        pathname === "/profile") && <Header isLoggedIn={isLoggedIn} />}
-      <CurrentUserContext.Provider value={userData}>
+    <CurrentUserContext.Provider value={userData}>
         <Routes>
               <Route path="/" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
@@ -98,7 +85,7 @@ function App() {
               }></Route>
               <Route path="/movies" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Movies moviesData={moviesData} isLoading={isLoading} />
+                  <Movies />
                 </ProtectedRoute>
               }></Route>
               <Route path="/saved-movies" element={
@@ -108,7 +95,7 @@ function App() {
               }></Route>
               <Route path="/profile" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile userData={userData} handleLogout={handleLogout}/>
+                  <Profile onLogout={handleLogout} />
                 </ProtectedRoute>
               }></Route>
 
@@ -117,10 +104,7 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </CurrentUserContext.Provider>
-      {(pathname === "/" ||
-        pathname === "/movies" ||
-        pathname === "/saved-movies") && <Footer />}
-    </div>
+
   );
 }
 
