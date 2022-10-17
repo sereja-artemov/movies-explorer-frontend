@@ -89,7 +89,7 @@ function App() {
       .catch(err => err)
   }
 
-  function searchMoviesQuery(movies, query) {
+  function searchMoviesByQuery(movies, query) {
     const terms = query.toLowerCase().split(' ');
 
     const filteredArr = movies.filter(movie => {
@@ -109,6 +109,13 @@ function App() {
     return filteredArr;
   }
 
+  function filterMoviesByDuration(movies, isShort) {
+    const filteredArr = isShort
+      ? movies.filter(card => card.duration <= 40)
+      : movies.filter(card => card.duration > 40);
+    return filteredArr;
+  }
+
   return (
     <CurrentUserContext.Provider value={userData}>
         <Routes>
@@ -119,7 +126,7 @@ function App() {
               }></Route>
               <Route path="/movies" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Movies />
+                  <Movies onSearch={searchMoviesByQuery} onFilter={filterMoviesByDuration} />
                 </ProtectedRoute>
               }></Route>
               <Route path="/saved-movies" element={
