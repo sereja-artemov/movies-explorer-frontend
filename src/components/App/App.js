@@ -13,7 +13,6 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import  * as moviesApi from "../../utils/MoviesApi";
 import {CurrentUserContext} from "../contexts/currentUserContext";
-import {createUser, getSavedMovies} from "../../utils/MoviesApi";
 
 function App() {
 
@@ -25,10 +24,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  // const { pathname } = useLocation();
 
   useEffect(() => {
     getMovies();
+    moviesApi.getSavedMovies()
+      .then((res) => {
+        setSavedMoviesData(res);
+      })
+      .catch(err => err)
   }, [])
 
   useEffect(() => {
@@ -45,9 +48,9 @@ function App() {
 
   function onRegister({ name, email, password }) {
     setIsLoading(true)
-    createUser(name, email, password)
+    moviesApi.createUser(name, email, password)
       .then(() => {
-        navigate('/signin')
+        navigate.push('/signin')
       })
       .catch(err => err)
       .finally(() => setIsLoading(false));
@@ -76,6 +79,14 @@ function App() {
     if (token) {
       setIsLoggedIn(true);
     }
+  }
+
+  function handleUpdateUser({name, email}) {
+    moviesApi.updateUser(name, email)
+      .then((res) => {
+        setUserData(res);
+      })
+      .catch((err) => err);
   }
 
   function getMovies() {
@@ -116,36 +127,91 @@ function App() {
     return filteredArr;
   }
 
+  function handleSaveMovie(movie) {
+    moviesApi.createMovie(movie)
+      .then((res) => {
+        setSavedMoviesData([res, ...savedMoviesData]);
+      })
+      .catch(err => err)
+  }
+
+  function handleRemoveSavedMovie(cardId) {
+    moviesApi.removeMovie(cardId)
+      .then(() => {
+        const cardIndex = savedMoviesData.findIndex(card => card._id === cardId);
+        let newSavedMovies = [...savedMoviesData];
+        newSavedMovies.splice(cardIndex, 1);
+        setSavedMoviesData(newSavedMovies);
+      })
+      .catch(err => err)
+  }
+
+  function getIdAndRemoveSavedMovie(movieId) {
+    if (savedMoviesData.length > 0) {
+      let cardId = savedMoviesData.find(card => card.movieId === movieId)._id;
+      handleRemoveSavedMovie(cardId);
+    }
+  }
+
   return (
     <CurrentUserContext.Provider value={userData}>
-        <Routes>
-              <Route path="/" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main />
-                </ProtectedRoute>
-              }></Route>
-              <Route path="/movies" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Movies onSearch={searchMoviesByQuery} onFilter={filterMoviesByDuration} />
-                </ProtectedRoute>
-              }></Route>
-              <Route path="/saved-movies" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <SavedMovies />
-                </ProtectedRoute>
-              }></Route>
-              <Route path="/profile" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile onLogout={handleLogout} />
-                </ProtectedRoute>
-              }></Route>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Main />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Movies
+                moviesData={moviesData}
+                savedMoviesData={savedMoviesData}
+                onSearch={searchMoviesByQuery}
+                onFilter={filterMoviesByDuration}
+                onSaveMovie={handleSaveMovie}
+                onRemoveSavedMovie={getIdAndRemoveSavedMovie}
+              />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/saved-movies"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <SavedMovies
+                savedMoviesData={savedMoviesData}
+                onSearch={searchMoviesByQuery}
+                onFilter={filterMoviesByDuration}
+                onRemoveSavedMovie={handleRemoveSavedMovie}
+              />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Profile
+                onLogout={handleLogout}
+                onUpdateUser={handleUpdateUser}
+              />
+            </ProtectedRoute>
+          }
+        ></Route>
 
-          <Route path="/signin" element={<Login onLogin={onLogin}/>}></Route>
-          <Route path="/signup" element={<Register onRegister={onRegister} />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Routes>
-      </CurrentUserContext.Provider>
-
+        <Route path="/signin" element={<Login onLogin={onLogin} />}></Route>
+        <Route
+          path="/signup"
+          element={<Register onRegister={onRegister} />}
+        ></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </CurrentUserContext.Provider>
   );
 }
 

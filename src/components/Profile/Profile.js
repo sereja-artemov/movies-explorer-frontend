@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {updateUser} from "../../utils/MoviesApi";
 
-const Profile = ({handleLogout}) => {
+const Profile = ({onLogout, onUpdateUser}) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,11 +16,7 @@ const Profile = ({handleLogout}) => {
   }, [])
 
   function handleSubmit() {
-    updateUser(name, email)
-      .then((res) => {
-        console.log('Данные успешно изменены')
-      })
-      .catch((err) => err);
+    onUpdateUser(name, email);
   }
 
   return (
@@ -71,7 +67,7 @@ const Profile = ({handleLogout}) => {
             />
           )}
           <button
-            onClick={handleLogout}
+            onClick={onLogout}
             type="button"
             className="profile__logout"
           >
