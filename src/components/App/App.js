@@ -90,6 +90,26 @@ function App() {
       .catch(err => err)
   }
 
+  function searchMoviesQuery(movies, query) {
+    const terms = query.toLowerCase().split(' ');
+
+    const filteredArr = movies.filter(movie => {
+      const movieData = [
+        movie.nameRU,
+        movie.nameEN,
+        movie.description,
+        movie.country,
+        movie.director,
+        movie.year
+      ].filter(Boolean).join(", ").toLowerCase();
+
+      return terms.every(term => {
+        return movieData.includes(term) ? true : false;
+      });
+    });
+    return filteredArr;
+  }
+
   return (
     <CurrentUserContext.Provider value={userData}>
         <Routes>
