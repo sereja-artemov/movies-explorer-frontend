@@ -8,7 +8,7 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import {getMovies} from "../../utils/MainApi";
+import {getMoviesData} from "../../utils/MainApi";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import  * as moviesApi from "../../utils/MoviesApi";
@@ -26,6 +26,10 @@ function App() {
 
   const navigate = useNavigate();
   // const { pathname } = useLocation();
+
+  useEffect(() => {
+    getMovies();
+  }, [])
 
   useEffect(() => {
     checkToken();
@@ -73,6 +77,17 @@ function App() {
     if (token) {
       setIsLoggedIn(true);
     }
+  }
+
+  function getMovies() {
+    if (localStorage.getItem('moviesBox')) {
+      setMoviesData(JSON.parse(localStorage.getItem('moviesBox')));
+    } else getMoviesData()
+      .then((moviesData) => {
+        localStorage.setItem('moviesBox', JSON.stringify(moviesData));
+        setMoviesData(moviesData);
+      })
+      .catch(err => err)
   }
 
   return (
