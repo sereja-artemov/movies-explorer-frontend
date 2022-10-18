@@ -3,12 +3,12 @@ import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 
-const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, onRemoveSavedMovie, setIsLoading }) => {
+const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, onRemoveSavedMovie, setIsLoading, isLoading }) => {
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = React.useState([]);
-  const [isShort, setShort] = React.useState(false);
-  const [filteredResults, setFilteredResults] = React.useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [isShort, setShort] = useState(false);
+  const [filteredResults, setFilteredResults] = useState([]);
 
   useEffect(() => {
     const getResults = async () => {
@@ -44,11 +44,12 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
           isShort={isShort}
         />
         <MoviesCardList
-          savedAppearance={false}
+          // savedAppearance={false}
           cards={filteredResults}
           onSaveMovie={onSaveMovie}
           savedMoviesData={savedMoviesData}
           onRemoveSavedMovie={onRemoveSavedMovie}
+          isLoading={isLoading}
         />
       </section>
     </>

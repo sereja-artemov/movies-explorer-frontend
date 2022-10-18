@@ -26,10 +26,12 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     getMovies();
     moviesApi.getSavedMovies()
       .then((res) => {
         setSavedMoviesData(res);
+        setIsLoading(false);
       })
       .catch(err => err)
   }, [])
@@ -176,6 +178,7 @@ function App() {
                 onSaveMovie={handleSaveMovie}
                 onRemoveSavedMovie={getIdAndRemoveSavedMovie}
                 setIsLoading={setIsLoading}
+                isLoading={isLoading}
               />
             </ProtectedRoute>
           }
