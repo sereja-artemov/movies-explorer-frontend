@@ -6,13 +6,11 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ isLoading, filteredArray}) => {
+const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovie, isLoading, isSavedTemplate }) => {
 
-  const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
-  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     checkCardsAmount();
@@ -20,7 +18,6 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [windowInnerWidth]);
-
 
   function handleResize() {
     setWindowInnerWidth(window.innerWidth);
@@ -47,42 +44,37 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
     }
   };
 
-  console.log(cardsAmount, moreCardsAmount);
-
   return (
     <>
-      {/* НАЧАЛО На страницу фильмов*/}
-      { pathname === '/movies' &&
+
+      {!isSavedTemplate && (
         <ul className="movies__list">
-        {(isLoading && filteredArray.length === 0) && <Preloader />}
-        {!isLoading && filteredArray.length === 0 ? (
-          <p>Ничего не найдено</p>
-        ) : (
-          filteredArray.slice(0, cardsAmount).map((movie, index) => {
-            //тут делаем проверку. Если id карточки совпадает с movieId сохраненной карточки, то устанавливаем isSaved = true
-              if (movie.id) {
-                console.log(`${index} ${movie.id}`)
-              }
-            return (
-              <MoviesCard
-                id={movie.id}
-                key={movie.id}
-                imgLink={MOVIES_SERVER_URL + movie.image.url}
-                trailerLink={movie.trailerLink}
-                imgAlt={movie.nameRU}
-                name={movie.nameRU}
-                duration={toHoursAndMinutes(movie.duration)}
-                filteredArray={filteredArray}
-                isSaved={isSaved}
-                setIsSaved={setIsSaved}
-                movie={movie}
-              />
-            );
-          })
-        )}
-      </ul>
-      }
-      { (pathname === '/movies' && filteredArray.length > cardsAmount) &&
+
+          {isLoading && cards.length === 0 && <Preloader />}
+          {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
+
+          {cards.map((card) => (
+            <MoviesCard
+              key={card.id}
+              //удалил деструктуризацию {...card}
+              card={card}
+              isSavedTemplate={isSavedTemplate}
+              onDelete={onRemoveSavedMovie}
+              country={card.country}
+              director={card.director}
+              duration={card.duration}
+              year={card.year}
+              description={card.description}
+              image={MOVIES_SERVER_URL + card.image.url}
+              movieId={card.id}
+              nameRU={card.nameRU}
+              nameEN={card.nameEN}
+              trailerLink={card.trailerLink}
+            />
+          ))}
+        </ul>
+      )}
+      {cards.length > cardsAmount && (
         <button
           onClick={handleLoadMoreCards}
           type="button"
@@ -90,39 +82,23 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
         >
           Еще
         </button>
-      }
-      {/* КОНЕЦ На страницу фильмов*/}
-
-      {/* НАЧАЛО На страницу сохраненных фильмов*/}
-      { pathname === '/saved-movies' &&
-        <ul className="movies__list">
-
-          {(isLoading && filteredArray.length === 0) && <Preloader />}
-          {!isLoading && filteredArray.length === 0 ? (
-            <p>Ничего не найдено</p>
-          ) : (
-            filteredArray.slice(0, cardsAmount).map((movie) => {
-              return (
-                <MoviesCard
-                  id={movie.movieId}
-                  key={movie.movieId}
-                  imgLink={movie.image}
-                  trailerLink={movie.trailerLink}
-                  imgAlt={movie.nameRU}
-                  name={movie.nameRU}
-                  duration={toHoursAndMinutes(movie.duration)}
-                  filteredArray={filteredArray}
-                  isSaved={isSaved}
-                  setIsSaved={setIsSaved}
-                />
-              );
-            })
-          )}
-        </ul>
-      }
-      {/* КОНЕЦ На страницу сохраненных фильмов*/}
+      )}
     </>
   );
 };
 
 export default MoviesCardList;
+
+
+// <MoviesCard
+//   id={movie.movieId}
+//   key={movie.movieId}
+//   imgLink={movie.image}
+//   trailerLink={movie.trailerLink}
+//   imgAlt={movie.nameRU}
+//   name={movie.nameRU}
+//   duration={toHoursAndMinutes(movie.duration)}
+//
+//   isSaved={isSaved}
+//   setIsSaved={setIsSaved}
+// />
