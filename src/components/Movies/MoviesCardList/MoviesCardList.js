@@ -43,11 +43,40 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
       setMoreCardsAmount(1);
     }
   };
-
   return (
     <>
 
       {!isSavedTemplate && (
+        <ul className="movies__list">
+
+          {isLoading && cards.length === 0 && <Preloader />}
+          {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
+
+          {cards.map((card) => (
+            <MoviesCard
+              key={card.id}
+              //удалил деструктуризацию {...card}
+              card={card}
+              isSavedTemplate={isSavedTemplate}
+              onSaveMovie={onSaveMovie}
+              onDelete={onRemoveSavedMovie}
+              country={card.country}
+              director={card.director}
+              duration={card.duration}
+              year={card.year}
+              description={card.description}
+              image={MOVIES_SERVER_URL + card.image.url}
+              thumbnail={MOVIES_SERVER_URL + card.image.formats.thumbnail.url}
+              movieId={card.id}
+              nameRU={card.nameRU}
+              nameEN={card.nameEN}
+              trailerLink={card.trailerLink}
+            />
+          ))}
+        </ul>
+      )}
+
+      {isSavedTemplate && (
         <ul className="movies__list">
 
           {isLoading && cards.length === 0 && <Preloader />}
@@ -73,7 +102,10 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
             />
           ))}
         </ul>
-      )}
+      )
+
+      }
+
       {cards.length > cardsAmount && (
         <button
           onClick={handleLoadMoreCards}

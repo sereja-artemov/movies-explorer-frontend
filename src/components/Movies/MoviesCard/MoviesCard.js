@@ -13,8 +13,9 @@ const MoviesCard = ({
   trailerLink,
   nameRU,
   nameEN,
-  id: movieId,
+  movieId,
   image,
+  thumbnail,
   card,
   isSavedTemplate,
   onDelete,
@@ -35,18 +36,19 @@ const MoviesCard = ({
 
   function handleLike() {
     if (!isSaved) {
-      onSaveMovie(
+      onSaveMovie({
         country,
         director,
         duration,
         year,
         description,
         image,
+        thumbnail,
         movieId,
         nameRU,
         nameEN,
         trailerLink
-      );
+      });
       setIsSaved(true);
     } else {
       onRemoveSave(movieId);
