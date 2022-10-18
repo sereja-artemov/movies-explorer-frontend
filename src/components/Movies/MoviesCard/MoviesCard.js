@@ -16,6 +16,7 @@ const MoviesCard = ({
   setSavedMoviesArr,
   isSaved,
   setIsSaved,
+  handleSaveMovie,
   movie
 }) => {
 
@@ -36,7 +37,7 @@ const MoviesCard = ({
       id: movieId,
     } = movie;
     //тут делаем запрос к api для сохранения фильмов
-    createMovie({
+    handleSaveMovie({
       country,
       director,
       duration: duration,
@@ -49,11 +50,6 @@ const MoviesCard = ({
       thumbnail: MOVIES_SERVER_URL + image.url,
       movieId,
     })
-      .then((savedMovie) => {
-        setSavedMoviesArr(savedMovie, ...savedMoviesArr);
-        console.log(savedMovie);
-      })
-      .catch((err) => err);
   }
 
   return (

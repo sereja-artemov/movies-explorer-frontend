@@ -6,7 +6,7 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ isLoading, filteredArray, savedMoviesArr }) => {
+const MoviesCardList = ({ isLoading, filteredArray, savedMoviesArr, handleSaveMovie }) => {
 
   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
@@ -75,6 +75,7 @@ const MoviesCardList = ({ isLoading, filteredArray, savedMoviesArr }) => {
                 isSaved={isSaved}
                 setIsSaved={setIsSaved}
                 movie={movie}
+                handleSaveMovie={handleSaveMovie}
               />
             );
           })
@@ -114,6 +115,7 @@ const MoviesCardList = ({ isLoading, filteredArray, savedMoviesArr }) => {
                   savedMoviesArr={savedMoviesArr}
                   isSaved={isSaved}
                   setIsSaved={setIsSaved}
+                  handleSaveMovie={handleSaveMovie}
                 />
               );
             })

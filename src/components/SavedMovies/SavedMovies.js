@@ -4,22 +4,15 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import {useEffect, useState} from "react";
 import {getSavedMovies} from "../../utils/MoviesApi";
 
-const SavedMovies = ({ isLoading }) => {
+const SavedMovies = ({ savedMoviesData ,isLoading }) => {
 
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
-  const [savedMoviesArr, setSavedMoviesArr] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const localStorageMoviesObj = JSON.parse(localStorage.getItem('savedMoviesPageData'));
 
   useEffect(() => {
-    getSavedMovies()
-      .then((movies) => {
-        setFilteredArray(movies);
-        setSavedMoviesArr(movies);
-      })
-      .catch((err) => err);
-
+    setFilteredArray(savedMoviesData)
     if (localStorage.getItem('savedMoviesPageData')) {
       setIsChecked(localStorageMoviesObj.checked);
       setSearchKeyword(localStorageMoviesObj.keyword);
@@ -39,7 +32,7 @@ const SavedMovies = ({ isLoading }) => {
   function sortArray(event) {
     event.preventDefault();
 
-    const filteredArr = savedMoviesArr.filter(movie => {
+    const filteredArr = savedMoviesData.filter(movie => {
       if (isChecked && movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase()) && movie.duration <= 40) {
         return movie;
       } else if (!isChecked){
@@ -59,7 +52,10 @@ const SavedMovies = ({ isLoading }) => {
         isChecked={isChecked}
         localStorageMoviesObj={localStorageMoviesObj}
       />
-      <MoviesCardList filteredArray={filteredArray} savedMoviesArr={savedMoviesArr} isLoading={isLoading} />
+      <MoviesCardList savedMoviesArr={savedMoviesData}
+                      isLoading={isLoading}
+                      filteredArray={filteredArray}
+                       />
     </section>
   );
 };

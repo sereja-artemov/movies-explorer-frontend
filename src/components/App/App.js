@@ -80,7 +80,6 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
-      setSavedMoviesData([]);
     }
   }
 
@@ -129,12 +128,12 @@ function App() {
               }></Route>
               <Route path="/movies" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Movies moviesData={moviesData} isLoading={isLoading} />
+                  <Movies moviesData={moviesData} isLoading={isLoading} handleSaveMovie={handleSaveMovie} />
                 </ProtectedRoute>
               }></Route>
               <Route path="/saved-movies" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <SavedMovies />
+                  <SavedMovies savedMoviesData={savedMoviesData} isLoading={isLoading} />
                 </ProtectedRoute>
               }></Route>
               <Route path="/profile" element={

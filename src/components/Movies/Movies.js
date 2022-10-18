@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({moviesData, isLoading, savedMoviesArr}) => {
+const Movies = ({moviesData, isLoading, savedMoviesArr, handleSaveMovie}) => {
 
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
@@ -54,6 +54,7 @@ const Movies = ({moviesData, isLoading, savedMoviesArr}) => {
         savedMoviesArr={savedMoviesArr}
         isLoading={isLoading}
         filteredArray={filteredArray}
+        handleSaveMovie={handleSaveMovie}
       />
     </section>
   );
