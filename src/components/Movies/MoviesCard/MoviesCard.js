@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import {createMovie, getSavedMovies} from "../../../utils/MoviesApi";
 import {MOVIES_SERVER_URL} from "../../../utils/constants";
 import {toHoursAndMinutes} from "../../../utils/timeConverter";
+import savedMovies from "../../SavedMovies/SavedMovies";
 
 const MoviesCard = ({
   country,
@@ -22,13 +23,14 @@ const MoviesCard = ({
   onRemoveSave,
   onSaveMovie,
   isSavedMovie,
+  _id
 }) => {
   const [isSaved, setIsSaved] = useState(isSavedMovie);
 
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
-
+//баг с удалением фильмов
   function handleDelete() {
     onDelete(card);
   }
@@ -49,9 +51,6 @@ const MoviesCard = ({
         trailerLink
       });
       setIsSaved(true);
-    } else {
-      onRemoveSave(movieId);
-      setIsSaved(false);
     }
   }
 

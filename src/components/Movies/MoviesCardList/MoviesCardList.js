@@ -68,10 +68,10 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
               description={card.description}
               image={MOVIES_SERVER_URL + card.image.url}
               thumbnail={MOVIES_SERVER_URL + card.thumbnail}
-              movieId={card.id}
               nameRU={card.nameRU}
               nameEN={card.nameEN}
               trailerLink={card.trailerLink}
+              movieId={card.id}
             />
           ))}
         </ul>
