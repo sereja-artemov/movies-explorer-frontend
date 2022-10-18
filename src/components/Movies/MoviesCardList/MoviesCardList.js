@@ -66,7 +66,7 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
               year={card.year}
               description={card.description}
               image={MOVIES_SERVER_URL + card.image.url}
-              thumbnail={MOVIES_SERVER_URL + card.image.formats.thumbnail.url}
+              thumbnail={MOVIES_SERVER_URL + card.thumbnail}
               movieId={card.id}
               nameRU={card.nameRU}
               nameEN={card.nameEN}
@@ -80,11 +80,10 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
         <ul className="movies__list">
 
           {isLoading && cards.length === 0 && <Preloader />}
-          {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
 
           {cards.map((card) => (
             <MoviesCard
-              key={card.id}
+              key={card._id}
               //удалил деструктуризацию {...card}
               card={card}
               isSavedTemplate={isSavedTemplate}
@@ -94,7 +93,8 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
               duration={card.duration}
               year={card.year}
               description={card.description}
-              image={MOVIES_SERVER_URL + card.image.url}
+              image={card.image}
+              thumbnail={card.thumbnail}
               movieId={card.id}
               nameRU={card.nameRU}
               nameEN={card.nameEN}
