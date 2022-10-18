@@ -43,7 +43,7 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
           isShort={isShort}
         />
         <MoviesCardList
-          savedAppearance={false}
+          isSavedTemplate={false}
           cards={filteredResults}
           onSaveMovie={onSaveMovie}
           savedMoviesData={savedMoviesData}
