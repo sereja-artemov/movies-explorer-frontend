@@ -6,13 +6,11 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovie, isLoading }) => {
+const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovie, isLoading, isSavedTemplate }) => {
 
-  const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
-  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     checkCardsAmount();
@@ -20,7 +18,6 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [windowInnerWidth]);
-
 
   function handleResize() {
     setWindowInnerWidth(window.innerWidth);
@@ -48,41 +45,27 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
   };
 
   console.log(cardsAmount, moreCardsAmount);
+  console.log(cards);
 
   return (
     <>
-      {/* НАЧАЛО На страницу фильмов*/}
-      { pathname === '/movies' &&
-        <ul className="movies__list">
-        {(isLoading && cards.length === 0) && <Preloader />}
-        {!isLoading && cards.length === 0 ? (
-          <p>Ничего не найдено</p>
-        ) : (
-          cards.slice(0, cardsAmount).map((movie, index) => {
-            //тут делаем проверку. Если id карточки совпадает с movieId сохраненной карточки, то устанавливаем isSaved = true
-              if (movie.id) {
-                console.log(`${index} ${movie.id}`)
-              }
-            return (
-              <MoviesCard
-                id={movie.id}
-                key={movie.id}
-                imgLink={MOVIES_SERVER_URL + movie.image.url}
-                trailerLink={movie.trailerLink}
-                imgAlt={movie.nameRU}
-                name={movie.nameRU}
-                duration={toHoursAndMinutes(movie.duration)}
+      {isLoading && cards.length === 0 && <Preloader />}
+      {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
 
-                isSaved={isSaved}
-                setIsSaved={setIsSaved}
-                movie={movie}
-              />
-            );
-          })
-        )}
-      </ul>
-      }
-      { (pathname === '/movies' && cards.length > cardsAmount) &&
+      {!isSavedTemplate && (
+        <ul className="movies__list">
+          {cards.map((card) => (
+            <MoviesCard
+              key={card.id}
+              {...card}
+              card={card}
+              isSavedTemplate={isSavedTemplate}
+              onDelete={onRemoveSavedMovie}
+            />
+          ))}
+        </ul>
+      )}
+      {cards.length > cardsAmount && (
         <button
           onClick={handleLoadMoreCards}
           type="button"
@@ -90,39 +73,23 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
         >
           Еще
         </button>
-      }
-      {/* КОНЕЦ На страницу фильмов*/}
-
-      {/* НАЧАЛО На страницу сохраненных фильмов*/}
-      { pathname === '/saved-movies' &&
-        <ul className="movies__list">
-
-          {(isLoading && cards.length === 0) && <Preloader />}
-          {!isLoading && cards.length === 0 ? (
-            <p>Ничего не найдено</p>
-          ) : (
-            cards.slice(0, cardsAmount).map((movie) => {
-              return (
-                <MoviesCard
-                  id={movie.movieId}
-                  key={movie.movieId}
-                  imgLink={movie.image}
-                  trailerLink={movie.trailerLink}
-                  imgAlt={movie.nameRU}
-                  name={movie.nameRU}
-                  duration={toHoursAndMinutes(movie.duration)}
-
-                  isSaved={isSaved}
-                  setIsSaved={setIsSaved}
-                />
-              );
-            })
-          )}
-        </ul>
-      }
-      {/* КОНЕЦ На страницу сохраненных фильмов*/}
+      )}
     </>
   );
 };
 
 export default MoviesCardList;
+
+
+// <MoviesCard
+//   id={movie.movieId}
+//   key={movie.movieId}
+//   imgLink={movie.image}
+//   trailerLink={movie.trailerLink}
+//   imgAlt={movie.nameRU}
+//   name={movie.nameRU}
+//   duration={toHoursAndMinutes(movie.duration)}
+//
+//   isSaved={isSaved}
+//   setIsSaved={setIsSaved}
+// />
