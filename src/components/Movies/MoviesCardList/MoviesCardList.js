@@ -49,15 +49,18 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
 
   return (
     <>
-      {isLoading && cards.length === 0 && <Preloader />}
-      {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
+
 
       {!isSavedTemplate && (
         <ul className="movies__list">
+
+          {isLoading && cards.length === 0 && <Preloader />}
+          {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
+
           {cards.map((card) => (
             <MoviesCard
               key={card.id}
-              {...card}
+              //удалил деструктуризацию {...card}
               card={card}
               isSavedTemplate={isSavedTemplate}
               onDelete={onRemoveSavedMovie}
