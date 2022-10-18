@@ -42,9 +42,9 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
           onSearch={handleSearchQuery}
           onCheckboxClick={handleCheckboxClick}
           isShort={isShort}
-          savedMoviesData={savedMoviesData}
         />
         <MoviesCardList
+          savedAppearance={false}
           cards={filteredResults}
           onSaveMovie={onSaveMovie}
           savedMoviesData={savedMoviesData}

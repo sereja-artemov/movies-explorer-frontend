@@ -3,40 +3,31 @@ import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 import {useLocation} from "react-router-dom";
 
 const SearchForm = ({
-  setSearchKeyword,
-  sortArray,
-  setIsChecked,
-  isChecked,
-  localStorageMoviesObj,
+  onSearch, onCheckboxClick, isShort
 }) => {
-  const searchInput = useRef();
-  const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (pathname === '/movies' && localStorage.getItem("moviesPageData")) {
-      searchInput.current.value = localStorageMoviesObj.keyword;
-    }
-    if (pathname === '/saved-movies' &&  localStorage.getItem("savedMoviesPageData")) {
-      searchInput.current.value = localStorageMoviesObj.keyword;
-    }
-  }, []);
+  const [inputValue, setInputValue] = useState('');
+
+  function handleSubmitForm(event) {
+    event.preventDefault();
+    onSearch(inputValue);
+  }
 
   return (
     <form
-      onSubmit={sortArray}
+      onSubmit={handleSubmitForm}
       id="search-form"
       method="post"
       className="search-form"
     >
       <div className="search-form__field-wrapper">
         <input
-          ref={searchInput}
-          onChange={(event) => setSearchKeyword(event.target.value)}
+          onChange={(event) => setInputValue(event.target.value)}
           type="text"
           name="text"
           className="search-form__search-input"
           placeholder="Фильм"
-
+          value={inputValue}
         />
         <label
           htmlFor="search-film-submit"
@@ -68,8 +59,8 @@ const SearchForm = ({
       </div>
       <div className="search-form__checkbox-wrapper">
         <FilterCheckbox
-          isChecked={isChecked}
-          setIsChecked={setIsChecked}
+          isChecked={isShort}
+          setIsChecked={onCheckboxClick}
           label="Короткометражки"
           inputId="short-films"
           name="short-films"
