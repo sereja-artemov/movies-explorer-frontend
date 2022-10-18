@@ -100,7 +100,7 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
               nameRU={card.nameRU}
               nameEN={card.nameEN}
               trailerLink={card.trailerLink}
-              isSavedMovie={savedMoviesData.some(movie => movie.movieId === card.movieId)}
+              isSavedMovie={savedMoviesData.some(movie => movie.movieId === card.id)}
             />
           ))}
         </ul>

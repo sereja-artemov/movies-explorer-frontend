@@ -20,13 +20,12 @@ const MoviesCard = ({
   card,
   isSavedTemplate,
   onDelete,
-  onRemoveSave,
   onSaveMovie,
   isSavedMovie,
   _id
 }) => {
   const [isSaved, setIsSaved] = useState(isSavedMovie);
-
+  console.log(isSavedMovie)
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
