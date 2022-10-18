@@ -103,18 +103,27 @@ function App() {
       .catch(err => err)
   }
 
+  // function searchMoviesByQuery(movies, query) {
+  //   const terms = query.toLowerCase().split(' ');
+  //
+  //   const filteredArr = movies.filter(movie => {
+  //     const movieData = [
+  //       movie.nameRU,
+  //       // movie.nameEN,
+  //     ].filter(Boolean).join(", ").toLowerCase();
+  //
+  //     return terms.every(term => {
+  //       return movieData.includes(term);
+  //     });
+  //   });
+  //   return filteredArr;
+  // }
+
   function searchMoviesByQuery(movies, query) {
-    const terms = query.toLowerCase().split(' ');
+    const term = query.toLowerCase();
 
     const filteredArr = movies.filter(movie => {
-      const movieData = [
-        movie.nameRU,
-        movie.nameEN,
-      ].filter(Boolean).join(", ").toLowerCase();
-
-      return terms.every(term => {
-        return movieData.includes(term) ? true : false;
-      });
+      movie.includes(term)
     });
     return filteredArr;
   }
