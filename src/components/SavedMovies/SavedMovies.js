@@ -17,12 +17,12 @@ const SavedMovies = ({ savedMoviesData, onSearch, onFilter, onRemoveSavedMovie }
       setSearchResults(results);
     }
     getResults().then();
-  }, [searchQuery]);
+  }, [searchQuery, savedMoviesData]);
 
   useEffect(() => {
     const results = onFilter(searchResults, isShort);
     setFilteredResults(results);
-  }, [searchResults, isShort]);
+  }, [searchResults, isShort, savedMoviesData]);
 
   function handleSearchQuery(query) {
     setSearchQuery(query);
