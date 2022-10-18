@@ -115,14 +115,14 @@ function App() {
   function filterMoviesByDuration(movies, isShort) {
     const filteredArr = isShort
       ? movies.filter(card => card.duration <= 40)
-      : movies.filter(card => card.duration > 40);
+      : movies;
     return filteredArr;
   }
 
   function handleSaveMovie(movie) {
     moviesApi.createMovie(movie)
       .then((res) => {
-        setSavedMoviesData([res, ...savedMoviesData]);
+        setSavedMoviesData([...savedMoviesData, res]);
       })
       .catch(err => err)
   }
