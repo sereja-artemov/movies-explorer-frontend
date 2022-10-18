@@ -8,7 +8,7 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import {getMovies} from "../../utils/MainApi";
+import {getMoviesData} from "../../utils/MainApi";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import  * as moviesApi from "../../utils/MoviesApi";
@@ -17,24 +17,25 @@ import {createUser, getSavedMovies} from "../../utils/MoviesApi";
 
 function App() {
 
-  const [moviesData, setMoviesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [moviesData, setMoviesData] = useState([]);
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    setIsLoading(true);
-    getMovies()
-      .then((data) => {
-        setMoviesData(data);
-        setIsLoading(false);
+    getMovies();
+    moviesApi.getSavedMovies()
+      .then((res) => {
+        setSavedMoviesData(res);
       })
-      .catch(err => err);
-
-  }, [isLoggedIn])
+      .catch(err => err)
+  }, [])
 
   useEffect(() => {
     checkToken();
@@ -49,7 +50,6 @@ function App() {
   }, [isLoggedIn]);
 
   function onRegister({ name, email, password }) {
-
     setIsLoading(true)
     moviesApi.createUser(name, email, password)
       .then(() => {
@@ -80,7 +80,19 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
+      setSavedMoviesData([]);
     }
+  }
+
+  function getMovies() {
+    if (localStorage.getItem('moviesBox')) {
+      setMoviesData(JSON.parse(localStorage.getItem('moviesBox')));
+    } else getMoviesData()
+      .then((moviesData) => {
+        localStorage.setItem('moviesBox', JSON.stringify(moviesData));
+        setMoviesData(moviesData);
+      })
+      .catch(err => err)
   }
 
   return (
