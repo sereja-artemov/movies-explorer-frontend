@@ -95,6 +95,25 @@ function App() {
       .catch(err => err)
   }
 
+  function handleSaveMovie(movie) {
+    moviesApi.createMovie(movie)
+      .then((res) => {
+        setSavedMoviesData([res, ...savedMoviesData]);
+      })
+      .catch(err => err)
+  }
+
+  function handleRemoveSavedMovie(cardId) {
+    moviesApi.removeMovie(cardId)
+      .then(() => {
+        const cardIndex = savedMoviesData.findIndex(card => card._id === cardId);
+        let newSavedMovies = [...savedMoviesData];
+        newSavedMovies.splice(cardIndex, 1);
+        setSavedMoviesData(newSavedMovies);
+      })
+      .catch(err => err)
+  }
+
   return (
     <div>
       {(pathname === "/" ||
