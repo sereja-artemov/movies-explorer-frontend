@@ -103,20 +103,42 @@ function App() {
       .catch(err => err)
   }
 
+  // function searchMoviesByQuery(movies, query) {
+  //   const terms = query.toLowerCase().split(' ');
+  //
+  //   const filteredArr = movies.filter(movie => {
+  //     const movieData = [
+  //       movie.nameRU,
+  //       // movie.nameEN,
+  //     ].filter(Boolean).join(", ").toLowerCase();
+  //
+  //     return terms.every(term => {
+  //       return movieData.includes(term);
+  //     });
+  //   });
+  //   return filteredArr;
+  // }
+
   function searchMoviesByQuery(movies, query) {
-    const terms = query.toLowerCase().split(' ');
+    const term = query.toLowerCase();
 
     const filteredArr = movies.filter(movie => {
-      const movieData = [
-        movie.nameRU,
-        movie.nameEN,
-      ].filter(Boolean).join(", ").toLowerCase();
-
-      return terms.every(term => {
-        return movieData.includes(term) ? true : false;
-      });
+      movie.includes(term)
     });
     return filteredArr;
+  }
+
+  //Поиск по ключевому слову
+  function sortArray(event) {
+    event.preventDefault();
+    const filteredArr = moviesData.filter(movie => {
+      if (isChecked && movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase()) && movie.duration <= 40) {
+        return movie;
+      } else if (!isChecked){
+        return movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase());
+      }
+    })
+    setFilteredArray(filteredArr);
   }
 
   function filterMoviesByDuration(movies, isShort) {

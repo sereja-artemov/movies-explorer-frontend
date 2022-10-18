@@ -44,12 +44,8 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
     }
   };
 
-  console.log(cardsAmount, moreCardsAmount);
-  console.log(cards);
-
   return (
     <>
-
 
       {!isSavedTemplate && (
         <ul className="movies__list">
@@ -64,7 +60,16 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
               card={card}
               isSavedTemplate={isSavedTemplate}
               onDelete={onRemoveSavedMovie}
+              country={card.country}
+              director={card.director}
+              duration={card.duration}
+              year={card.year}
+              description={card.description}
               image={MOVIES_SERVER_URL + card.image.url}
+              movieId={card.id}
+              nameRU={card.nameRU}
+              nameEN={card.nameEN}
+              trailerLink={card.trailerLink}
             />
           ))}
         </ul>
