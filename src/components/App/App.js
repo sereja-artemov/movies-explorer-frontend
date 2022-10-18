@@ -23,6 +23,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -109,10 +110,6 @@ function App() {
       const movieData = [
         movie.nameRU,
         movie.nameEN,
-        movie.description,
-        movie.country,
-        movie.director,
-        movie.year
       ].filter(Boolean).join(", ").toLowerCase();
 
       return terms.every(term => {
@@ -156,6 +153,11 @@ function App() {
   }
 
   return (
+    <>
+      {(pathname === "/" ||
+        pathname === "/movies" ||
+        pathname === "/saved-movies" ||
+        pathname === "/profile") && <Header isLoggedIn={isLoggedIn} />}
     <CurrentUserContext.Provider value={userData}>
       <Routes>
         <Route
@@ -216,6 +218,7 @@ function App() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </CurrentUserContext.Provider>
+    </>
   );
 }
 

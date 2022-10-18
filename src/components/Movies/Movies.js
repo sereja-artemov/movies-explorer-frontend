@@ -36,7 +36,6 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
 
   return (
     <>
-      <Header />
       <section className="movies">
         <SearchForm
           onSearch={handleSearchQuery}
@@ -44,7 +43,7 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
           isShort={isShort}
         />
         <MoviesCardList
-          // savedAppearance={false}
+          savedAppearance={false}
           cards={filteredResults}
           onSaveMovie={onSaveMovie}
           savedMoviesData={savedMoviesData}

@@ -13,6 +13,10 @@ const SearchForm = ({
     onSearch(inputValue);
   }
 
+  function handleSearchInput(event) {
+    setInputValue(event.target.value);
+  }
+
   return (
     <form
       onSubmit={handleSubmitForm}
@@ -22,7 +26,7 @@ const SearchForm = ({
     >
       <div className="search-form__field-wrapper">
         <input
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={handleSearchInput}
           type="text"
           name="text"
           className="search-form__search-input"
@@ -60,7 +64,7 @@ const SearchForm = ({
       <div className="search-form__checkbox-wrapper">
         <FilterCheckbox
           isChecked={isShort}
-          setIsChecked={onCheckboxClick}
+          onCheck={onCheckboxClick}
           label="Короткометражки"
           inputId="short-films"
           name="short-films"
