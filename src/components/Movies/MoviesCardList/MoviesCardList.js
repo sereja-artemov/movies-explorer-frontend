@@ -43,6 +43,7 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
       setMoreCardsAmount(1);
     }
   };
+
   return (
     <>
 
@@ -52,7 +53,7 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
           {isLoading && cards.length === 0 && <Preloader />}
           {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
 
-          {cards.map((card) => (
+          {cards.slice(0, cardsAmount).map((card) => (
             <MoviesCard
               key={card.id}
               //удалил деструктуризацию {...card}
@@ -81,9 +82,9 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
 
           {isLoading && cards.length === 0 && <Preloader />}
 
-          {cards.map((card) => (
+          {cards.slice(0, cardsAmount).map((card) => (
             <MoviesCard
-              key={card._id}
+              key={card.movieId}
               //удалил деструктуризацию {...card}
               card={card}
               isSavedTemplate={isSavedTemplate}
@@ -95,10 +96,11 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
               description={card.description}
               image={card.image}
               thumbnail={card.thumbnail}
-              movieId={card.id}
+              movieId={card.movieId}
               nameRU={card.nameRU}
               nameEN={card.nameEN}
               trailerLink={card.trailerLink}
+              isSavedMovie={savedMoviesData.some(movie => movie.movieId === card.movieId)}
             />
           ))}
         </ul>

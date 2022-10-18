@@ -22,7 +22,6 @@ const MoviesCard = ({
   onRemoveSave,
   onSaveMovie,
   isSavedMovie,
-  _id,
 }) => {
   const [isSaved, setIsSaved] = useState(isSavedMovie);
 
@@ -31,7 +30,7 @@ const MoviesCard = ({
   }`;
 
   function handleDelete() {
-    onDelete(_id);
+    onDelete(card);
   }
 
   function handleLike() {
