@@ -20,7 +20,6 @@ const MoviesCard = ({
   card,
   isSavedTemplate,
   onDelete,
-  onRemoveSave,
   onSaveMovie,
   isSavedMovie,
   _id
