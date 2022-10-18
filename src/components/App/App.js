@@ -128,6 +128,7 @@ function App() {
   }
 
   function handleRemoveSavedMovie(cardId) {
+
     moviesApi.removeMovie(cardId)
       .then(() => {
         const cardIndex = savedMoviesData.findIndex(card => card._id === cardId._id);
