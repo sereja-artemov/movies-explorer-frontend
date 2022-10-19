@@ -11,9 +11,10 @@ const Form = ({
   textBottom = "",
   textLinkBottom = "",
   LinkBottom,
+  isValid
 }) => {
   return (
-    <form onSubmit={onSubmit} id={formId} className="form">
+    <form onSubmit={onSubmit} id={formId} className="form" noValidate >
       <Link to="/" className="form__logo">
         <img
           src={logoImg}
@@ -24,7 +25,7 @@ const Form = ({
       <h3 className="form__title">{formTitle}</h3>
       <fieldset className="form__fields">{children}</fieldset>
       <div className="form__bottom-block">
-        <input type="submit" className="form__submit btn" value={textButton} />
+        <input type="submit" className="form__submit btn" value={textButton} disabled={!isValid} />
         <p className="form__bottom-text">
           {textBottom}{" "}
           <Link to={LinkBottom} className="form__bottom-link">
