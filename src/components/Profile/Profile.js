@@ -1,22 +1,36 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {createRef, useContext, useEffect, useState} from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
-import {updateUser} from "../../utils/MoviesApi";
+import {useForm} from "react-hook-form";
 
 const Profile = ({onLogout, onUpdateUser}) => {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const currentUser = useContext(CurrentUserContext);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { isDirty, errors, isValid },
+  } = useForm({ mode: "onChange", defaultValues: {
+      name: currentUser.name,
+      email: currentUser.email,
+    } });
+
+  let [name, email] = watch(['name', 'email']);
+
+  // const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+
   const [onEdit, setOnEdit] = useState(false);
 
-  const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [])
+  // useEffect(() => {
+  //   name = currentUser.name;
+  //   // nameInput.current.value = currentUser.name;
+  //   // setEmail(currentUser.email);
+  // }, [])
 
-  function handleSubmit() {
-    onUpdateUser(name, email);
+  function handleFormSubmit() {
+    onUpdateUser({ name, email });
   }
 
   return (
@@ -27,12 +41,17 @@ const Profile = ({onLogout, onUpdateUser}) => {
           <div className="profile__field-wrapper">
             <input
               value={name}
-              onChange={(event) => setName(event.target.value)}
               id="profile-name"
               type="text"
               className="profile__input"
               placeholder="Ваше имя"
-              required
+              {...register("name", {
+                required: "Поле обязательно к заполнению",
+                pattern: {
+                  value: /^[а-яА-ЯёЁa-zA-Z0-9 -]+$/i,
+                  message: "Имя может содержать только латиницу, кириллицу, пробел или дефис."
+                }
+              })}
             />
             <label htmlFor="profile-name" className="profile__label">
               Имя
@@ -41,12 +60,17 @@ const Profile = ({onLogout, onUpdateUser}) => {
           <div className="profile__field-wrapper">
             <input
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
               id="profile-email"
               type="email"
               className="profile__input"
               placeholder="Ваша почта"
-              required
+              {...register("email", {
+                required: "Поле обязательно к заполнению",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Неправильно введен e-mail"
+                }
+              })}
             />
             <label htmlFor="profile-email" className="profile__label">
               E-mail
@@ -55,7 +79,7 @@ const Profile = ({onLogout, onUpdateUser}) => {
         </fieldset>
         <fieldset className="profile__fields profile__fields--settings">
           { onEdit ? (
-            <button onClick={handleSubmit} type="button" className="profile__btn btn">
+            <button onClick={handleSubmit(handleFormSubmit)} type="button" className="profile__btn btn" disabled={isValid}>
               Сохранить
             </button>
           ) : (
@@ -73,9 +97,10 @@ const Profile = ({onLogout, onUpdateUser}) => {
           >
             Выйти из аккаунта
           </button>
-          <span className="profile__error">
-            При обновлении профиля произошла ошибка.
-          </span>
+          {errors && <span className="profile__error">
+            {errors.message}
+          </span>}
+
         </fieldset>
       </form>
     </section>
