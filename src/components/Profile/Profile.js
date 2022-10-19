@@ -16,7 +16,7 @@ const Profile = ({onLogout, onUpdateUser}) => {
   }, [])
 
   function handleSubmit() {
-    onUpdateUser(name, email);
+    onUpdateUser({ name, email });
   }
 
   return (

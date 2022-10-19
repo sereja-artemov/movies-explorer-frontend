@@ -85,6 +85,7 @@ function App() {
   }
 
   function handleUpdateUser({name, email}) {
+    debugger
     moviesApi.updateUser(name, email)
       .then((res) => {
         setUserData(res);
