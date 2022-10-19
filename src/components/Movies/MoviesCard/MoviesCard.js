@@ -17,25 +17,23 @@ const MoviesCard = ({
   movieId,
   image,
   thumbnail,
-  card,
   isSavedTemplate,
   onDelete,
   onSaveMovie,
-                      isMovieSaved,
-                      savedMovie,
+  isMovieSaved,
+  savedMovie,
 }) => {
-  const [isSaved, setIsSaved] = useState(isMovieSaved);
 
+  const [isSaved, setIsSaved] = useState(isMovieSaved);
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
-//баг с удалением фильмов
+
   function handleDelete() {
     onDelete(savedMovie);
   }
 
   function handleSave() {
-    debugger
     if (isSaved === false) {
       onSaveMovie({
         country,
@@ -82,7 +80,6 @@ const MoviesCard = ({
           type="button"
           className="movies-card__delete"
         >
-          {/*<span className="movies-card__save-text">Сохранить</span>*/}
         </button>
       )}
     </li>
