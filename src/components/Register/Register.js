@@ -1,22 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "../Form/Form";
 import {useForm} from "react-hook-form";
 
 const Register = ({onRegister}) => {
 
-  const { register, handleSubmit, watch, formState: { errors, isValid } } = useForm({mode: "onChange"});
-  watch("name");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onChange" });
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, email, password] = watch(['name','email', 'password']);
 
   function handleFormSubmit() {
     debugger
     onRegister({name, email, password})
   }
 
-  console.log(errors.name)
   return (
     <section className="signup container">
       <Form
@@ -33,7 +34,7 @@ const Register = ({onRegister}) => {
             <label className="form__label">
               Имя
               <input
-                onChange={(e) => setName(e.target.value)}
+                // onChange={(e) => setName(watch.name)}
                 type="text"
                 className="form__input"
                 placeholder="Имя"
@@ -52,7 +53,7 @@ const Register = ({onRegister}) => {
             <label className="form__label">
               E-mail
               <input
-                onChange={(e) => setEmail(e.target.value)}
+                // onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 className="form__input"
                 placeholder="E-mail"
@@ -69,7 +70,7 @@ const Register = ({onRegister}) => {
             <label className="form__label">
               Пароль
               <input
-                onChange={(e) => setPassword(e.target.value)}
+                // onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 className="form__input"
                 placeholder="Пароль"

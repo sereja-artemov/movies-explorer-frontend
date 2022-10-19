@@ -53,7 +53,7 @@ function App() {
     setIsLoading(true)
     moviesApi.createUser(name, email, password)
       .then(() => {
-        navigate.push('/signin')
+        navigate('/signin')
       })
       .catch(err => err)
       .finally(() => setIsLoading(false));
