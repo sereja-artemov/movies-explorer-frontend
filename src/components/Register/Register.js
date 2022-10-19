@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Form from "../Form/Form";
 import {useForm} from "react-hook-form";
 
@@ -14,7 +14,6 @@ const Register = ({onRegister}) => {
   const [name, email, password] = watch(['name','email', 'password']);
 
   function handleFormSubmit() {
-    debugger
     onRegister({name, email, password})
   }
 
@@ -34,7 +33,6 @@ const Register = ({onRegister}) => {
             <label className="form__label">
               Имя
               <input
-                // onChange={(e) => setName(watch.name)}
                 type="text"
                 className="form__input"
                 placeholder="Имя"
@@ -53,7 +51,6 @@ const Register = ({onRegister}) => {
             <label className="form__label">
               E-mail
               <input
-                // onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 className="form__input"
                 placeholder="E-mail"
@@ -70,7 +67,6 @@ const Register = ({onRegister}) => {
             <label className="form__label">
               Пароль
               <input
-                // onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 className="form__input"
                 placeholder="Пароль"
