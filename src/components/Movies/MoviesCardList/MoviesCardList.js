@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
-import { toHoursAndMinutes } from "../../../utils/timeConverter";
-import {useLocation} from "react-router-dom";
-import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovie, isLoading, isSavedTemplate }) => {
-
+const MoviesCardList = ({
+  cards,
+  onSaveMovie,
+  savedMoviesData,
+  onRemoveSavedMovie,
+  isLoading,
+  isSavedTemplate,
+}) => {
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
@@ -15,8 +18,8 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
   useEffect(() => {
     checkCardsAmount();
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [windowInnerWidth]);
 
   function handleResize() {
@@ -46,68 +49,45 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
 
   return (
     <>
-
-      {!isSavedTemplate && (
+      {/*рендер сохраненных карточек из DB*/}
+      {isSavedTemplate && (
         <ul className="movies__list">
-
           {isLoading && cards.length === 0 && <Preloader />}
           {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
 
-          {cards.slice(0, cardsAmount).map((card) => (
+          {cards.slice(0, cardsAmount).map((savedMovie) => (
             <MoviesCard
-              key={card.id}
-              //удалил деструктуризацию {...card}
-              card={card}
+              key={savedMovie._id}
+              {...savedMovie}
+              savedMovie={savedMovie}
               isSavedTemplate={isSavedTemplate}
-              onSaveMovie={onSaveMovie}
               onDelete={onRemoveSavedMovie}
-              country={card.country}
-              director={card.director}
-              duration={card.duration}
-              year={card.year}
-              description={card.description}
-              image={MOVIES_SERVER_URL + card.image.url}
-              thumbnail={MOVIES_SERVER_URL + card.thumbnail}
-              nameRU={card.nameRU}
-              nameEN={card.nameEN}
-              trailerLink={card.trailerLink}
-              movieId={card.id}
             />
           ))}
         </ul>
       )}
-
-      {isSavedTemplate && (
+      {/*рендер всех карточек*/}
+      {!isSavedTemplate && (
         <ul className="movies__list">
-
           {isLoading && cards.length === 0 && <Preloader />}
 
           {cards.slice(0, cardsAmount).map((card) => (
             <MoviesCard
-              key={card.movieId}
-              //удалил деструктуризацию {...card}
+              key={card.id}
+              {...card}
               card={card}
+              image={MOVIES_SERVER_URL + card.image.url}
+              thumbnail={MOVIES_SERVER_URL + card.image.formats.thumbnail.url}
+              movieId={card.id}
               isSavedTemplate={isSavedTemplate}
-              onDelete={onRemoveSavedMovie}
-              country={card.country}
-              director={card.director}
-              duration={card.duration}
-              year={card.year}
-              description={card.description}
-              image={card.image}
-              thumbnail={card.thumbnail}
-              movieId={card.movieId}
-              nameRU={card.nameRU}
-              nameEN={card.nameEN}
-              trailerLink={card.trailerLink}
-              isSavedMovie={savedMoviesData.some(movie => movie.movieId === card.id)}
+              onSaveMovie={onSaveMovie}
+              isMovieSaved={savedMoviesData.some(
+                (movie) => movie.movieId === card.id
+              )}
             />
           ))}
         </ul>
-      )
-
-      }
-
+      )}
       {cards.length > cardsAmount && (
         <button
           onClick={handleLoadMoreCards}
@@ -122,17 +102,3 @@ const MoviesCardList = ({ cards, onSaveMovie, savedMoviesData, onRemoveSavedMovi
 };
 
 export default MoviesCardList;
-
-
-// <MoviesCard
-//   id={movie.movieId}
-//   key={movie.movieId}
-//   imgLink={movie.image}
-//   trailerLink={movie.trailerLink}
-//   imgAlt={movie.nameRU}
-//   name={movie.nameRU}
-//   duration={toHoursAndMinutes(movie.duration)}
-//
-//   isSaved={isSaved}
-//   setIsSaved={setIsSaved}
-// />

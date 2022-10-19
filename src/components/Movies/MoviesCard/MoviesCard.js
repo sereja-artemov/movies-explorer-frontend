@@ -1,9 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { useLocation } from "react-router-dom";
-import {createMovie, getSavedMovies} from "../../../utils/MoviesApi";
-import {MOVIES_SERVER_URL} from "../../../utils/constants";
+import React, {useState} from "react";
 import {toHoursAndMinutes} from "../../../utils/timeConverter";
-import savedMovies from "../../SavedMovies/SavedMovies";
 
 const MoviesCard = ({
   country,
@@ -17,25 +13,24 @@ const MoviesCard = ({
   movieId,
   image,
   thumbnail,
-  card,
   isSavedTemplate,
   onDelete,
   onSaveMovie,
-  isSavedMovie,
-  _id
+  isMovieSaved,
+  savedMovie,
 }) => {
-  const [isSaved, setIsSaved] = useState(isSavedMovie);
-  console.log(isSavedMovie)
+
+  const [isSaved, setIsSaved] = useState(isMovieSaved);
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
-//баг с удалением фильмов
+
   function handleDelete() {
-    onDelete(card);
+    onDelete(savedMovie);
   }
 
-  function handleLike() {
-    if (!isSaved) {
+  function handleSave() {
+    if (isSaved === false) {
       onSaveMovie({
         country,
         director,
@@ -69,7 +64,7 @@ const MoviesCard = ({
       </div>
       {!isSavedTemplate ? (
         <button
-          onClick={handleLike}
+          onClick={handleSave}
           type="button"
           className={cardSaveButtonClassName}
         >
@@ -81,7 +76,6 @@ const MoviesCard = ({
           type="button"
           className="movies-card__delete"
         >
-          {/*<span className="movies-card__save-text">Сохранить</span>*/}
         </button>
       )}
     </li>

@@ -53,7 +53,7 @@ function App() {
     setIsLoading(true)
     moviesApi.createUser(name, email, password)
       .then(() => {
-        navigate.push('/signin')
+        navigate('/signin')
       })
       .catch(err => err)
       .finally(() => setIsLoading(false));
@@ -85,6 +85,7 @@ function App() {
   }
 
   function handleUpdateUser({name, email}) {
+    debugger
     moviesApi.updateUser(name, email)
       .then((res) => {
         setUserData(res);
@@ -128,6 +129,7 @@ function App() {
   }
 
   function handleRemoveSavedMovie(cardId) {
+
     moviesApi.removeMovie(cardId)
       .then(() => {
         const cardIndex = savedMoviesData.findIndex(card => card._id === cardId._id);
@@ -211,6 +213,9 @@ function App() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </CurrentUserContext.Provider>
+      {(pathname === "/" ||
+        pathname === "/movies" ||
+        pathname === "/saved-movies") && <Footer />}
     </>
   );
 }
