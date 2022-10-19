@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
-import {useLocation} from "react-router-dom";
 
 const SearchForm = ({
   onSearch, onCheckboxClick, isShort

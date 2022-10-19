@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
-import {updateUser} from "../../utils/MoviesApi";
 
 const Profile = ({onLogout, onUpdateUser}) => {
 
