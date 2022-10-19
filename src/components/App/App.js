@@ -213,6 +213,9 @@ function App() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </CurrentUserContext.Provider>
+      {(pathname === "/" ||
+        pathname === "/movies" ||
+        pathname === "/saved-movies") && <Footer />}
     </>
   );
 }
