@@ -23,8 +23,9 @@ export const createMovie = (data) => {
   }).then(getData);
 }
 
-export const removeMovie = (data) => {
-  return fetch(`${BASE_URL}/movies/${data._id}`, {
+export const removeMovie = (movieId) => {
+  debugger
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json',

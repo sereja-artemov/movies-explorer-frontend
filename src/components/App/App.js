@@ -134,8 +134,7 @@ function App() {
   }
 
   function handleRemoveSavedMovie(cardId) {
-
-    moviesApi.removeMovie(cardId)
+    moviesApi.removeMovie(cardId._id)
       .then(() => {
         const cardIndex = savedMoviesData.findIndex(card => card._id === cardId._id);
         let newSavedMovies = [...savedMoviesData];
@@ -145,12 +144,13 @@ function App() {
       .catch(err => err)
   }
 
-  function getIdAndRemoveSavedMovie(movieId) {
-    if (savedMoviesData.length > 0) {
-      let cardId = savedMoviesData.find(card => card.movieId === movieId)._id;
-      handleRemoveSavedMovie(cardId);
-    }
-  }
+  // function getIdAndRemoveSavedMovie(movieId) {
+  //   debugger
+  //   if (savedMoviesData.length > 0) {
+  //     let cardId = savedMoviesData.find(card => card.movieId === movieId)._id;
+  //     handleRemoveSavedMovie(cardId);
+  //   }
+  // }
 
   return (
     <>
@@ -178,7 +178,6 @@ function App() {
                 onSearch={searchMoviesByQuery}
                 onFilter={filterMoviesByDuration}
                 onSaveMovie={handleSaveMovie}
-                onRemoveSavedMovie={getIdAndRemoveSavedMovie}
                 setIsLoading={setIsLoading}
                 isLoading={isLoading}
               />
