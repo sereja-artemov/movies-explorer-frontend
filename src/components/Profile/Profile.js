@@ -9,25 +9,13 @@ const Profile = ({onLogout, onUpdateUser}) => {
     register,
     handleSubmit,
     watch,
-    formState: { isDirty, errors, isValid },
+    formState: { isDirty, errors, isValid, defaultValues },
   } = useForm({ mode: "onChange", defaultValues: {
       name: currentUser.name,
       email: currentUser.email,
     } });
 
   let [name, email] = watch(['name', 'email']);
-
-  // const [name, setName] = useState('');
-  // const [email, setEmail] = useState('');
-
-  const [onEdit, setOnEdit] = useState(false);
-
-
-  // useEffect(() => {
-  //   name = currentUser.name;
-  //   // nameInput.current.value = currentUser.name;
-  //   // setEmail(currentUser.email);
-  // }, [])
 
   function handleFormSubmit() {
     onUpdateUser({ name, email });
@@ -78,18 +66,15 @@ const Profile = ({onLogout, onUpdateUser}) => {
           </div>
         </fieldset>
         <fieldset className="profile__fields profile__fields--settings">
-          { onEdit ? (
-            <button onClick={handleSubmit(handleFormSubmit)} type="button" className="profile__btn btn" disabled={isValid}>
-              Сохранить
-            </button>
-          ) : (
+
             <input
-              onClick={() => setOnEdit(!onEdit)}
+              onClick={handleSubmit(handleFormSubmit)}
               type="submit"
               className="profile__form-submit"
               value="Редактировать"
+              disabled={isValid && defaultValues.name === name && defaultValues.email === email}
             />
-          )}
+
           <button
             onClick={onLogout}
             type="button"

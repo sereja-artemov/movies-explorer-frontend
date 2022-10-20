@@ -90,6 +90,10 @@
 .profile__logout {
   cursor: pointer;
 }
+.profile__form-submit:disabled {
+  cursor: not-allowed;
+  color: #424242;
+}
 
 .profile__btn {
   background-color: #4285F4;
