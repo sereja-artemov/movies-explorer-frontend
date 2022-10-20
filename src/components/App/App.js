@@ -79,7 +79,7 @@ function App() {
         .then((res) => {
           const result = res.filter((m) => m.owner === userData._id)
           localStorage.setItem("savedMoviesData", JSON.stringify(result));
-          setSavedMoviesData(result);
+          setSavedMoviesData(res);
         })
         .catch(err => err)
     }
