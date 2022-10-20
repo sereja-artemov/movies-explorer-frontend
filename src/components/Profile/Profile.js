@@ -1,8 +1,8 @@
-import React, {createRef, useContext, useEffect, useState} from "react";
+import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {useForm} from "react-hook-form";
 
-const Profile = ({onLogout, onUpdateUser}) => {
+const Profile = ({onLogout, onUpdateUser, profileError}) => {
 
   const currentUser = useContext(CurrentUserContext);
   const {
@@ -18,12 +18,12 @@ const Profile = ({onLogout, onUpdateUser}) => {
   let [name, email] = watch(['name', 'email']);
 
   function handleFormSubmit() {
-    onUpdateUser({ name, email });
+    onUpdateUser({ name, email })
   }
 
   return (
     <section className="profile container">
-      <form action="POST" className="profile__form">
+      <form action="POST" className="profile__form" noValidate>
         <fieldset className="profile__fields">
           <h1 className="profile__title">Привет, {currentUser.name}!</h1>
           <div className="profile__field-wrapper">
@@ -41,6 +41,7 @@ const Profile = ({onLogout, onUpdateUser}) => {
                 }
               })}
             />
+            {errors.name && <span className="profile__error">{errors.name.message}</span>}
             <label htmlFor="profile-name" className="profile__label">
               Имя
             </label>
@@ -60,6 +61,7 @@ const Profile = ({onLogout, onUpdateUser}) => {
                 }
               })}
             />
+            {errors.email && <span className="profile__error">{errors.email.message}</span>}
             <label htmlFor="profile-email" className="profile__label">
               E-mail
             </label>
@@ -82,9 +84,9 @@ const Profile = ({onLogout, onUpdateUser}) => {
           >
             Выйти из аккаунта
           </button>
-          {errors && <span className="profile__error">
-            {errors.message}
-          </span>}
+          <span className="profile__error">
+            {/*{errors.email.message}*/}
+          </span>
 
         </fieldset>
       </form>

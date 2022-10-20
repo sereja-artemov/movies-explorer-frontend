@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Routes, Route, useLocation, Navigate, useNavigate, useHistory} from "react-router-dom";
+import {Routes, Route, useLocation, Navigate, useNavigate} from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -19,21 +19,24 @@ function App() {
   const [userData, setUserData] = useState({});
   const [moviesData, setMoviesData] = useState([]);
   const [savedMoviesData, setSavedMoviesData] = useState([]);
-  const [isPopupOpen, setPopupOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [profileError, setProfileError] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsLoading(true);
-
-    getMovies();
-  }, [])
-
-  useEffect(() => {
     checkToken();
+    if (localStorage.getItem('moviesBox')) {
+      setMoviesData(JSON.parse(localStorage.getItem('moviesBox')));
+    } else getMoviesData()
+      .then((moviesData) => {
+        localStorage.setItem('moviesBox', JSON.stringify(moviesData));
+        setMoviesData(moviesData);
+      })
+      .catch(err => err)
+
   }, [isLoggedIn]);
 
   function onRegister({ name, email, password }) {
@@ -42,7 +45,9 @@ function App() {
       .then(() => {
         navigate('/signin')
       })
-      .catch(err => err)
+      .catch(err => {
+        console.log(err)
+      })
       .finally(() => setIsLoading(false));
   }
 
@@ -54,7 +59,9 @@ function App() {
         setIsLoggedIn(true);
         navigate('/movies');
       })
-      .catch(err => err)
+      .catch(err => {
+        console.log(err)
+      })
       .finally(() => setIsLoading(false));
   }
 
@@ -64,6 +71,19 @@ function App() {
     setUserData({});
     setSavedMoviesData([]);
   }
+
+  //сохраненные фильмы
+  useEffect(() => {
+    if (isLoggedIn) {
+      moviesApi.getSavedMovies()
+        .then((res) => {
+          const result = res.filter((m) => m.owner === userData._id)
+          localStorage.setItem("savedMoviesData", JSON.stringify(result));
+          setSavedMoviesData(result);
+        })
+        .catch(err => err)
+    }
+  }, [isLoggedIn])
 
   function checkToken() {
     const token = localStorage.getItem('token');
@@ -75,33 +95,18 @@ function App() {
           navigate(location);
         })
         .catch((err) => err);
-
-      moviesApi.getSavedMovies()
-        .then((res) => {
-          setSavedMoviesData(res);
-        })
-        .catch(err => err)
     }
   }
 
   function handleUpdateUser({name, email}) {
-    debugger
     moviesApi.updateUser(name, email)
       .then((res) => {
         setUserData(res);
       })
-      .catch((err) => err);
-  }
-
-  function getMovies() {
-    if (localStorage.getItem('moviesBox')) {
-      setMoviesData(JSON.parse(localStorage.getItem('moviesBox')));
-    } else getMoviesData()
-      .then((moviesData) => {
-        localStorage.setItem('moviesBox', JSON.stringify(moviesData));
-        setMoviesData(moviesData);
-      })
-      .catch(err => err)
+      .catch((err) => {
+        console.log(err)
+        setProfileError('Ой, что-то пошло не так')
+      });
   }
 
   function searchMoviesByQuery(movies, query) {
@@ -200,6 +205,7 @@ function App() {
               <Profile
                 onLogout={handleLogout}
                 onUpdateUser={handleUpdateUser}
+                profileError={profileError}
               />
             </ProtectedRoute>
           }
