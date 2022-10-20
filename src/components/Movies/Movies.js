@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, onRemoveSavedMovie, setIsLoading, isLoading }) => {
+const Movies = ({ isSaved, setIsSaved, moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, onRemoveSavedMovie, setIsLoading, isLoading }) => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -23,7 +23,6 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
     const results = onFilter(searchResults, isShort);
     setFilteredResults(results);
   }, [searchResults, isShort]);
-
 
   function handleSearchQuery(query) {
     setSearchQuery(query);
@@ -48,6 +47,8 @@ const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, 
           savedMoviesData={savedMoviesData}
           onRemoveSavedMovie={onRemoveSavedMovie}
           isLoading={isLoading}
+          isSaved={isSaved}
+          setIsSaved={setIsSaved}
         />
       </section>
     </>
