@@ -24,7 +24,6 @@ export const createMovie = (data) => {
 }
 
 export const removeMovie = (movieId) => {
-  debugger
   return fetch(`${BASE_URL}/movies/${movieId}`, {
     method: 'DELETE',
     headers: {
@@ -59,6 +58,7 @@ export const updateUser = (name, email) => {
 }
 
 export const createUser = (name, email, password) => {
+  debugger
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {

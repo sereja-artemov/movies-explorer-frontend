@@ -10,6 +10,7 @@ const MoviesCardList = ({
   onRemoveSavedMovie,
   isLoading,
   isSavedTemplate,
+  getIdAndRemoveSavedMovie
 }) => {
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
@@ -62,6 +63,7 @@ const MoviesCardList = ({
               savedMovie={savedMovie}
               isSavedTemplate={isSavedTemplate}
               onDelete={onRemoveSavedMovie}
+              _id={savedMovie._id}
             />
           ))}
         </ul>
@@ -81,6 +83,7 @@ const MoviesCardList = ({
               movieId={card.id}
               isSavedTemplate={isSavedTemplate}
               onSaveMovie={onSaveMovie}
+              getIdAndRemoveSavedMovie={getIdAndRemoveSavedMovie}
               isMovieSaved={savedMoviesData.some(
                 (movie) => movie.movieId === card.id
               )}

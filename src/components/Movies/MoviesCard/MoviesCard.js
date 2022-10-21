@@ -18,6 +18,9 @@ const MoviesCard = ({
   onSaveMovie,
   isMovieSaved,
   savedMovie,
+  getIdAndRemoveSavedMovie,
+  _id,
+  card
 }) => {
 
   const [isSaved, setIsSaved] = useState(isMovieSaved);
@@ -45,6 +48,9 @@ const MoviesCard = ({
         trailerLink
       });
       setIsSaved(true);
+    } else {
+      getIdAndRemoveSavedMovie(movieId)
+      setIsSaved(false);
     }
   }
 

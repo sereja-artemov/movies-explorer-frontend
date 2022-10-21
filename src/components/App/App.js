@@ -144,13 +144,12 @@ function App() {
       .catch(err => err)
   }
 
-  // function getIdAndRemoveSavedMovie(movieId) {
-  //   debugger
-  //   if (savedMoviesData.length > 0) {
-  //     let cardId = savedMoviesData.find(card => card.movieId === movieId)._id;
-  //     handleRemoveSavedMovie(cardId);
-  //   }
-  // }
+  function getIdAndRemoveSavedMovie(movieId) {
+    if (savedMoviesData.length > 0) {
+      let cardId = savedMoviesData.find(card => card.movieId === movieId);
+      handleRemoveSavedMovie(cardId);
+    }
+  }
 
   return (
     <>
@@ -180,6 +179,7 @@ function App() {
                 onSaveMovie={handleSaveMovie}
                 setIsLoading={setIsLoading}
                 isLoading={isLoading}
+                getIdAndRemoveSavedMovie={getIdAndRemoveSavedMovie}
               />
             </ProtectedRoute>
           }
