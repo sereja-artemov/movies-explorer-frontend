@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
+import { toHoursAndMinutes } from "../../../utils/timeConverter";
+import {useLocation} from "react-router-dom";
+import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({
-  cards,
-  onSaveMovie,
-  savedMoviesData,
-  onRemoveSavedMovie,
-  isLoading,
-  isSavedTemplate,
-}) => {
+const MoviesCardList = ({ isLoading, filteredArray, savedMoviesArr }) => {
+
+  const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     checkCardsAmount();
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [windowInnerWidth]);
+
 
   function handleResize() {
     setWindowInnerWidth(window.innerWidth);
@@ -46,49 +46,40 @@ const MoviesCardList = ({
       setMoreCardsAmount(1);
     }
   };
-
+debugger
+  console.log(cardsAmount, moreCardsAmount);
+  console.log(savedMoviesArr)
   return (
     <>
-      {/*рендер сохраненных карточек из DB*/}
-      {isSavedTemplate && (
+      {/* НАЧАЛО На страницу фильмов*/}
+      { pathname === '/movies' &&
         <ul className="movies__list">
-          {isLoading && cards.length === 0 && <Preloader />}
-          {!isLoading && cards.length === 0 && <p>Ничего не найдено</p>}
+        {(isLoading && filteredArray.length === 0) && <Preloader />}
+        {!isLoading && filteredArray.length === 0 ? (
+          <p>Ничего не найдено</p>
+        ) : (
+          filteredArray.slice(0, cardsAmount).map((movie) => {
 
-          {cards.slice(0, cardsAmount).map((savedMovie) => (
-            <MoviesCard
-              key={savedMovie._id}
-              {...savedMovie}
-              savedMovie={savedMovie}
-              isSavedTemplate={isSavedTemplate}
-              onDelete={onRemoveSavedMovie}
-            />
-          ))}
-        </ul>
-      )}
-      {/*рендер всех карточек*/}
-      {!isSavedTemplate && (
-        <ul className="movies__list">
-          {isLoading && cards.length === 0 && <Preloader />}
-
-          {cards.slice(0, cardsAmount).map((card) => (
-            <MoviesCard
-              key={card.id}
-              {...card}
-              card={card}
-              image={MOVIES_SERVER_URL + card.image.url}
-              thumbnail={MOVIES_SERVER_URL + card.image.formats.thumbnail.url}
-              movieId={card.id}
-              isSavedTemplate={isSavedTemplate}
-              onSaveMovie={onSaveMovie}
-              isMovieSaved={savedMoviesData.some(
-                (movie) => movie.movieId === card.id
-              )}
-            />
-          ))}
-        </ul>
-      )}
-      {cards.length > cardsAmount && (
+            return (
+              <MoviesCard
+                id={movie.id}
+                key={movie.id}
+                imgLink={MOVIES_SERVER_URL + movie.image.url}
+                trailerLink={movie.trailerLink}
+                imgAlt={movie.nameRU}
+                name={movie.nameRU}
+                duration={toHoursAndMinutes(movie.duration)}
+                filteredArray={filteredArray}
+                setIsSaved={setIsSaved}
+                movie={movie}
+                isSaved={savedMoviesArr.some(card => card.movieId === movie.id)}
+              />
+            );
+          })
+        )}
+      </ul>
+      }
+      { (pathname === '/movies' && filteredArray.length > cardsAmount) &&
         <button
           onClick={handleLoadMoreCards}
           type="button"
@@ -96,7 +87,38 @@ const MoviesCardList = ({
         >
           Еще
         </button>
-      )}
+      }
+      {/* КОНЕЦ На страницу фильмов*/}
+
+      {/* НАЧАЛО На страницу сохраненных фильмов*/}
+      { pathname === '/saved-movies' &&
+        <ul className="movies__list">
+
+          {(isLoading && filteredArray.length === 0) && <Preloader />}
+          {!isLoading && filteredArray.length === 0 ? (
+            <p>Ничего не найдено</p>
+          ) : (
+            filteredArray.slice(0, cardsAmount).map((movie) => {
+              return (
+                <MoviesCard
+                  id={movie.movieId}
+                  key={movie.movieId}
+                  imgLink={movie.image}
+                  trailerLink={movie.trailerLink}
+                  imgAlt={movie.nameRU}
+                  name={movie.nameRU}
+                  duration={toHoursAndMinutes(movie.duration)}
+                  filteredArray={filteredArray}
+                  // isSaved={isSaved}
+                  isSaved={savedMoviesArr.some(card => card.movieId === movie.id)}
+                  setIsSaved={setIsSaved}
+                />
+              );
+            })
+          )}
+        </ul>
+      }
+      {/* КОНЕЦ На страницу сохраненных фильмов*/}
     </>
   );
 };

@@ -2,55 +2,60 @@ import React, {useEffect, useState} from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({ moviesData, savedMoviesData, onSearch, onFilter, onSaveMovie, onRemoveSavedMovie, setIsLoading, isLoading }) => {
+const Movies = ({moviesData, isLoading, savedMoviesArr}) => {
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [isShort, setShort] = useState(false);
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [filteredArray, setFilteredArray] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
 
   useEffect(() => {
-    const getResults = async () => {
-      setIsLoading(true);
-      const results = await onSearch(moviesData, searchQuery);
-      setSearchResults(results);
-      setIsLoading(false)
+    if (localStorage.getItem('moviesPageData')) {
+      setIsChecked(localStorageMoviesObj.checked);
+      setSearchKeyword(localStorageMoviesObj.keyword);
+      setFilteredArray(localStorageMoviesObj.moviesArr);
     }
-    getResults().then();
-  }, [searchQuery]);
+  }, [])
 
   useEffect(() => {
-    const results = onFilter(searchResults, isShort);
-    setFilteredResults(results);
-  }, [searchResults, isShort]);
+    const localStorageMoviesData = {
+      checked: isChecked,
+      moviesArr: filteredArray,
+      keyword: searchKeyword,
+    }
+    localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
 
+  }, [isChecked, searchKeyword, filteredArray])
 
-  function handleSearchQuery(query) {
-    setSearchQuery(query);
-  }
-
-  function handleCheckboxClick(event) {
-    setShort(event.target.checked);
+  //Поиск по ключевому слову
+  function sortArray(event) {
+    event.preventDefault();
+    const filteredArr = moviesData.filter(movie => {
+      if (isChecked && movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase()) && movie.duration <= 40) {
+        return movie;
+      } else if (!isChecked){
+        return movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase());
+      }
+    })
+    setFilteredArray(filteredArr);
   }
 
   return (
-    <>
-      <section className="movies">
-        <SearchForm
-          onSearch={handleSearchQuery}
-          onCheckboxClick={handleCheckboxClick}
-          isShort={isShort}
-        />
-        <MoviesCardList
-          isSavedTemplate={false}
-          cards={filteredResults}
-          onSaveMovie={onSaveMovie}
-          savedMoviesData={savedMoviesData}
-          onRemoveSavedMovie={onRemoveSavedMovie}
-          isLoading={isLoading}
-        />
-      </section>
-    </>
+    <section className="movies">
+      <SearchForm
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+        sortArray={sortArray}
+        setIsChecked={setIsChecked}
+        isChecked={isChecked}
+        localStorageMoviesObj={localStorageMoviesObj}
+      />
+      <MoviesCardList
+        isLoading={isLoading}
+        filteredArray={filteredArray}
+        savedMoviesArr={savedMoviesArr}
+      />
+    </section>
   );
 };
 

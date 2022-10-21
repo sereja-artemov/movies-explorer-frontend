@@ -2,48 +2,58 @@ import React from 'react';
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import {useEffect, useState} from "react";
+import {getSavedMovies} from "../../utils/MoviesApi";
 
-const SavedMovies = ({ savedMoviesData, onSearch, onFilter, onRemoveSavedMovie }) => {
+const SavedMovies = ({ isLoading, savedMoviesArr, setSavedMoviesArr, savedFilteredArray, setSavedFilteredArray }) => {
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [isShort, setShort] = useState(false);
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+
+  const [isChecked, setIsChecked] = useState(false);
+  const localStorageMoviesObj = JSON.parse(localStorage.getItem('savedMoviesPageData'));
 
   useEffect(() => {
-    const getResults = async () => {
-      const results = await onSearch(savedMoviesData, searchQuery);
-      setSearchResults(results);
+
+    if (localStorage.getItem('savedMoviesPageData')) {
+      setIsChecked(localStorageMoviesObj.checked);
+      setSearchKeyword(localStorageMoviesObj.keyword);
     }
-    getResults().then();
-  }, [searchQuery, savedMoviesData]);
+  }, [])
 
   useEffect(() => {
-    const results = onFilter(searchResults, isShort);
-    setFilteredResults(results);
-  }, [searchResults, isShort, savedMoviesData]);
+    const localStorageMoviesData = {
+      checked: isChecked,
+      keyword: searchKeyword,
+    }
+    localStorage.setItem('savedMoviesPageData', JSON.stringify(localStorageMoviesData));
 
-  function handleSearchQuery(query) {
-    setSearchQuery(query);
-  }
+  }, [isChecked, searchKeyword])
 
-  function handleCheckboxClick(event) {
-    setShort(event.target.checked);
+  //Поиск по ключевому слову
+  function sortArray(event) {
+    event.preventDefault();
+
+    const filteredArr = savedMoviesArr.filter(movie => {
+      if (isChecked && movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase()) && movie.duration <= 40) {
+        return movie;
+      } else if (!isChecked){
+        return movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase());
+      }
+    })
+    setSavedFilteredArray(filteredArr);
   }
 
   return (
     <section className="movies">
       <SearchForm
-        onSearch={handleSearchQuery}
-        isShort={isShort}
-        onCheckboxClick={handleCheckboxClick}
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+        sortArray={sortArray}
+        setIsChecked={setIsChecked}
+        isChecked={isChecked}
+        localStorageMoviesObj={localStorageMoviesObj}
       />
-      <MoviesCardList
-        isSavedTemplate={true}
-        savedMoviesData={savedMoviesData}
-        cards={filteredResults}
-        onRemoveSavedMovie={onRemoveSavedMovie}
-      />
+      <MoviesCardList filteredArray={savedFilteredArray} savedMoviesArr={savedMoviesArr} isLoading={isLoading} />
     </section>
   );
 };
