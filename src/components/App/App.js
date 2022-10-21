@@ -155,6 +155,7 @@ function App() {
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Movies
                   moviesData={moviesData}
+                  savedMovies={savedMovies}
                   searchMovies={searchMovies}
                   filteredMovies={filteredMovies}
                   setFilteredMovies={setFilteredMovies}

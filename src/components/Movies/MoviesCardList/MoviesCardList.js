@@ -6,7 +6,7 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({  filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
+const MoviesCardList = ({ savedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
 //
 //   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
@@ -49,33 +49,35 @@ const MoviesCardList = ({  filteredMovies ,isLoading, setIsLoading, searchMovies
 
   return (
     <>
-      {
-        isSavePageTemplate === false &&
-          <ul className="movies__list">
-            { isLoading && <Preloader /> }
-            {(!isLoading && filteredMovies.length === 0) && <p>Ничего не найдено</p> }
-            { filteredMovies.slice(0, cardsAmount).map((movie) => {
-
-              return (
-                <MoviesCard
-                  id={movie.id}
-                  key={movie.id}
-                  imgLink={MOVIES_SERVER_URL + movie.image.url}
-                  trailerLink={movie.trailerLink}
-                  imgAlt={movie.nameRU}
-                  name={movie.nameRU}
-                  duration={toHoursAndMinutes(movie.duration)}
-                  movie={movie}
-                  // isSaved={savedMoviesArr.some(
-                  //   (card) => card.movieId === movie.id
-                  // )
-                  // }
-                />
-              );
-            }) }
-          </ul>
-
-      }
+      {isSavePageTemplate === false && (
+        <ul className="movies__list">
+          {isLoading && <Preloader />}
+          {!isLoading && filteredMovies.length === 0 && (
+            <p>Ничего не найдено</p>
+          )}
+          {filteredMovies.slice(0, cardsAmount).map((movie) => {
+            return (
+              <MoviesCard
+                {...movie}
+                key={movie.id}
+                imgLink={MOVIES_SERVER_URL + movie.image.url}
+                imgAlt={movie.nameRU}
+                duration={toHoursAndMinutes(movie.duration)}
+                isSaved={savedMovies.some((i) => i.movieId === movie.id)}
+              />
+            );
+          })}
+        </ul>
+      )}
+      {isSavePageTemplate === false && filteredMovies.length > cardsAmount && (
+        <button
+          onClick={handleLoadMoreCards}
+          type="button"
+          className="movies__btn btn--stroke"
+        >
+          Еще
+        </button>
+      )}
     </>
     // <>
     //   {/* НАЧАЛО На страницу фильмов*/}

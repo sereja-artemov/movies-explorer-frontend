@@ -4,6 +4,7 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
 const Movies = ({
   moviesData,
+  savedMovies,
                   searchMovies,
   filteredMovies,
   setFilteredMovies,
@@ -44,7 +45,7 @@ const Movies = ({
         isShort={isShort}
         setIsShort={setIsShort}
       />
-      <MoviesCardList isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
+      <MoviesCardList savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
     </section>
   );
 };

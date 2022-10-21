@@ -7,7 +7,7 @@ import {toHoursAndMinutes} from "../../../utils/timeConverter";
 const MoviesCard = ({
   id,
   imgLink,
-  name,
+                      nameRU,
   duration,
   imgAlt,
   trailerLink,
@@ -66,7 +66,7 @@ const MoviesCard = ({
         <img src={imgLink} alt={imgAlt} className="movies-card__image" />
       </a>
       <div className="movies-card__description">
-        <h2 className="movies-card__name">{name}</h2>
+        <h2 className="movies-card__name">{nameRU}</h2>
         <span className="movies-card__duration">{duration}</span>
       </div>
       {pathname === "/movies" && (
