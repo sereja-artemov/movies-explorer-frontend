@@ -6,7 +6,7 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ isLoading, filteredArray}) => {
+const MoviesCardList = ({ isLoading, filteredArray, savedMoviesArr }) => {
 
   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
@@ -46,9 +46,9 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
       setMoreCardsAmount(1);
     }
   };
-
+debugger
   console.log(cardsAmount, moreCardsAmount);
-
+  console.log(savedMoviesArr)
   return (
     <>
       {/* НАЧАЛО На страницу фильмов*/}
@@ -58,11 +58,8 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
         {!isLoading && filteredArray.length === 0 ? (
           <p>Ничего не найдено</p>
         ) : (
-          filteredArray.slice(0, cardsAmount).map((movie, index) => {
-            //тут делаем проверку. Если id карточки совпадает с movieId сохраненной карточки, то устанавливаем isSaved = true
-              if (movie.id) {
-                console.log(`${index} ${movie.id}`)
-              }
+          filteredArray.slice(0, cardsAmount).map((movie) => {
+
             return (
               <MoviesCard
                 id={movie.id}
@@ -73,9 +70,9 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
                 name={movie.nameRU}
                 duration={toHoursAndMinutes(movie.duration)}
                 filteredArray={filteredArray}
-                isSaved={isSaved}
                 setIsSaved={setIsSaved}
                 movie={movie}
+                isSaved={savedMoviesArr.some(card => card.movieId === movie.id)}
               />
             );
           })
@@ -112,7 +109,8 @@ const MoviesCardList = ({ isLoading, filteredArray}) => {
                   name={movie.nameRU}
                   duration={toHoursAndMinutes(movie.duration)}
                   filteredArray={filteredArray}
-                  isSaved={isSaved}
+                  // isSaved={isSaved}
+                  isSaved={savedMoviesArr.some(card => card.movieId === movie.id)}
                   setIsSaved={setIsSaved}
                 />
               );

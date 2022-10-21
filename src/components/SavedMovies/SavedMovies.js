@@ -4,21 +4,15 @@ import SearchForm from "../Movies/SearchForm/SearchForm";
 import {useEffect, useState} from "react";
 import {getSavedMovies} from "../../utils/MoviesApi";
 
-const SavedMovies = ({ isLoading }) => {
+const SavedMovies = ({ isLoading, savedMoviesArr, setSavedMoviesArr, savedFilteredArray, setSavedFilteredArray }) => {
 
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [filteredArray, setFilteredArray] = useState([]);
-  const [savedMoviesArr, setSavedMoviesArr] = useState([]);
+
+
   const [isChecked, setIsChecked] = useState(false);
   const localStorageMoviesObj = JSON.parse(localStorage.getItem('savedMoviesPageData'));
 
   useEffect(() => {
-    getSavedMovies()
-      .then((movies) => {
-        setFilteredArray(movies);
-        setSavedMoviesArr(movies);
-      })
-      .catch((err) => err);
 
     if (localStorage.getItem('savedMoviesPageData')) {
       setIsChecked(localStorageMoviesObj.checked);
@@ -46,7 +40,7 @@ const SavedMovies = ({ isLoading }) => {
         return movie.nameRU.toLowerCase().includes(searchKeyword.toLowerCase());
       }
     })
-    setFilteredArray(filteredArr);
+    setSavedFilteredArray(filteredArr);
   }
 
   return (
@@ -59,7 +53,7 @@ const SavedMovies = ({ isLoading }) => {
         isChecked={isChecked}
         localStorageMoviesObj={localStorageMoviesObj}
       />
-      <MoviesCardList filteredArray={filteredArray} savedMoviesArr={savedMoviesArr} isLoading={isLoading} />
+      <MoviesCardList filteredArray={savedFilteredArray} savedMoviesArr={savedMoviesArr} isLoading={isLoading} />
     </section>
   );
 };

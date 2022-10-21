@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../movies-explorer-api/.idea/movies-explorer-api.iml" filepath="$PROJECT_DIR$/../movies-explorer-api/.idea/movies-explorer-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/movies-explorer-frontend.iml" filepath="$PROJECT_DIR$/.idea/movies-explorer-frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../learn/movies-explorer-frontend-refactor/.idea/movies-explorer-frontend-refactor.iml" filepath="$PROJECT_DIR$/../learn/movies-explorer-frontend-refactor/.idea/movies-explorer-frontend-refactor.iml" />
     </modules>
   </component>
 </project>

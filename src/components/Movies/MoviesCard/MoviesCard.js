@@ -80,7 +80,7 @@ const MoviesCard = ({
         </button>
       )}
       {/*Показываем кнопку удаления только, если элемент сохранен и только на странице сохраненок*/}
-      {(pathname === "/saved-movies" && isSaved) && (
+      {(pathname === "/saved-movies") && (
         <button className="movies-card__delete"></button>
       )}
     </li>

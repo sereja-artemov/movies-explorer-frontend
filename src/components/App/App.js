@@ -18,6 +18,8 @@ import {createUser, getSavedMovies} from "../../utils/MoviesApi";
 function App() {
 
   const [moviesData, setMoviesData] = useState([]);
+  const [savedMoviesArr, setSavedMoviesArr] = useState([]);
+  const [savedFilteredArray, setSavedFilteredArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
@@ -32,9 +34,23 @@ function App() {
         setMoviesData(data);
         setIsLoading(false);
       })
-      .catch(err => err);
+      .catch((err) => err);
 
-  }, [isLoggedIn])
+    getSavedMovies()
+      .then((movies) => {
+        setSavedMoviesArr(movies);
+      })
+      .catch((err) => err);
+  }, [isLoggedIn]);
+
+  // useEffect(() => {
+  //   getSavedMovies()
+  //     .then((movies) => {
+  //       setSavedMoviesArr(movies);
+  //     })
+  //     .catch((err) => err);
+  //
+  // }, [])
 
   useEffect(() => {
     checkToken();
@@ -98,12 +114,12 @@ function App() {
               }></Route>
               <Route path="/movies" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Movies moviesData={moviesData} isLoading={isLoading} />
+                  <Movies moviesData={moviesData} isLoading={isLoading} savedMoviesArr={savedMoviesArr} />
                 </ProtectedRoute>
               }></Route>
               <Route path="/saved-movies" element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <SavedMovies />
+                  <SavedMovies savedMoviesArr={savedMoviesArr} setSavedMoviesArr={setSavedMoviesArr} savedFilteredArray={savedFilteredArray} setSavedFilteredArray={setSavedFilteredArray} />
                 </ProtectedRoute>
               }></Route>
               <Route path="/profile" element={

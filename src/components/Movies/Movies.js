@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({moviesData, isLoading}) => {
+const Movies = ({moviesData, isLoading, savedMoviesArr}) => {
 
   const [searchKeyword, setSearchKeyword] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
@@ -53,6 +53,7 @@ const Movies = ({moviesData, isLoading}) => {
       <MoviesCardList
         isLoading={isLoading}
         filteredArray={filteredArray}
+        savedMoviesArr={savedMoviesArr}
       />
     </section>
   );
