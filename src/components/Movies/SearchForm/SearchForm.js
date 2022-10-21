@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = ({
-  onSearch, onCheckboxClick, isShort
+  setSearchQuery, setIsShort, isShort
 }) => {
 
   const [inputValue, setInputValue] = useState('');
 
   function handleSubmitForm(event) {
     event.preventDefault();
-    onSearch(inputValue);
+    setSearchQuery(inputValue);
   }
 
   function handleSearchInput(event) {
@@ -62,8 +62,8 @@ const SearchForm = ({
       </div>
       <div className="search-form__checkbox-wrapper">
         <FilterCheckbox
-          isChecked={isShort}
-          onCheck={onCheckboxClick}
+          isShort={isShort}
+          setIsShort={setIsShort}
           label="Короткометражки"
           inputId="short-films"
           name="short-films"

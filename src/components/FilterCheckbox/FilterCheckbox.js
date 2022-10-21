@@ -1,17 +1,21 @@
 import React from "react";
 
-const FilterCheckbox = ({ isChecked, onCheck, inputId, label, name }) => {
+const FilterCheckbox = ({ isShort, setIsShort, inputId, label, name }) => {
+
+  function handleChangeCheckbox() {
+    setIsShort(!isShort);
+  }
 
   return (
     <label htmlFor={inputId} className="form__radio-label">
       <input
-        onChange={onCheck}
+        onChange={handleChangeCheckbox}
         className="filter__checkbox"
         id={inputId}
         name={name}
         type="checkbox"
         value={label}
-        defaultChecked={isChecked}
+        defaultChecked={isShort}
       />
       <span className="filter__checkbox-indicator"></span>
       {label}
