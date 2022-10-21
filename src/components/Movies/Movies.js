@@ -8,34 +8,34 @@ const Movies = ({ moviesData, filterMovies, setFilteredMovies }) => {
   const [isShort, setIsShort] = useState(false);
 
   // const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
-
+  //
   // useEffect(() => {
   //   if (localStorage.getItem('moviesPageData')) {
-  //     setIsChecked(localStorageMoviesObj.checked);
-  //     setSearchKeyword(localStorageMoviesObj.keyword);
-  //     setFilteredArray(localStorageMoviesObj.moviesArr);
+  //     setIsShort(localStorageMoviesObj.checked);
+  //     setSearchQuery(localStorageMoviesObj.keyword);
   //   }
   // }, [])
   //
   // useEffect(() => {
   //   const localStorageMoviesData = {
-  //     checked: isChecked,
-  //     moviesArr: filteredArray,
-  //     keyword: searchKeyword,
+  //     checked: isShort,
+  //     keyword: searchQuery,
   //   }
   //   localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
   //
-  // }, [isChecked, searchKeyword, filteredArray])
+  // }, [isShort, searchQuery])
 
   useEffect(() => {
     const filteredMovies = filterMovies(moviesData, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
+
   }, [searchQuery, isShort]);
 
 
   return (
     <section className="movies">
       <SearchForm
+        searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         isShort={isShort}
         setIsShort={setIsShort}
