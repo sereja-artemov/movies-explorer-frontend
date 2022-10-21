@@ -97,15 +97,15 @@ function App() {
     return moviesArr.filter((i) => i.duration < SHORT_FILTER_MINUTES_DURATION);
   }
 
-  function filterMovies(moviesArr, searchQuery, isShortMovie) {
+  function searchMovies(moviesArr, searchQuery, isShortMovie) {
     const filteredMovies = moviesArr.filter((i) => {
       return i.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
-    if (isShortMovie) {
+    if (isShortMovie && searchQuery !== "") {
       return filterMoviesByDuration(filteredMovies);
     }
-    return filteredMovies;
+    return searchQuery !== "" ? filteredMovies : [];
   }
 
 
@@ -141,29 +141,51 @@ function App() {
         pathname === "/profile") && <Header isLoggedIn={isLoggedIn} />}
       <CurrentUserContext.Provider value={userData}>
         <Routes>
-              <Route path="/" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Main />
-                </ProtectedRoute>
-              }></Route>
-              <Route path="/movies" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Movies moviesData={moviesData} filterMovies={filterMovies} setFilteredMovies={setFilteredMovies} />
-                </ProtectedRoute>
-              }></Route>
-              <Route path="/saved-movies" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <SavedMovies  />
-                </ProtectedRoute>
-              }></Route>
-              <Route path="/profile" element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile userData={userData} handleLogout={handleLogout}/>
-                </ProtectedRoute>
-              }></Route>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Main />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Movies
+                  moviesData={moviesData}
+                  searchMovies={searchMovies}
+                  filteredMovies={filteredMovies}
+                  setFilteredMovies={setFilteredMovies}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/saved-movies"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <SavedMovies />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Profile userData={userData} handleLogout={handleLogout} />
+              </ProtectedRoute>
+            }
+          ></Route>
 
-          <Route path="/signin" element={<Login onLogin={onLogin}/>}></Route>
-          <Route path="/signup" element={<Register onRegister={onRegister} />}></Route>
+          <Route path="/signin" element={<Login onLogin={onLogin} />}></Route>
+          <Route
+            path="/signup"
+            element={<Register onRegister={onRegister} />}
+          ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </CurrentUserContext.Provider>

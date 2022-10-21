@@ -1,10 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
-const Movies = ({ moviesData, filterMovies, setFilteredMovies }) => {
-
-  const [searchQuery, setSearchQuery] = useState('');
+const Movies = ({
+  moviesData,
+                  searchMovies,
+  filteredMovies,
+  setFilteredMovies,
+  isLoading,
+  setIsLoading,
+}) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [isShort, setIsShort] = useState(false);
 
   // const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
@@ -26,11 +32,9 @@ const Movies = ({ moviesData, filterMovies, setFilteredMovies }) => {
   // }, [isShort, searchQuery])
 
   useEffect(() => {
-    const filteredMovies = filterMovies(moviesData, searchQuery, isShort);
+    const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
-
   }, [searchQuery, isShort]);
-
 
   return (
     <section className="movies">
@@ -40,9 +44,7 @@ const Movies = ({ moviesData, filterMovies, setFilteredMovies }) => {
         isShort={isShort}
         setIsShort={setIsShort}
       />
-      <MoviesCardList
-
-      />
+      <MoviesCardList isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
     </section>
   );
 };
