@@ -15,6 +15,7 @@ const MoviesCardList = ({
   setIsLoading,
   searchMovies,
   isSavePageTemplate,
+  handleDeleteMovie
 }) => {
   //
   //   const { pathname } = useLocation();
@@ -57,6 +58,7 @@ const MoviesCardList = ({
 
   return (
     <>
+      {/* Все фильмы */}
       {isSavePageTemplate === false && (
         <ul className="movies__list">
           {isLoading && <Preloader />}
@@ -92,20 +94,22 @@ const MoviesCardList = ({
         </button>
       )}
 
+      {/* Сохраненные фильмы */}
       {isSavePageTemplate === true && (
         <ul className="movies__list">
           {isLoading && <Preloader />}
           {!isLoading && filteredMovies.length === 0 && <p>Ничего не найдено</p>}
           {filteredMovies.map((movie) => {
-
             return (
               <MoviesCard
                 {...movie}
+                movie={movie}
                 key={movie.movieId}
                 imgLink={movie.image}
                 isSavePageTemplate={isSavePageTemplate}
                 imgAlt={movie.nameRU}
                 trailerLink={movie.trailerLink}
+                handleDeleteMovie={handleDeleteMovie}
               />
             );
           })}

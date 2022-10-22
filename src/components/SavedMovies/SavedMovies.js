@@ -17,6 +17,7 @@ const SavedMovies = ({
   isLoading,
   setIsLoading,
   filteredMovies,
+  handleDeleteMovie,
 }) => {
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const SavedMovies = ({
   useEffect(() => {
     const filteredMovies = searchMovies(savedMovies, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
-  }, [searchQuery, isShort]);
+  }, [searchQuery, isShort, savedMovies]);
 
   return (
     <section className="movies">
@@ -49,6 +50,7 @@ const SavedMovies = ({
         setIsLoading={setIsLoading}
         filteredMovies={filteredMovies}
         searchMovies={searchMovies}
+        handleDeleteMovie={handleDeleteMovie}
       />
     </section>
   );

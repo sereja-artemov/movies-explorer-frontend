@@ -21,11 +21,13 @@ const MoviesCard = ({
   isSaved,
   isSavePageTemplate,
   handleSaveMovie,
+  handleDeleteMovie,
+  movie
 }) => {
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
-
+  console.log(movie)
   function handleSaveButton() {
     handleSaveMovie({
       country,
@@ -40,6 +42,10 @@ const MoviesCard = ({
       thumbnail: MOVIES_SERVER_URL + image.url,
       movieId,
     });
+  }
+
+  function handleDeleteButton() {
+    handleDeleteMovie(movie);
   }
 
   return (
@@ -69,7 +75,7 @@ const MoviesCard = ({
         </button>
       )}
 
-      {isSavePageTemplate && <button className="movies-card__delete"></button>}
+      {isSavePageTemplate && <button onClick={handleDeleteButton} className="movies-card__delete"></button>}
     </li>
   );
 };

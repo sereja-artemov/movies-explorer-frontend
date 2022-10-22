@@ -20,9 +20,10 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as moviesApi from "../../utils/MoviesApi";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {
+  createMovie,
   createUser,
   getCurrentUser,
-  getSavedMovies,
+  getSavedMovies, removeMovie,
 } from "../../utils/MoviesApi";
 import { SHORT_FILTER_MINUTES_DURATION } from "../../utils/constants";
 
@@ -168,31 +169,30 @@ function App() {
 
   //сохранить фильм
   function handleSaveMovie(movie) {
-    moviesApi
-      .createMovie(movie)
+    createMovie(movie)
       .then((res) => {
         const updatedSavedMovies = [
           ...savedMovies,
           { ...res, id: res.movieId },
         ];
         setSavedMovies(updatedSavedMovies);
-        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+        // localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
       })
       .catch((err) => console.log(err));
   }
 
-  //
-  // //удалить фильм из библиотеки
-  // function handleDeleteMovie(movie) {
-  //   mainApi
-  //     .deleteMovie(movie._id)
-  //     .then(() => {
-  //       const updatedSavedMovies = savedMovies.filter(m => m._id !== movie._id)
-  //       setSavedMovies(updatedSavedMovies);
-  //       localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
-  //     })
-  //     .catch(err => console.log(err))
-  // };
+  //удалить фильм из библиотеки
+  function handleDeleteMovie(movie) {
+    removeMovie(movie)
+      .then((res) => {
+        const deletedCardIndex = savedMovies.findIndex(m => m._id === movie._id);
+        let newSavedMovies = [...savedMovies];
+        newSavedMovies.splice(deletedCardIndex, 1);
+        setSavedMovies(newSavedMovies);
+        // localStorage.setItem("savedMovies", JSON.stringify(newSavedMovies));
+      })
+      .catch(err => console.log(err))
+  }
 
   return (
     <div>
@@ -251,6 +251,7 @@ function App() {
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   filteredMovies={filteredMovies}
+                  handleDeleteMovie={handleDeleteMovie}
                 />
               </ProtectedRoute>
             }
