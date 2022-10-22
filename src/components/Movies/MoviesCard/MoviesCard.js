@@ -17,11 +17,9 @@ const MoviesCard = ({
   image,
   nameEN,
   movieId,
-  movie,
   country,
   isSaved,
   isSavePageTemplate,
-  setSavedMovies,
   handleSaveMovie,
 }) => {
   const cardSaveButtonClassName = `movies-card__save ${

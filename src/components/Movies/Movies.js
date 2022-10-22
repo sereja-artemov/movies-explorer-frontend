@@ -11,13 +11,14 @@ const Movies = ({
   isLoading,
   setIsLoading,
   setSavedMovies,
-  handleSaveMovie
+  handleSaveMovie,
+  setInputValue,
+  searchQuery,
+  setIsShort,
+  setSearchQuery,
+  isShort,
+  inputValue
 }) => {
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isShort, setIsShort] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-
 
   useEffect(() => {
     if (localStorage.getItem('inputValue')) {
@@ -30,7 +31,6 @@ const Movies = ({
   useEffect(() => {
     const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
-    // localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies))
   }, [searchQuery, isShort]);
 
   return (

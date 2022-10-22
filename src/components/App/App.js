@@ -27,6 +27,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isShort, setIsShort] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -180,6 +184,12 @@ function App() {
                   setIsLoading={setIsLoading}
                   setSavedMovies={setSavedMovies}
                   handleSaveMovie={handleSaveMovie}
+                  inputValue={inputValue}
+                  setInputValue={setInputValue}
+                  setSearchQuery={setSearchQuery}
+                  searchQuery={searchQuery}
+                  isShort={isShort}
+                  setIsShort={setIsShort}
                 />
               </ProtectedRoute>
             }
@@ -188,7 +198,14 @@ function App() {
             path="/saved-movies"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <SavedMovies />
+                <SavedMovies savedMovies={savedMovies} searchMovies={searchMovies}
+                setFilteredMovies={setFilteredMovies}
+                searchQuery={searchQuery}
+                isShort={isShort}
+                inputValue={inputValue}
+                             setInputValue={setInputValue}
+                             setSearchQuery={setSearchQuery}
+                />
               </ProtectedRoute>
             }
           ></Route>

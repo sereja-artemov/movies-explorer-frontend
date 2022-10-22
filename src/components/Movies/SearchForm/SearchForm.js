@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = ({
-  setSearchQuery, setIsShort, isShort, inputValue, setInputValue
+  setSearchQuery, setIsShort, isShort, inputValue, setInputValue, savedPageLocalStorage
 }) => {
 
 
@@ -13,8 +13,14 @@ const SearchForm = ({
   }
 
   function handleSearchInput(event) {
-    setInputValue(event.target.value);
-    localStorage.setItem('inputValue', event.target.value);
+
+    if (savedPageLocalStorage) {
+      setInputValue(event.target.value);
+      localStorage.setItem('inputValueSavedPage', event.target.value);
+    } else {
+      setInputValue(event.target.value);
+      localStorage.setItem('inputValue', event.target.value);
+    }
   }
 
   useEffect(() => {
