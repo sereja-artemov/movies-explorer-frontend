@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const FilterCheckbox = ({ isShort, setIsShort, inputId, label, name }) => {
 
   function handleChangeCheckbox() {
     setIsShort(!isShort);
+    localStorage.setItem('checkbox', !isShort);
   }
 
   return (
@@ -15,7 +16,7 @@ const FilterCheckbox = ({ isShort, setIsShort, inputId, label, name }) => {
         name={name}
         type="checkbox"
         value={label}
-        defaultChecked={isShort}
+        // checked={isShort}
       />
       <span className="filter__checkbox-indicator"></span>
       {label}

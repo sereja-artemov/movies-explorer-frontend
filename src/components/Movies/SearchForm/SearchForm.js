@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = ({
-  setSearchQuery, setIsShort, isShort
+  setSearchQuery, setIsShort, isShort, inputValue, setInputValue
 }) => {
 
-  const [inputValue, setInputValue] = useState('');
+
 
   function handleSubmitForm(event) {
     event.preventDefault();
@@ -14,7 +14,16 @@ const SearchForm = ({
 
   function handleSearchInput(event) {
     setInputValue(event.target.value);
+    localStorage.setItem('inputValue', event.target.value);
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('inputValue')) {
+      const value = localStorage.getItem('inputValue');
+      setInputValue(value);
+      setSearchQuery(value);
+    }
+  }, [])
 
   return (
     <form
