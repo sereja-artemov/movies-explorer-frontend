@@ -23,7 +23,7 @@ import {
   createMovie,
   createUser,
   getCurrentUser,
-  getSavedMovies, removeMovie,
+  getSavedMovies, removeMovie, updateUser,
 } from "../../utils/MoviesApi";
 import { SHORT_FILTER_MINUTES_DURATION } from "../../utils/constants";
 
@@ -41,15 +41,10 @@ function App() {
   const [isShort, setIsShort] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+  const [profileError, setProfileError] = useState('');
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  // useEffect(() => {
-  //   const fmlstrg = JSON.parse(localStorage.getItem('filteredMovies'));
-  //   if (localStorage.getItem('filteredMovies') !== null) {
-  //     setFilteredMovies(fmlstrg);
-  //   }
-  // }, [])
 
   const location = useLocation();
 
@@ -138,6 +133,17 @@ function App() {
     }
   }
 
+  function handleUpdateUser({ name, email }) {
+    updateUser(name, email)
+      .then((res) => {
+        setUserData(res);
+      })
+      .catch((err) => {
+        console.log(err)
+        setProfileError('Ой, что-то пошло не так')
+      });
+  }
+
   // поиск и фильтры
   function filterMoviesByDuration(moviesArr) {
     return moviesArr.filter((i) => i.duration < SHORT_FILTER_MINUTES_DURATION);
@@ -195,7 +201,6 @@ function App() {
   }
 
   function handleRemoveSavedMovie(movieId) {
-
     if (savedMovies.length > 0) {
       let movie = savedMovies.find(m => m.movieId === movieId);
       handleDeleteMovie(movie);
@@ -269,7 +274,7 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Profile userData={userData} handleLogout={handleLogout} />
+                <Profile userData={userData} handleLogout={handleLogout} handleUpdateUser={handleUpdateUser} profileError={profileError} />
               </ProtectedRoute>
             }
           ></Route>

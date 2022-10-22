@@ -1,15 +1,15 @@
-import React, {createRef, useContext, useEffect, useState} from "react";
+import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {useForm} from "react-hook-form";
 
-const Profile = ({onLogout, onUpdateUser}) => {
+const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
 
   const currentUser = useContext(CurrentUserContext);
   const {
     register,
     handleSubmit,
     watch,
-    formState: { isDirty, errors, isValid },
+    formState: { isDirty, errors, isValid, defaultValues },
   } = useForm({ mode: "onChange", defaultValues: {
       name: currentUser.name,
       email: currentUser.email,
@@ -17,25 +17,13 @@ const Profile = ({onLogout, onUpdateUser}) => {
 
   let [name, email] = watch(['name', 'email']);
 
-  // const [name, setName] = useState('');
-  // const [email, setEmail] = useState('');
-
-  const [onEdit, setOnEdit] = useState(false);
-
-
-  // useEffect(() => {
-  //   name = currentUser.name;
-  //   // nameInput.current.value = currentUser.name;
-  //   // setEmail(currentUser.email);
-  // }, [])
-
   function handleFormSubmit() {
-    onUpdateUser({ name, email });
+    handleUpdateUser({ name, email })
   }
 
   return (
     <section className="profile container">
-      <form action="POST" className="profile__form">
+      <form action="POST" className="profile__form" noValidate>
         <fieldset className="profile__fields">
           <h1 className="profile__title">Привет, {currentUser.name}!</h1>
           <div className="profile__field-wrapper">
@@ -53,6 +41,7 @@ const Profile = ({onLogout, onUpdateUser}) => {
                 }
               })}
             />
+            {errors.name && <span className="profile__error">{errors.name.message}</span>}
             <label htmlFor="profile-name" className="profile__label">
               Имя
             </label>
@@ -72,34 +61,32 @@ const Profile = ({onLogout, onUpdateUser}) => {
                 }
               })}
             />
+            {errors.email && <span className="profile__error">{errors.email.message}</span>}
             <label htmlFor="profile-email" className="profile__label">
               E-mail
             </label>
           </div>
         </fieldset>
         <fieldset className="profile__fields profile__fields--settings">
-          { onEdit ? (
-            <button onClick={handleSubmit(handleFormSubmit)} type="button" className="profile__btn btn" disabled={isValid}>
-              Сохранить
-            </button>
-          ) : (
-            <input
-              onClick={() => setOnEdit(!onEdit)}
-              type="submit"
-              className="profile__form-submit"
-              value="Редактировать"
-            />
-          )}
+
+          <input
+            onClick={handleSubmit(handleFormSubmit)}
+            type="submit"
+            className="profile__form-submit"
+            value="Редактировать"
+            disabled={isValid && defaultValues.name === name && defaultValues.email === email}
+          />
+
           <button
-            onClick={onLogout}
+            onClick={handleLogout}
             type="button"
             className="profile__logout"
           >
             Выйти из аккаунта
           </button>
-          {errors && <span className="profile__error">
-            {errors.message}
-          </span>}
+          <span className="profile__error">
+            {profileError}
+          </span>
 
         </fieldset>
       </form>
