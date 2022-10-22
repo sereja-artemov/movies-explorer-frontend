@@ -1,5 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {Routes, Route, useLocation, Navigate, useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -11,13 +17,16 @@ import Login from "../Login/Login";
 import { getMoviesData } from "../../utils/MainApi";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import  * as moviesApi from "../../utils/MoviesApi";
-import {CurrentUserContext} from "../contexts/currentUserContext";
-import {createUser, getCurrentUser, getSavedMovies} from "../../utils/MoviesApi";
-import {SHORT_FILTER_MINUTES_DURATION} from "../../utils/constants";
+import * as moviesApi from "../../utils/MoviesApi";
+import { CurrentUserContext } from "../contexts/currentUserContext";
+import {
+  createUser,
+  getCurrentUser,
+  getSavedMovies,
+} from "../../utils/MoviesApi";
+import { SHORT_FILTER_MINUTES_DURATION } from "../../utils/constants";
 
 function App() {
-
   const [moviesData, setMoviesData] = useState([]); //первоначальные фильмы
   const [savedMovies, setSavedMovies] = useState([]); //сохраненные фильмы
   const [filteredMovies, setFilteredMovies] = useState([]); //массив отфильтрованных фильмов
@@ -29,7 +38,7 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isShort, setIsShort] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -48,18 +57,19 @@ function App() {
     getInitialMovies();
     getSavedMovies()
       .then((res) => {
-        const result = res.filter((m) => m.owner === userData._id)
+        const result = res.filter((m) => m.owner === userData._id);
         localStorage.setItem("savedMoviesData", JSON.stringify(result));
         setSavedMovies(result);
       })
-      .catch(err => err)
+      .catch((err) => err);
   }, [isLoggedIn]);
 
   useEffect(() => {
     checkToken();
     if (isLoggedIn) {
-      navigate('/movies');
-      moviesApi.getCurrentUser()
+      navigate("/movies");
+      moviesApi
+        .getCurrentUser()
         .then((userData) => {
           setUserData(userData);
         })
@@ -68,15 +78,15 @@ function App() {
   }, [isLoggedIn]);
 
   function getInitialMovies() {
-    if (localStorage.getItem('moviesData')) {
-      const movies = JSON.parse(localStorage.getItem('moviesData'));
+    if (localStorage.getItem("moviesData")) {
+      const movies = JSON.parse(localStorage.getItem("moviesData"));
       setMoviesData(movies);
       setIsLoading(false);
     } else {
       getMoviesData()
         .then((data) => {
           setMoviesData(data);
-          localStorage.setItem('moviesData', JSON.stringify(data));
+          localStorage.setItem("moviesData", JSON.stringify(data));
           setIsLoading(false);
         })
         .catch((err) => err);
@@ -84,36 +94,38 @@ function App() {
   }
 
   function onRegister({ name, email, password }) {
-    setIsLoading(true)
-    moviesApi.createUser(name, email, password)
+    setIsLoading(true);
+    moviesApi
+      .createUser(name, email, password)
       .then(() => {
-        navigate('/signin');
+        navigate("/signin");
       })
-      .catch(err => err)
+      .catch((err) => err)
       .finally(() => setIsLoading(false));
   }
 
-  function onLogin({email, password}) {
-    setIsLoading(true)
-    moviesApi.auth(email, password)
+  function onLogin({ email, password }) {
+    setIsLoading(true);
+    moviesApi
+      .auth(email, password)
       .then((res) => {
-        localStorage.setItem('token', res.token);
+        localStorage.setItem("token", res.token);
         setIsLoggedIn(true);
-        navigate('/movies');
+        navigate("/movies");
       })
-      .catch(err => err)
+      .catch((err) => err)
       .finally(() => setIsLoading(false));
   }
 
   function handleLogout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUserData({});
     setSavedMovies([]);
   }
 
   function checkToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       getCurrentUser()
         .then((userData) => {
@@ -125,7 +137,7 @@ function App() {
     }
   }
 
-// поиск и фильтры
+  // поиск и фильтры
   function filterMoviesByDuration(moviesArr) {
     return moviesArr.filter((i) => i.duration < SHORT_FILTER_MINUTES_DURATION);
   }
@@ -146,25 +158,29 @@ function App() {
     if (isLoggedIn) {
       getSavedMovies()
         .then((res) => {
-          const result = res.filter((m) => m.owner === userData._id)
+          const result = res.filter((m) => m.owner === userData._id);
           localStorage.setItem("savedMoviesData", JSON.stringify(result));
           setSavedMovies(result);
         })
-        .catch(err => err)
+        .catch((err) => err);
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn]);
 
   //сохранить фильм
   function handleSaveMovie(movie) {
     moviesApi
       .createMovie(movie)
       .then((res) => {
-        const updatedSavedMovies = [...savedMovies, { ...res, id: res.movieId }];
+        const updatedSavedMovies = [
+          ...savedMovies,
+          { ...res, id: res.movieId },
+        ];
         setSavedMovies(updatedSavedMovies);
         localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
+
   //
   // //удалить фильм из библиотеки
   // function handleDeleteMovie(movie) {
@@ -222,13 +238,19 @@ function App() {
             path="/saved-movies"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <SavedMovies savedMovies={savedMovies} searchMovies={searchMovies}
-                setFilteredMovies={setFilteredMovies}
-                searchQuery={searchQuery}
-                isShort={isShort}
-                inputValue={inputValue}
-                             setInputValue={setInputValue}
-                             setSearchQuery={setSearchQuery}
+                <SavedMovies
+                  savedMovies={savedMovies}
+                  searchMovies={searchMovies}
+                  setFilteredMovies={setFilteredMovies}
+                  searchQuery={searchQuery}
+                  isShort={isShort}
+                  inputValue={inputValue}
+                  setInputValue={setInputValue}
+                  setSearchQuery={setSearchQuery}
+                  setIsShort={setIsShort}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  filteredMovies={filteredMovies}
                 />
               </ProtectedRoute>
             }

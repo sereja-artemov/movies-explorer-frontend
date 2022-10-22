@@ -13,31 +13,46 @@ const SavedMovies = ({
   searchMovies,
   searchQuery,
   isShort,
-  savedPageLocalStorage
+  setIsShort,
+  isLoading,
+  setIsLoading,
+  filteredMovies,
 }) => {
-
   useEffect(() => {
-    if (localStorage.getItem('inputValueSavedPage')) {
-      const value = localStorage.getItem('inputValueSavedPage');
+    if (localStorage.getItem("inputValueSavedPage")) {
+      const value = localStorage.getItem("inputValueSavedPage");
       setInputValue(value);
       setSearchQuery(value);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const filteredMovies = searchMovies(savedMovies, searchQuery, isShort);
+
     setFilteredMovies(filteredMovies);
   }, [searchQuery, isShort]);
 
   return (
     <section className="movies">
       <SearchForm
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isShort={isShort}
+        setIsShort={setIsShort}
         inputValue={inputValue}
         setInputValue={setInputValue}
-        setSearchQuery={setSearchQuery}
         savedPageLocalStorage={true}
       />
-      <MoviesCardList />
+      <MoviesCardList
+        isSavePageTemplate={true}
+        savedMovies={savedMovies}
+        isShort={isShort}
+        searchQuery={searchQuery}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        filteredMovies={filteredMovies}
+        searchMovies={searchMovies}
+      />
     </section>
   );
 };

@@ -3,17 +3,25 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
-import {useLocation} from "react-router-dom";
-import {getSavedMovies} from "../../../utils/MoviesApi";
+import { useLocation } from "react-router-dom";
+import { getSavedMovies } from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({  handleSaveMovie, savedMovies, setSavedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
-//
-//   const { pathname } = useLocation();
+const MoviesCardList = ({
+  handleSaveMovie,
+  savedMovies,
+  setSavedMovies,
+  filteredMovies,
+  isLoading,
+  setIsLoading,
+  searchMovies,
+  isSavePageTemplate,
+}) => {
+  //
+  //   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
-//   const [isSaved, setIsSaved] = useState(false);
-
+  //   const [isSaved, setIsSaved] = useState(false);
 
   const checkCardsAmount = () => {
     if (windowInnerWidth >= 1920) {
@@ -32,12 +40,11 @@ const MoviesCardList = ({  handleSaveMovie, savedMovies, setSavedMovies, filtere
   };
 
   useEffect(() => {
-    checkCardsAmount()
+    checkCardsAmount();
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [windowInnerWidth]);
-
 
   function handleResize() {
     setWindowInnerWidth(window.innerWidth);
@@ -83,6 +90,26 @@ const MoviesCardList = ({  handleSaveMovie, savedMovies, setSavedMovies, filtere
         >
           Еще
         </button>
+      )}
+
+      {isSavePageTemplate === true && (
+        <ul className="movies__list">
+          {isLoading && <Preloader />}
+          {!isLoading && filteredMovies.length === 0 && <p>Ничего не найдено</p>}
+          {filteredMovies.map((movie) => {
+
+            return (
+              <MoviesCard
+                {...movie}
+                key={movie.movieId}
+                imgLink={movie.image}
+                isSavePageTemplate={isSavePageTemplate}
+                imgAlt={movie.nameRU}
+                trailerLink={movie.trailerLink}
+              />
+            );
+          })}
+        </ul>
       )}
     </>
     // <>

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
@@ -17,16 +17,15 @@ const Movies = ({
   setIsShort,
   setSearchQuery,
   isShort,
-  inputValue
+  inputValue,
 }) => {
-
   useEffect(() => {
-    if (localStorage.getItem('inputValue')) {
-      const value = localStorage.getItem('inputValue');
+    if (localStorage.getItem("inputValue")) {
+      const value = localStorage.getItem("inputValue");
       setInputValue(value);
       setSearchQuery(value);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
@@ -43,7 +42,18 @@ const Movies = ({
         inputValue={inputValue}
         setInputValue={setInputValue}
       />
-      <MoviesCardList handleSaveMovie={handleSaveMovie} setSavedMovies={setSavedMovies} isShort={isShort} searchQuery={searchQuery} savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
+      <MoviesCardList
+        handleSaveMovie={handleSaveMovie}
+        setSavedMovies={setSavedMovies}
+        isShort={isShort}
+        searchQuery={searchQuery}
+        savedMovies={savedMovies}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        filteredMovies={filteredMovies}
+        searchMovies={searchMovies}
+        isSavePageTemplate={false}
+      />
     </section>
   );
 };
