@@ -194,6 +194,14 @@ function App() {
       .catch(err => console.log(err))
   }
 
+  function handleRemoveSavedMovie(movieId) {
+
+    if (savedMovies.length > 0) {
+      let movie = savedMovies.find(m => m.movieId === movieId);
+      handleDeleteMovie(movie);
+    }
+  }
+
   return (
     <div>
       {(pathname === "/" ||
@@ -230,6 +238,7 @@ function App() {
                   searchQuery={searchQuery}
                   isShort={isShort}
                   setIsShort={setIsShort}
+                  handleRemoveSavedMovie={handleRemoveSavedMovie}
                 />
               </ProtectedRoute>
             }

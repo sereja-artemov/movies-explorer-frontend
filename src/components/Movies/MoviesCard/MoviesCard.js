@@ -22,26 +22,31 @@ const MoviesCard = ({
   isSavePageTemplate,
   handleSaveMovie,
   handleDeleteMovie,
-  movie
+  movie,
+  handleRemoveSavedMovie
 }) => {
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
-  console.log(movie)
+
   function handleSaveButton() {
-    handleSaveMovie({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image: MOVIES_SERVER_URL + image.url,
-      trailerLink,
-      nameRU,
-      nameEN,
-      thumbnail: MOVIES_SERVER_URL + image.url,
-      movieId,
-    });
+    if (isSaved === false) {
+      handleSaveMovie({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image: MOVIES_SERVER_URL + image.url,
+        trailerLink,
+        nameRU,
+        nameEN,
+        thumbnail: MOVIES_SERVER_URL + image.url,
+        movieId,
+      });
+    } else {
+      handleRemoveSavedMovie(movie.id);
+    }
   }
 
   function handleDeleteButton() {

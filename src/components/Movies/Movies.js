@@ -18,6 +18,7 @@ const Movies = ({
   setSearchQuery,
   isShort,
   inputValue,
+  handleRemoveSavedMovie,
 }) => {
   useEffect(() => {
     if (localStorage.getItem("inputValue")) {
@@ -53,6 +54,7 @@ const Movies = ({
         filteredMovies={filteredMovies}
         searchMovies={searchMovies}
         isSavePageTemplate={false}
+        handleRemoveSavedMovie={handleRemoveSavedMovie}
       />
     </section>
   );

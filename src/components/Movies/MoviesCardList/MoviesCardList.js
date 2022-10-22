@@ -15,7 +15,8 @@ const MoviesCardList = ({
   setIsLoading,
   searchMovies,
   isSavePageTemplate,
-  handleDeleteMovie
+  handleDeleteMovie,
+  handleRemoveSavedMovie,
 }) => {
   //
   //   const { pathname } = useLocation();
@@ -79,6 +80,7 @@ const MoviesCardList = ({
                 isSavePageTemplate={isSavePageTemplate}
                 setSavedMovies={setSavedMovies}
                 handleSaveMovie={handleSaveMovie}
+                handleRemoveSavedMovie={handleRemoveSavedMovie}
               />
             );
           })}
