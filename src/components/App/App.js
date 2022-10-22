@@ -189,7 +189,7 @@ function App() {
 
   //удалить фильм из библиотеки
   function handleDeleteMovie(movie) {
-    removeMovie(movie)
+    removeMovie(movie._id)
       .then((res) => {
         const deletedCardIndex = savedMovies.findIndex(m => m._id === movie._id);
         let newSavedMovies = [...savedMovies];
