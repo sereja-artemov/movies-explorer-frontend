@@ -30,6 +30,12 @@ function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  // useEffect(() => {
+  //   const fmlstrg = JSON.parse(localStorage.getItem('filteredMovies'));
+  //   if (localStorage.getItem('filteredMovies') !== null) {
+  //     setFilteredMovies(fmlstrg);
+  //   }
+  // }, [])
 
   useEffect(() => {
     setIsLoading(true);

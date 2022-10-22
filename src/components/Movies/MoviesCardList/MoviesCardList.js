@@ -6,13 +6,14 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({  isShort, searchQuery, savedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
+const MoviesCardList = ({  savedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
 //
 //   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [cardsAmount, setCardsAmount] = useState(5);
   const [moreCardsAmount, setMoreCardsAmount] = useState(0);
 //   const [isSaved, setIsSaved] = useState(false);
+
 
   const checkCardsAmount = () => {
     if (windowInnerWidth >= 1920) {

@@ -5,37 +5,34 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 const Movies = ({
   moviesData,
   savedMovies,
-                  searchMovies,
+  searchMovies,
   filteredMovies,
   setFilteredMovies,
   isLoading,
   setIsLoading,
 }) => {
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isShort, setIsShort] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-
-  // const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
-  //
-  // useEffect(() => {
-  //   if (localStorage.getItem('moviesPageData')) {
-  //     setIsShort(localStorageMoviesObj.checked);
-  //     setSearchQuery(localStorageMoviesObj.keyword);
-  //   }
-  // }, [])
-  //
-  // useEffect(() => {
-  //   const localStorageMoviesData = {
-  //     checked: isShort,
-  //     keyword: searchQuery,
-  //   }
-  //   localStorage.setItem('moviesPageData', JSON.stringify(localStorageMoviesData));
-  //
-  // }, [isShort, searchQuery])
+  useEffect(() => {
+    if (localStorage.getItem('inputValue')) {
+      const value = localStorage.getItem('inputValue');
+      setInputValue(value);
+      setSearchQuery(value);
+    }
+    if (localStorage.getItem('checkbox')) {
+      const value = localStorage.getItem('checkbox');
+      setIsShort(value);
+    }
+  }, [])
 
   useEffect(() => {
     const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
+    // localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies))
+
   }, [searchQuery, isShort]);
 
   return (
@@ -45,6 +42,8 @@ const Movies = ({
         setSearchQuery={setSearchQuery}
         isShort={isShort}
         setIsShort={setIsShort}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
       />
       <MoviesCardList isShort={isShort} searchQuery={searchQuery} savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
     </section>
