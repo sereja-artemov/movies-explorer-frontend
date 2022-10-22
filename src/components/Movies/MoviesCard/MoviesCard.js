@@ -1,57 +1,56 @@
-import React, {useState} from "react";
-import {toHoursAndMinutes} from "../../../utils/timeConverter";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { createMovie, getSavedMovies } from "../../../utils/MoviesApi";
+import { MOVIES_SERVER_URL } from "../../../utils/constants";
+import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
 const MoviesCard = ({
-  country,
-  director,
+  id,
+  imgLink,
+  nameRU,
   duration,
+  imgAlt,
+  trailerLink,
+  director,
   year,
   description,
-  trailerLink,
-  nameRU,
+  image,
   nameEN,
   movieId,
-  image,
-  thumbnail,
-  isSavedTemplate,
-  onDelete,
-  onSaveMovie,
-  isMovieSaved,
-  savedMovie,
-  getIdAndRemoveSavedMovie,
-  _id,
-  card
+  country,
+  isSaved,
+  isSavePageTemplate,
+  handleSaveMovie,
+  handleDeleteMovie,
+  movie,
+  handleRemoveSavedMovie
 }) => {
-
-  const [isSaved, setIsSaved] = useState(isMovieSaved);
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
 
-  function handleDelete() {
-    onDelete(savedMovie);
-  }
-
-  function handleSave() {
+  function handleSaveButton() {
     if (isSaved === false) {
-      onSaveMovie({
+      handleSaveMovie({
         country,
         director,
         duration,
         year,
         description,
-        image,
-        thumbnail,
-        movieId,
+        image: MOVIES_SERVER_URL + image.url,
+        trailerLink,
         nameRU,
         nameEN,
-        trailerLink
+        thumbnail: MOVIES_SERVER_URL + image.url,
+        movieId,
       });
-      setIsSaved(true);
     } else {
-      getIdAndRemoveSavedMovie(movieId)
-      setIsSaved(false);
+      handleRemoveSavedMovie(movie.id);
     }
+  }
+
+  function handleDeleteButton() {
+    handleDeleteMovie(movie);
   }
 
   return (
@@ -62,28 +61,26 @@ const MoviesCard = ({
         target="_blank"
         className="movies-card__link"
       >
-        <img src={image} alt={nameRU} className="movies-card__image" />
+        <img src={imgLink} alt={imgAlt} className="movies-card__image" />
       </a>
       <div className="movies-card__description">
         <h2 className="movies-card__name">{nameRU}</h2>
-        <span className="movies-card__duration">{toHoursAndMinutes(duration)}</span>
+        <span className="movies-card__duration">
+          {toHoursAndMinutes(duration)}
+        </span>
       </div>
-      {!isSavedTemplate ? (
+      {!isSavePageTemplate && (
         <button
-          onClick={handleSave}
+          onClick={handleSaveButton}
+          movieid={id}
           type="button"
           className={cardSaveButtonClassName}
         >
           <span className="movies-card__save-text">Сохранить</span>
         </button>
-      ) : (
-        <button
-          onClick={handleDelete}
-          type="button"
-          className="movies-card__delete"
-        >
-        </button>
       )}
+
+      {isSavePageTemplate && <button onClick={handleDeleteButton} className="movies-card__delete"></button>}
     </li>
   );
 };

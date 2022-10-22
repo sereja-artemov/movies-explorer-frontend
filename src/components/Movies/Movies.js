@@ -1,69 +1,62 @@
-import React, {useEffect, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
 const Movies = ({
-  isSaved,
-  setIsSaved,
   moviesData,
-  savedMoviesData,
-  onSearch,
-  onFilter,
-  onSaveMovie,
-  onRemoveSavedMovie,
-  setIsLoading,
+  savedMovies,
+  searchMovies,
+  filteredMovies,
+  setFilteredMovies,
   isLoading,
-  getIdAndRemoveSavedMovie
+  setIsLoading,
+  setSavedMovies,
+  handleSaveMovie,
+  setInputValue,
+  searchQuery,
+  setIsShort,
+  setSearchQuery,
+  isShort,
+  inputValue,
+  handleRemoveSavedMovie,
 }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [isShort, setShort] = useState(false);
-  const [filteredResults, setFilteredResults] = useState([]);
+  useEffect(() => {
+    if (localStorage.getItem("inputValue")) {
+      const value = localStorage.getItem("inputValue");
+      setInputValue(value);
+      setSearchQuery(value);
+    }
+  }, []);
 
   useEffect(() => {
-    const getResults = async () => {
-      setIsLoading(true);
-      const results = await onSearch(moviesData, searchQuery);
-      setSearchResults(results);
-      setIsLoading(false);
-    };
-    getResults().then();
-  }, [searchQuery]);
-
-  useEffect(() => {
-    const results = onFilter(searchResults, isShort);
-    setFilteredResults(results);
-  }, [searchResults, isShort]);
-
-  function handleSearchQuery(query) {
-    setSearchQuery(query);
-  }
-
-  function handleCheckboxClick(event) {
-    setShort(event.target.checked);
-  }
+    const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
+    setFilteredMovies(filteredMovies);
+  }, [searchQuery, isShort]);
 
   return (
-    <>
-      <section className="movies">
-        <SearchForm
-          onSearch={handleSearchQuery}
-          onCheckboxClick={handleCheckboxClick}
-          isShort={isShort}
-        />
-        <MoviesCardList
-          isSavedTemplate={false}
-          cards={filteredResults}
-          onSaveMovie={onSaveMovie}
-          savedMoviesData={savedMoviesData}
-          onRemoveSavedMovie={onRemoveSavedMovie}
-          isLoading={isLoading}
-          isSaved={isSaved}
-          setIsSaved={setIsSaved}
-          getIdAndRemoveSavedMovie={getIdAndRemoveSavedMovie}
-        />
-      </section>
-    </>
+    <section className="movies">
+      <SearchForm
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isShort={isShort}
+        setIsShort={setIsShort}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+      />
+      <MoviesCardList
+        handleSaveMovie={handleSaveMovie}
+        setSavedMovies={setSavedMovies}
+        isShort={isShort}
+        searchQuery={searchQuery}
+        savedMovies={savedMovies}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        filteredMovies={filteredMovies}
+        searchMovies={searchMovies}
+        isSavePageTemplate={false}
+        handleRemoveSavedMovie={handleRemoveSavedMovie}
+      />
+    </section>
   );
 };
 

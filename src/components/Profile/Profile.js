@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {useForm} from "react-hook-form";
 
-const Profile = ({onLogout, onUpdateUser, profileError}) => {
+const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
 
   const currentUser = useContext(CurrentUserContext);
   const {
@@ -18,7 +18,7 @@ const Profile = ({onLogout, onUpdateUser, profileError}) => {
   let [name, email] = watch(['name', 'email']);
 
   function handleFormSubmit() {
-    onUpdateUser({ name, email })
+    handleUpdateUser({ name, email })
   }
 
   return (
@@ -69,23 +69,23 @@ const Profile = ({onLogout, onUpdateUser, profileError}) => {
         </fieldset>
         <fieldset className="profile__fields profile__fields--settings">
 
-            <input
-              onClick={handleSubmit(handleFormSubmit)}
-              type="submit"
-              className="profile__form-submit"
-              value="Редактировать"
-              disabled={isValid && defaultValues.name === name && defaultValues.email === email}
-            />
+          <input
+            onClick={handleSubmit(handleFormSubmit)}
+            type="submit"
+            className="profile__form-submit"
+            value="Редактировать"
+            disabled={isValid && defaultValues.name === name && defaultValues.email === email}
+          />
 
           <button
-            onClick={onLogout}
+            onClick={handleLogout}
             type="button"
             className="profile__logout"
           >
             Выйти из аккаунта
           </button>
           <span className="profile__error">
-            {/*{errors.email.message}*/}
+            {profileError}
           </span>
 
         </fieldset>

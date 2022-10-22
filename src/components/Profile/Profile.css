@@ -130,6 +130,10 @@
   .profile__form-submit {
     font-size: 13px;
   }
+  .profile__form-submit:disabled {
+    cursor: not-allowed;
+    color: #424242;
+  }
 
   .profile__logout {
     font-size: 13px;

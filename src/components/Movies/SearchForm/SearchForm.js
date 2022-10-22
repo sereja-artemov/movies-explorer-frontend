@@ -1,20 +1,35 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = ({
-  onSearch, onCheckboxClick, isShort
+  setSearchQuery, setIsShort, isShort, inputValue, setInputValue, savedPageLocalStorage
 }) => {
 
-  const [inputValue, setInputValue] = useState('');
+
 
   function handleSubmitForm(event) {
     event.preventDefault();
-    onSearch(inputValue);
+    setSearchQuery(inputValue);
   }
 
   function handleSearchInput(event) {
-    setInputValue(event.target.value);
+
+    if (savedPageLocalStorage) {
+      setInputValue(event.target.value);
+      localStorage.setItem('inputValueSavedPage', event.target.value);
+    } else {
+      setInputValue(event.target.value);
+      localStorage.setItem('inputValue', event.target.value);
+    }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('inputValue')) {
+      const value = localStorage.getItem('inputValue');
+      setInputValue(value);
+      setSearchQuery(value);
+    }
+  }, [])
 
   return (
     <form
@@ -62,8 +77,8 @@ const SearchForm = ({
       </div>
       <div className="search-form__checkbox-wrapper">
         <FilterCheckbox
-          isChecked={isShort}
-          onCheck={onCheckboxClick}
+          isShort={isShort}
+          setIsShort={setIsShort}
           label="Короткометражки"
           inputId="short-films"
           name="short-films"
