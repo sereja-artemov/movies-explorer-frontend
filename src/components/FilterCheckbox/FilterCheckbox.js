@@ -2,6 +2,8 @@ import React, {useEffect} from "react";
 
 const FilterCheckbox = ({ isShort, setIsShort, inputId, label, name }) => {
 
+
+
   function handleChangeCheckbox() {
     setIsShort(!isShort);
     localStorage.setItem('checkbox', !isShort);
