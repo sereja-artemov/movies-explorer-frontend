@@ -13,7 +13,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import  * as moviesApi from "../../utils/MoviesApi";
 import {CurrentUserContext} from "../contexts/currentUserContext";
-import {createUser, getSavedMovies} from "../../utils/MoviesApi";
+import {createUser, getCurrentUser, getSavedMovies} from "../../utils/MoviesApi";
 import {SHORT_FILTER_MINUTES_DURATION} from "../../utils/constants";
 
 function App() {
@@ -41,14 +41,18 @@ function App() {
   //   }
   // }, [])
 
+  const location = useLocation();
+
   useEffect(() => {
     setIsLoading(true);
     getInitialMovies();
     getSavedMovies()
-      .then((movies) => {
-        setSavedMovies(movies);
+      .then((res) => {
+        const result = res.filter((m) => m.owner === userData._id)
+        localStorage.setItem("savedMoviesData", JSON.stringify(result));
+        setSavedMovies(result);
       })
-      .catch((err) => err);
+      .catch(err => err)
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -94,7 +98,8 @@ function App() {
     moviesApi.auth(email, password)
       .then((res) => {
         localStorage.setItem('token', res.token);
-        checkToken();
+        setIsLoggedIn(true);
+        navigate('/movies');
       })
       .catch(err => err)
       .finally(() => setIsLoading(false));
@@ -104,12 +109,19 @@ function App() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     setUserData({});
+    setSavedMovies([]);
   }
 
   function checkToken() {
     const token = localStorage.getItem('token');
     if (token) {
-      setIsLoggedIn(true);
+      getCurrentUser()
+        .then((userData) => {
+          setIsLoggedIn(true);
+          setUserData(userData);
+          navigate(location);
+        })
+        .catch((err) => err);
     }
   }
 
@@ -129,6 +141,18 @@ function App() {
     return searchQuery !== "" ? filteredMovies : [];
   }
 
+  //сохраненные фильмы
+  useEffect(() => {
+    if (isLoggedIn) {
+      getSavedMovies()
+        .then((res) => {
+          const result = res.filter((m) => m.owner === userData._id)
+          localStorage.setItem("savedMoviesData", JSON.stringify(result));
+          setSavedMovies(result);
+        })
+        .catch(err => err)
+    }
+  }, [isLoggedIn])
 
   //сохранить фильм
   function handleSaveMovie(movie) {
