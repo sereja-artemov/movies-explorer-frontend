@@ -126,17 +126,17 @@ function App() {
   }
 
 
-  // //сохранить фильм
-  // function handleSaveMovie(movie) {
-  //   mainApi
-  //     .saveMovie(movie)
-  //     .then((res) => {
-  //       const updatedSavedMovies = [...savedMovies, { ...res, id: res.movieId }];
-  //       setSavedMovies(updatedSavedMovies);
-  //       localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  //сохранить фильм
+  function handleSaveMovie(movie) {
+    moviesApi
+      .createMovie(movie)
+      .then((res) => {
+        const updatedSavedMovies = [...savedMovies, { ...res, id: res.movieId }];
+        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+      })
+      .catch(err => console.log(err));
+  }
   //
   // //удалить фильм из библиотеки
   // function handleDeleteMovie(movie) {
@@ -178,6 +178,8 @@ function App() {
                   setFilteredMovies={setFilteredMovies}
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
+                  setSavedMovies={setSavedMovies}
+                  handleSaveMovie={handleSaveMovie}
                 />
               </ProtectedRoute>
             }

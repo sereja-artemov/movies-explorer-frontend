@@ -10,6 +10,8 @@ const Movies = ({
   setFilteredMovies,
   isLoading,
   setIsLoading,
+  setSavedMovies,
+  handleSaveMovie
 }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,7 +43,7 @@ const Movies = ({
         inputValue={inputValue}
         setInputValue={setInputValue}
       />
-      <MoviesCardList isShort={isShort} searchQuery={searchQuery} savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
+      <MoviesCardList handleSaveMovie={handleSaveMovie} setSavedMovies={setSavedMovies} isShort={isShort} searchQuery={searchQuery} savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
     </section>
   );
 };

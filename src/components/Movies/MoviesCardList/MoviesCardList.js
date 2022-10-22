@@ -6,7 +6,7 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({  savedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
+const MoviesCardList = ({  handleSaveMovie, savedMovies, setSavedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
 //
 //   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
@@ -60,11 +60,16 @@ const MoviesCardList = ({  savedMovies, filteredMovies ,isLoading, setIsLoading,
             return (
               <MoviesCard
                 {...movie}
+                movie={movie}
                 key={movie.id}
+                movieId={movie.id}
                 imgLink={MOVIES_SERVER_URL + movie.image.url}
                 imgAlt={movie.nameRU}
-                duration={toHoursAndMinutes(movie.duration)}
+                duration={movie.duration}
                 isSaved={savedMovies.some((i) => i.movieId === movie.id)}
+                isSavePageTemplate={isSavePageTemplate}
+                setSavedMovies={setSavedMovies}
+                handleSaveMovie={handleSaveMovie}
               />
             );
           })}

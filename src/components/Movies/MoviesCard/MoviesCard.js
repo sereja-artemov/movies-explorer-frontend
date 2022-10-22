@@ -11,36 +11,28 @@ const MoviesCard = ({
   duration,
   imgAlt,
   trailerLink,
-  filteredArray,
-  savedMoviesArr,
-  setSavedMoviesArr,
-  isSaved,
-  setIsSaved,
+  director,
+  year,
+  description,
+  image,
+  nameEN,
+  movieId,
   movie,
+  country,
+  isSaved,
+  isSavePageTemplate,
+  setSavedMovies,
+  handleSaveMovie,
 }) => {
-  const { pathname } = useLocation();
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
 
-  function handleSaveButton(event) {
-    const {
+  function handleSaveButton() {
+    handleSaveMovie({
       country,
       director,
       duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      nameRU,
-      nameEN,
-      id: movieId,
-    } = movie;
-    //тут делаем запрос к api для сохранения фильмов
-    createMovie({
-      country,
-      director,
-      duration: duration,
       year,
       description,
       image: MOVIES_SERVER_URL + image.url,
@@ -49,11 +41,7 @@ const MoviesCard = ({
       nameEN,
       thumbnail: MOVIES_SERVER_URL + image.url,
       movieId,
-    })
-      .then((savedMovie) => {
-        console.log(savedMovie);
-      })
-      .catch((err) => err);
+    });
   }
 
   return (
@@ -68,9 +56,11 @@ const MoviesCard = ({
       </a>
       <div className="movies-card__description">
         <h2 className="movies-card__name">{nameRU}</h2>
-        <span className="movies-card__duration">{duration}</span>
+        <span className="movies-card__duration">
+          {toHoursAndMinutes(duration)}
+        </span>
       </div>
-      {pathname === "/movies" && (
+      {!isSavePageTemplate && (
         <button
           onClick={handleSaveButton}
           movieid={id}
@@ -80,10 +70,8 @@ const MoviesCard = ({
           <span className="movies-card__save-text">Сохранить</span>
         </button>
       )}
-      {/*Показываем кнопку удаления только, если элемент сохранен и только на странице сохраненок*/}
-      {pathname === "/saved-movies" && (
-        <button className="movies-card__delete"></button>
-      )}
+
+      {isSavePageTemplate && <button className="movies-card__delete"></button>}
     </li>
   );
 };
