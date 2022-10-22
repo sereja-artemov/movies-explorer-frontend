@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
@@ -13,6 +13,7 @@ const Movies = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isShort, setIsShort] = useState(false);
+
 
   // const localStorageMoviesObj = JSON.parse(localStorage.getItem('moviesPageData'));
   //
@@ -45,7 +46,7 @@ const Movies = ({
         isShort={isShort}
         setIsShort={setIsShort}
       />
-      <MoviesCardList savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
+      <MoviesCardList isShort={isShort} searchQuery={searchQuery} savedMovies={savedMovies} isLoading={isLoading} setIsLoading={setIsLoading} filteredMovies={filteredMovies} searchMovies={searchMovies} isSavePageTemplate={false} />
     </section>
   );
 };

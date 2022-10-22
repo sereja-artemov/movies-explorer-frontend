@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {createMovie, getSavedMovies} from "../../../utils/MoviesApi";
-import {MOVIES_SERVER_URL} from "../../../utils/constants";
-import {toHoursAndMinutes} from "../../../utils/timeConverter";
+import { createMovie, getSavedMovies } from "../../../utils/MoviesApi";
+import { MOVIES_SERVER_URL } from "../../../utils/constants";
+import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
 const MoviesCard = ({
   id,
   imgLink,
-                      nameRU,
+  nameRU,
   duration,
   imgAlt,
   trailerLink,
@@ -16,11 +16,12 @@ const MoviesCard = ({
   setSavedMoviesArr,
   isSaved,
   setIsSaved,
-  movie
+  movie,
 }) => {
-
   const { pathname } = useLocation();
-  const cardSaveButtonClassName = `movies-card__save ${isSaved ? "movies-card__save--saved" : ""}`;
+  const cardSaveButtonClassName = `movies-card__save ${
+    isSaved ? "movies-card__save--saved" : ""
+  }`;
 
   function handleSaveButton(event) {
     const {
@@ -80,7 +81,7 @@ const MoviesCard = ({
         </button>
       )}
       {/*Показываем кнопку удаления только, если элемент сохранен и только на странице сохраненок*/}
-      {(pathname === "/saved-movies") && (
+      {pathname === "/saved-movies" && (
         <button className="movies-card__delete"></button>
       )}
     </li>

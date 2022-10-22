@@ -8,7 +8,7 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import { getMovies } from "../../utils/MainApi";
+import { getMoviesData } from "../../utils/MainApi";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import  * as moviesApi from "../../utils/MoviesApi";
@@ -30,15 +30,10 @@ function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+
   useEffect(() => {
     setIsLoading(true);
-    getMovies()
-      .then((data) => {
-        setMoviesData(data);
-        setIsLoading(false);
-      })
-      .catch((err) => err);
-
+    getInitialMovies();
     getSavedMovies()
       .then((movies) => {
         setSavedMovies(movies);
@@ -57,6 +52,22 @@ function App() {
         .catch((err) => err);
     }
   }, [isLoggedIn]);
+
+  function getInitialMovies() {
+    if (localStorage.getItem('moviesData')) {
+      const movies = JSON.parse(localStorage.getItem('moviesData'));
+      setMoviesData(movies);
+      setIsLoading(false);
+    } else {
+      getMoviesData()
+        .then((data) => {
+          setMoviesData(data);
+          localStorage.setItem('moviesData', JSON.stringify(data));
+          setIsLoading(false);
+        })
+        .catch((err) => err);
+    }
+  }
 
   function onRegister({ name, email, password }) {
     setIsLoading(true)

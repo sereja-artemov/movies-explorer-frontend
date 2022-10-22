@@ -6,7 +6,7 @@ import { toHoursAndMinutes } from "../../../utils/timeConverter";
 import {useLocation} from "react-router-dom";
 import {getSavedMovies} from "../../../utils/MoviesApi";
 
-const MoviesCardList = ({ savedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
+const MoviesCardList = ({  isShort, searchQuery, savedMovies, filteredMovies ,isLoading, setIsLoading, searchMovies, isSavePageTemplate }) => {
 //
 //   const { pathname } = useLocation();
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
