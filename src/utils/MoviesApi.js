@@ -27,8 +27,6 @@ export const removeMovie = (movieId) => {
   return fetch(`${BASE_URL}/movies/${movieId}`, {
     method: 'DELETE',
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   }).then(getData);
