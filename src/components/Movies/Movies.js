@@ -18,6 +18,7 @@ const Movies = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [isShort, setIsShort] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isFirstSearch, setIsFirstSearch] = useState(true);
 
   //заполняем результаты поиска из localStorage
   useEffect(() => {
@@ -34,6 +35,8 @@ const Movies = ({
     const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
     localStorage.setItem('moviesSearchResults', JSON.stringify({ movies: filteredMovies, searchQuery: searchQuery, isShort: isShort }))
+
+    searchQuery === "" ? setIsFirstSearch(true) : setIsFirstSearch(false);
   }, [searchQuery, isShort]);
 
   return (
@@ -58,6 +61,7 @@ const Movies = ({
         searchMovies={searchMovies}
         isSavePageTemplate={false}
         handleRemoveSavedMovie={handleRemoveSavedMovie}
+        isFirstSearch={isFirstSearch}
       />
     </section>
   );

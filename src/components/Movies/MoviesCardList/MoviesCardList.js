@@ -17,6 +17,8 @@ const MoviesCardList = ({
   isSavePageTemplate,
   handleDeleteMovie,
   handleRemoveSavedMovie,
+  searchQuery,
+  isFirstSearch
 }) => {
   //
   //   const { pathname } = useLocation();
@@ -63,7 +65,7 @@ const MoviesCardList = ({
       {isSavePageTemplate === false && (
         <ul className="movies__list">
           {isLoading && <Preloader />}
-          {!isLoading && filteredMovies.length === 0 && (
+          {!isLoading && filteredMovies.length === 0 && !isFirstSearch && (
             <p>Ничего не найдено</p>
           )}
           {filteredMovies.slice(0, cardsAmount).map((movie) => {
