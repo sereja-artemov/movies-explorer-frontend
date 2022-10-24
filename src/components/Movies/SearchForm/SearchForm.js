@@ -6,7 +6,6 @@ const SearchForm = ({
 }) => {
 
 
-
   function handleSubmitForm(event) {
     event.preventDefault();
     setSearchQuery(inputValue);
@@ -15,14 +14,6 @@ const SearchForm = ({
   function handleSearchInput(event) {
     setInputValue(event.target.value);
   }
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('inputValue')) {
-  //     const value = localStorage.getItem('inputValue');
-  //     setInputValue(value);
-  //     setSearchQuery(value);
-  //   }
-  // }, [])
 
   return (
     <form

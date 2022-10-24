@@ -67,7 +67,6 @@ function App() {
       getSavedMovies()
         .then((res) => {
           const result = res.filter((m) => m.owner === userData._id);
-          localStorage.setItem("savedMoviesData", JSON.stringify(result));
           setSavedMovies(result);
         })
         .catch((err) => err);
@@ -132,6 +131,7 @@ function App() {
 
   function handleLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("moviesSearchResults");
     setIsLoggedIn(false);
     setUserData({});
     setSavedMovies([]);

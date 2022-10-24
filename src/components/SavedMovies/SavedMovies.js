@@ -18,7 +18,6 @@ const SavedMovies = ({
   const [isShort, setIsShort] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-
   useEffect(() => {
     const filteredMovies = searchMovies(savedMovies, searchQuery, isShort, true);
     setFilteredMovies(filteredMovies);
