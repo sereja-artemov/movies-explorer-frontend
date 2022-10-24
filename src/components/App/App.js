@@ -29,6 +29,7 @@ import {
 import { SHORT_FILTER_MINUTES_DURATION } from "../../utils/constants";
 import Popup from "../Popup/Popup";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import MainPreloader from "../MainPreloader/MainPreloader";
 
 import successImage from "../../images/tooltip/success.svg";
 import failImage from "../../images/tooltip/cross.svg";
@@ -158,10 +159,11 @@ function App() {
   }
 
   function handleUpdateUser({ name, email }) {
+    setIsLoading(true);
     updateUser(name, email)
       .then((res) => {
         setUserData(res);
-        console.log(res)
+        setIsLoading(false);
         openTooltip(successImage, `Теперь вас зовут: ${res.name}, а ваша почта ${res.email}`);
       })
       .catch((err) => {
@@ -262,9 +264,7 @@ function App() {
           <Route
             path="/"
             element={
-
                 <Main />
-
             }
           ></Route>
           <Route
@@ -340,6 +340,10 @@ function App() {
         text={tooltipText}
         image={tooltipImage}
       />
+
+      {isLoading && pathname !== '/movies' &&
+        <MainPreloader></MainPreloader>
+      }
 
     </div>
   );
