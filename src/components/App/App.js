@@ -20,12 +20,18 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as moviesApi from "../../utils/MoviesApi";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {
+  auth,
   createMovie,
   createUser,
   getCurrentUser,
   getSavedMovies, removeMovie, updateUser,
 } from "../../utils/MoviesApi";
 import { SHORT_FILTER_MINUTES_DURATION } from "../../utils/constants";
+import Popup from "../Popup/Popup";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+
+import successImage from "../../images/tooltip/success.svg";
+import failImage from "../../images/tooltip/cross.svg";
 
 function App() {
   const [moviesData, setMoviesData] = useState([]); //первоначальные фильмы
@@ -42,6 +48,10 @@ function App() {
   // const [inputValue, setInputValue] = useState("");
 
   const [profileError, setProfileError] = useState('');
+
+  const [isTooltipActive, setIsTooltipActive] = useState(false);
+  const [tooltipText, setTooltipText] = useState('');
+  const [tooltipImage, setTooltipImage] = useState(undefined);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -87,9 +97,13 @@ function App() {
     moviesApi
       .createUser(name, email, password)
       .then(() => {
+        openTooltip(successImage, 'Вы успешно зарегистрировались!');
         navigate("/signin");
       })
-      .catch((err) => err)
+      .catch((err) => {
+        console.log(err)
+        openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
+      })
       .finally(() => setIsLoading(false));
   }
 
@@ -102,7 +116,10 @@ function App() {
         setIsLoggedIn(true);
         navigate("/movies");
       })
-      .catch((err) => err)
+      .catch((err) => {
+        console.log(err);
+        openTooltip(failImage ,'Что-то пошло не так! Попробуйте ещё раз.');
+      })
       .finally(() => setIsLoading(false));
   }
 
@@ -195,6 +212,29 @@ function App() {
     }
   }
 
+  function openTooltip(image, text) {
+    setTooltipText(text);
+    setTooltipImage(image)
+    setIsTooltipActive(true);
+  }
+
+  function closeAllPopups() {
+    setIsTooltipActive(false);
+  }
+  const isOpen = isTooltipActive;
+
+  useEffect(() => {
+    const closeByEscape = (evt) => {
+      (evt.key === 'Escape') && closeAllPopups();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen])
+
   return (
     <div>
       {(pathname === "/" ||
@@ -266,6 +306,15 @@ function App() {
       {(pathname === "/" ||
         pathname === "/movies" ||
         pathname === "/saved-movies") && <Footer />}
+
+      <InfoTooltip
+        isOpen={isTooltipActive}
+        onClose={closeAllPopups}
+        isLoading={isLoading}
+        text={tooltipText}
+        image={tooltipImage}
+      />
+
     </div>
   );
 }

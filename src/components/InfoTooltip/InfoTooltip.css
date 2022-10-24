@@ -1,5 +1,5 @@
 .info-tooltip {
-  color: #000;
+  color: #fff;
 }
 
 .info-tooltip__container {
@@ -8,15 +8,15 @@
 }
 
 .info-tooltip__img {
-  max-width: 120px;
-  margin-bottom: 35px;
+  max-width: 45px;
+  margin-bottom: 10px;
 }
 
 .info-tooltip__text {
   margin: 0;
-  font-size: 24px;
+  font-size: 21px;
+  line-height: 1.4;
   font-weight: 900;
-  color: #000;
   text-align: center;
 }
 
