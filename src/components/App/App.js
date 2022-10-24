@@ -39,6 +39,7 @@ function App() {
   const [filteredMovies, setFilteredMovies] = useState([]); //массив отфильтрованных фильмов
 
   const [userData, setUserData] = useState({}); //данные текущего пользователя
+  console.log(userData)
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
