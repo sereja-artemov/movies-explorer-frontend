@@ -253,9 +253,9 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
+
                 <Main />
-              </ProtectedRoute>
+
             }
           ></Route>
           <Route
