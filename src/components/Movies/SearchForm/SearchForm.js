@@ -13,23 +13,16 @@ const SearchForm = ({
   }
 
   function handleSearchInput(event) {
-
-    if (savedPageLocalStorage) {
-      setInputValue(event.target.value);
-      localStorage.setItem('inputValueSavedPage', event.target.value);
-    } else {
-      setInputValue(event.target.value);
-      localStorage.setItem('inputValue', event.target.value);
-    }
+    setInputValue(event.target.value);
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('inputValue')) {
-      const value = localStorage.getItem('inputValue');
-      setInputValue(value);
-      setSearchQuery(value);
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (localStorage.getItem('inputValue')) {
+  //     const value = localStorage.getItem('inputValue');
+  //     setInputValue(value);
+  //     setSearchQuery(value);
+  //   }
+  // }, [])
 
   return (
     <form

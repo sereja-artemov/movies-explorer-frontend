@@ -19,17 +19,21 @@ const Movies = ({
   const [isShort, setIsShort] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+  //заполняем результаты поиска из localStorage
   useEffect(() => {
-    if (localStorage.getItem("inputValue")) {
-      const value = localStorage.getItem("inputValue");
-      setInputValue(value);
-      setSearchQuery(value);
+    if (localStorage.getItem('moviesSearchResults')) {
+      const moviesSearchResults = JSON.parse(localStorage.getItem('moviesSearchResults'));
+      setInputValue(moviesSearchResults.searchQuery);
+      setSearchQuery(moviesSearchResults.searchQuery);
+      setIsShort(moviesSearchResults.isShort);
+      setFilteredMovies(moviesSearchResults.movies);
     }
   }, []);
 
   useEffect(() => {
     const filteredMovies = searchMovies(moviesData, searchQuery, isShort);
     setFilteredMovies(filteredMovies);
+    localStorage.setItem('moviesSearchResults', JSON.stringify({ movies: filteredMovies, searchQuery: searchQuery, isShort: isShort }))
   }, [searchQuery, isShort]);
 
   return (

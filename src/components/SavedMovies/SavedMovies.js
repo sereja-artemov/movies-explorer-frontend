@@ -18,18 +18,6 @@ const SavedMovies = ({
   const [isShort, setIsShort] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
-    if (localStorage.getItem("inputValueSavedPage")) {
-      const value = localStorage.getItem("inputValueSavedPage");
-      setInputValue(value);
-      setSearchQuery(value);
-    } else {
-      setInputValue("");
-      setSearchQuery("");
-    }
-  }, []);
-
-
 
   useEffect(() => {
     const filteredMovies = searchMovies(savedMovies, searchQuery, isShort, true);
