@@ -5,25 +5,31 @@ import { useEffect, useState } from "react";
 import { getSavedMovies } from "../../utils/MoviesApi";
 
 const SavedMovies = ({
-  inputValue,
-  setInputValue,
-  setSearchQuery,
   savedMovies,
   setFilteredMovies,
   searchMovies,
-  searchQuery,
-  isShort,
-  setIsShort,
   isLoading,
   setIsLoading,
   filteredMovies,
   handleDeleteMovie,
 }) => {
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isShort, setIsShort] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
   useEffect(() => {
-      setInputValue('');
-      setSearchQuery('');
+    if (localStorage.getItem("inputValueSavedPage")) {
+      const value = localStorage.getItem("inputValueSavedPage");
+      setInputValue(value);
+      setSearchQuery(value);
+    } else {
+      setInputValue("");
+      setSearchQuery("");
+    }
   }, []);
+
+
 
   useEffect(() => {
     const filteredMovies = searchMovies(savedMovies, searchQuery, isShort, true);

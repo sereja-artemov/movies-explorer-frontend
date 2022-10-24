@@ -12,14 +12,13 @@ const Movies = ({
   setIsLoading,
   setSavedMovies,
   handleSaveMovie,
-  setInputValue,
-  searchQuery,
-  setIsShort,
-  setSearchQuery,
-  isShort,
-  inputValue,
   handleRemoveSavedMovie,
 }) => {
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isShort, setIsShort] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("inputValue")) {
       const value = localStorage.getItem("inputValue");

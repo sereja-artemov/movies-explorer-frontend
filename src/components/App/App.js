@@ -37,9 +37,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isShort, setIsShort] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const [isShort, setIsShort] = useState(false);
+  // const [inputValue, setInputValue] = useState("");
 
   const [profileError, setProfileError] = useState('');
 
@@ -142,19 +142,25 @@ function App() {
     return moviesArr.filter((i) => i.duration < SHORT_FILTER_MINUTES_DURATION);
   }
 
-  function searchMovies(moviesArr, searchQuery, isShortMovie, isSavedPage) {
+  function searchMovies(moviesArr, searchQuery, isShortMovie, renderAll) {
     const filteredMovies = moviesArr.filter((i) => {
       return i.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
-    if (isShortMovie && searchQuery !== "") {
-      return filterMoviesByDuration(filteredMovies);
-    }
-    if (isSavedPage && searchQuery === "" && !isShortMovie) {
-      return filteredMovies;
+
+    if (!renderAll) {
+      if (isShortMovie && searchQuery !== "") {
+        return filterMoviesByDuration(filteredMovies);
+      }
+
+      return searchQuery !== "" ? filteredMovies : [];
+    } else {
+      if (isShortMovie) {
+        return filterMoviesByDuration(filteredMovies);
+      }
+      return filteredMovies
     }
 
-    return searchQuery !== "" ? filteredMovies : [];
   }
 
   //сохранить фильм
@@ -219,12 +225,6 @@ function App() {
                   setIsLoading={setIsLoading}
                   setSavedMovies={setSavedMovies}
                   handleSaveMovie={handleSaveMovie}
-                  inputValue={inputValue}
-                  setInputValue={setInputValue}
-                  setSearchQuery={setSearchQuery}
-                  searchQuery={searchQuery}
-                  isShort={isShort}
-                  setIsShort={setIsShort}
                   handleRemoveSavedMovie={handleRemoveSavedMovie}
                 />
               </ProtectedRoute>
@@ -238,12 +238,6 @@ function App() {
                   savedMovies={savedMovies}
                   searchMovies={searchMovies}
                   setFilteredMovies={setFilteredMovies}
-                  searchQuery={searchQuery}
-                  isShort={isShort}
-                  inputValue={inputValue}
-                  setInputValue={setInputValue}
-                  setSearchQuery={setSearchQuery}
-                  setIsShort={setIsShort}
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   filteredMovies={filteredMovies}
