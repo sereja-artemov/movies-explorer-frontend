@@ -22,7 +22,7 @@ const SavedMovies = ({
 
   useEffect(() => {
       setInputValue('');
-      // setSearchQuery('');
+      setSearchQuery('');
   }, []);
 
   useEffect(() => {

@@ -18,7 +18,7 @@ const FilterCheckbox = ({ isShort, setIsShort, inputId, label, name }) => {
         name={name}
         type="checkbox"
         value={label}
-        // checked={isShort}
+        defaultChecked={isShort}
       />
       <span className="filter__checkbox-indicator"></span>
       {label}
