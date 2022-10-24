@@ -99,7 +99,10 @@ function App() {
         console.log(err)
         if (err === 'Ошибка: 409') {
           openTooltip(failImage, 'Такой email уже существует');
-        } else {
+        }  else if (err === 'Ошибка: 500') {
+          openTooltip(failImage, 'Ошибка 500: Internal Server Error');
+        }
+        else {
           openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
         }
       })
@@ -118,7 +121,10 @@ function App() {
       .catch((err) => {
         if (err === 'Ошибка: 401') {
           openTooltip(failImage, 'Неправильные почта или пароль');
-        } else {
+        } else if (err === 'Ошибка: 500') {
+          openTooltip(failImage, 'Ошибка 500: Internal Server Error');
+        }
+        else {
           openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
         }
       })
