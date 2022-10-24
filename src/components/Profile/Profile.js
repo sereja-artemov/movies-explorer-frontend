@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect} from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {useForm} from "react-hook-form";
 
@@ -9,13 +9,22 @@ const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
     register,
     handleSubmit,
     watch,
-    formState: { isDirty, errors, isValid, defaultValues },
+    formState: { isDirty, errors, isValid, defaultValues, isSubmitted, isSubmitting },
   } = useForm({ mode: "onChange", defaultValues: {
       name: currentUser.name,
       email: currentUser.email,
     } });
 
   let [name, email] = watch(['name', 'email']);
+
+  useEffect(() => {
+    setDefaultValues()
+  }, [isSubmitted, isSubmitting])
+
+  function setDefaultValues() {
+    defaultValues.name = name;
+    defaultValues.email = email;
+  }
 
   function handleFormSubmit() {
     handleUpdateUser({ name, email })
@@ -72,9 +81,9 @@ const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
           <input
             onClick={handleSubmit(handleFormSubmit)}
             type="submit"
-            className="profile__form-submit"
-            value="Редактировать"
-            disabled={isValid && defaultValues.name === name && defaultValues.email === email}
+            className={ (isValid && defaultValues.name === name && defaultValues.email === email) ? "profile__form-submit" : "profile__btn"}
+            value={(isValid && defaultValues.name === name && defaultValues.email === email) ? "Редактировать" : "Сохранить"}
+            disabled={defaultValues.name === name && defaultValues.email === email}
           />
 
           <button
