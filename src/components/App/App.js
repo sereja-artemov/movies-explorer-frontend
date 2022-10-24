@@ -48,37 +48,30 @@ function App() {
 
   const location = useLocation();
 
-  useEffect(() => {
-    setIsLoading(true);
-    getInitialMovies();
-    getSavedMovies()
-      .then((res) => {
-        const result = res.filter((m) => m.owner === userData._id);
-        localStorage.setItem("savedMoviesData", JSON.stringify(result));
-        setSavedMovies(result);
-      })
-      .catch((err) => err);
-  }, [isLoggedIn]);
 
   useEffect(() => {
     checkToken();
     if (isLoggedIn) {
       navigate("/movies");
-      moviesApi
-        .getCurrentUser()
-        .then((userData) => {
-          setUserData(userData);
+      getInitialMovies();
+      getSavedMovies()
+        .then((res) => {
+          const result = res.filter((m) => m.owner === userData._id);
+          localStorage.setItem("savedMoviesData", JSON.stringify(result));
+          setSavedMovies(result);
         })
         .catch((err) => err);
     }
   }, [isLoggedIn]);
 
   function getInitialMovies() {
+    setIsLoading(true);
     if (localStorage.getItem("moviesData")) {
       const movies = JSON.parse(localStorage.getItem("moviesData"));
       setMoviesData(movies);
       setIsLoading(false);
     } else {
+      setIsLoading(true);
       getMoviesData()
         .then((data) => {
           setMoviesData(data);
@@ -149,7 +142,7 @@ function App() {
     return moviesArr.filter((i) => i.duration < SHORT_FILTER_MINUTES_DURATION);
   }
 
-  function searchMovies(moviesArr, searchQuery, isShortMovie) {
+  function searchMovies(moviesArr, searchQuery, isShortMovie, isSavedPage) {
     const filteredMovies = moviesArr.filter((i) => {
       return i.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
@@ -157,21 +150,12 @@ function App() {
     if (isShortMovie && searchQuery !== "") {
       return filterMoviesByDuration(filteredMovies);
     }
+    if (isSavedPage && searchQuery === "") {
+      return filteredMovies;
+    }
+
     return searchQuery !== "" ? filteredMovies : [];
   }
-
-  //сохраненные фильмы
-  useEffect(() => {
-    if (isLoggedIn) {
-      getSavedMovies()
-        .then((res) => {
-          const result = res.filter((m) => m.owner === userData._id);
-          localStorage.setItem("savedMoviesData", JSON.stringify(result));
-          setSavedMovies(result);
-        })
-        .catch((err) => err);
-    }
-  }, [isLoggedIn]);
 
   //сохранить фильм
   function handleSaveMovie(movie) {
@@ -182,7 +166,6 @@ function App() {
           { ...res, id: res.movieId },
         ];
         setSavedMovies(updatedSavedMovies);
-        // localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
       })
       .catch((err) => console.log(err));
   }
@@ -195,7 +178,6 @@ function App() {
         let newSavedMovies = [...savedMovies];
         newSavedMovies.splice(deletedCardIndex, 1);
         setSavedMovies(newSavedMovies);
-        // localStorage.setItem("savedMovies", JSON.stringify(newSavedMovies));
       })
       .catch(err => console.log(err))
   }

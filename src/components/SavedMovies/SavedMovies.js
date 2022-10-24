@@ -26,7 +26,7 @@ const SavedMovies = ({
   }, []);
 
   useEffect(() => {
-    const filteredMovies = searchMovies(savedMovies, searchQuery, isShort);
+    const filteredMovies = searchMovies(savedMovies, searchQuery, isShort, true);
     setFilteredMovies(filteredMovies);
   }, [searchQuery, isShort, savedMovies]);
 
