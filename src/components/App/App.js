@@ -39,14 +39,9 @@ function App() {
   const [filteredMovies, setFilteredMovies] = useState([]); //массив отфильтрованных фильмов
 
   const [userData, setUserData] = useState({}); //данные текущего пользователя
-  console.log(userData)
 
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [isShort, setIsShort] = useState(false);
-  // const [inputValue, setInputValue] = useState("");
 
   const [profileError, setProfileError] = useState('');
 
@@ -59,6 +54,9 @@ function App() {
 
   const location = useLocation();
 
+  useEffect(() => {
+    checkToken();
+  }, [])
 
   useEffect(() => {
     checkToken();
@@ -74,21 +72,18 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  function getInitialMovies() {
-    setIsLoading(true);
-    if (localStorage.getItem("moviesData")) {
-      const movies = JSON.parse(localStorage.getItem("moviesData"));
-      setMoviesData(movies);
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
-      getMoviesData()
-        .then((data) => {
-          setMoviesData(data);
-          localStorage.setItem("moviesData", JSON.stringify(data));
-          setIsLoading(false);
+  function checkToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      getCurrentUser()
+        .then((userData) => {
+          setIsLoggedIn(true);
+          setUserData(userData);
+          navigate(location);
         })
         .catch((err) => err);
+    } else {
+      handleLogout();
     }
   }
 
@@ -131,21 +126,26 @@ function App() {
   }
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("moviesSearchResults");
+    localStorage.removeItem('token');
+    localStorage.removeItem('moviesSearchResults');
     setIsLoggedIn(false);
     setUserData({});
     setSavedMovies([]);
   }
 
-  function checkToken() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      getCurrentUser()
-        .then((userData) => {
-          setIsLoggedIn(true);
-          setUserData(userData);
-          navigate(location);
+  function getInitialMovies() {
+    setIsLoading(true);
+    if (localStorage.getItem("moviesData")) {
+      const movies = JSON.parse(localStorage.getItem("moviesData"));
+      setMoviesData(movies);
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+      getMoviesData()
+        .then((data) => {
+          setMoviesData(data);
+          localStorage.setItem("moviesData", JSON.stringify(data));
+          setIsLoading(false);
         })
         .catch((err) => err);
     }
@@ -176,7 +176,7 @@ function App() {
 
 
     if (!renderAll) {
-      if (isShortMovie && searchQuery !== "") {
+      if (isShortMovie && searchQuery !== '') {
         return filterMoviesByDuration(filteredMovies);
       }
 
