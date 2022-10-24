@@ -154,6 +154,8 @@ function App() {
     updateUser(name, email)
       .then((res) => {
         setUserData(res);
+        console.log(res)
+        openTooltip(successImage, `Теперь вас зовут: ${res.name}, а ваша почта ${res.email}`);
       })
       .catch((err) => {
         console.log(err)
