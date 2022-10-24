@@ -7,6 +7,7 @@
   height: 100vh;
   background-color: #000;
   opacity: .7;
+  overflow: hidden;
 }
 
 .lds-ring {

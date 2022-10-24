@@ -60,6 +60,15 @@ function App() {
   }, [])
 
   useEffect(() => {
+    getSavedMovies()
+      .then((res) => {
+        const result = res.filter((m) => m.owner === userData._id);
+        setSavedMovies(result);
+      })
+      .catch((err) => err);
+  }, [userData])
+
+  useEffect(() => {
     checkToken();
     if (isLoggedIn) {
       navigate("/movies");
