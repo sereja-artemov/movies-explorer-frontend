@@ -97,7 +97,7 @@ function App() {
       .createUser(name, email, password)
       .then(() => {
         openTooltip(successImage, 'Вы успешно зарегистрировались!');
-        navigate("/signin");
+        onLogin({ email, password });
       })
       .catch((err) => {
         console.log(err)
