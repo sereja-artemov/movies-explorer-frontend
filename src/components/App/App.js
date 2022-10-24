@@ -304,11 +304,21 @@ function App() {
               </ProtectedRoute>
             }
           ></Route>
-
-          <Route path="/signin" element={<Login onLogin={onLogin} />}></Route>
+          <Route
+            path="/signin"
+            element={
+              <ProtectedRoute isLoggedIn={!isLoggedIn}>
+                <Login onLogin={onLogin} />
+              </ProtectedRoute>
+            }
+          ></Route>
           <Route
             path="/signup"
-            element={<Register onRegister={onRegister} />}
+            element={
+              <ProtectedRoute isLoggedIn={!isLoggedIn}>
+                <Register onRegister={onRegister} />
+              </ProtectedRoute>
+            }
           ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
