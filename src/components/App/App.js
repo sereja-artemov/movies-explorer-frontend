@@ -102,7 +102,11 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
-        openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
+        if (err === 'Ошибка: 409') {
+          openTooltip(failImage, 'Такой email уже существует');
+        } else {
+          openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
+        }
       })
       .finally(() => setIsLoading(false));
   }
@@ -117,8 +121,11 @@ function App() {
         navigate("/movies");
       })
       .catch((err) => {
-        console.log(err);
-        openTooltip(failImage ,'Что-то пошло не так! Попробуйте ещё раз.');
+        if (err === 'Ошибка: 401') {
+          openTooltip(failImage, 'Неправильные почта или пароль');
+        } else {
+          openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
+        }
       })
       .finally(() => setIsLoading(false));
   }
