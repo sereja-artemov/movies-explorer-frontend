@@ -1,0 +1,12 @@
+.movies {
+  padding-bottom: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (min-width: 768px) {
+  .movies {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

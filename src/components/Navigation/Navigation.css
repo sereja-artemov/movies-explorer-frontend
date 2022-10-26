@@ -1,0 +1,128 @@
+.navigation {
+  display: none;
+  align-items: center;
+}
+
+.navigation__list {
+  margin: 0;
+  margin-right: 50px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.navigation__link {
+  position: relative;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.navigation__link--active {
+  font-weight: 500;
+}
+
+.navigation__link--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  font-weight: 500;
+}
+
+.navigation__list-item {
+  margin-right: 20px;
+}
+
+.navigation__account-link {
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #fff;
+  padding-right: 43px;
+}
+
+.navigation__account-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #313131;
+  background-image: url("../../images/account-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.navigation--open {
+  z-index: 999;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #202020;
+  padding: 144px 30px 48px;
+}
+
+.navigation--open .navigation__list {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+}
+
+.navigation--open .navigation__list-item {
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+.navigation--open .navigation__account-link {
+  margin-top: auto;
+}
+
+@media (min-width: 768px) {
+  .navigation--open {
+    width: 520px;
+    right: 0;
+    left: auto;
+  }
+
+  .navigation--open {
+    padding: 159px 90px 92px;
+  }
+
+  .navigation__list-item {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .navigation--open .navigation__list-item {
+    margin-bottom: 28px;
+  }
+}
+
+@media (min-width: 1279px) {
+  .navigation {
+    display: flex;
+  }
+  .navigation__list-item--hidden {
+    display: none;
+  }
+}
