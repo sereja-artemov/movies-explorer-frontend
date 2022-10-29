@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import FilterCheckbox from "../../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = ({
-  setSearchQuery, setIsShort, isShort, inputValue, setInputValue, savedPageLocalStorage
+  setSearchQuery, setIsShort, isShort, inputValue, setInputValue
 }) => {
-
 
   function handleSubmitForm(event) {
     event.preventDefault();

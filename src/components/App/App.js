@@ -20,14 +20,13 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as moviesApi from "../../utils/MoviesApi";
 import { CurrentUserContext } from "../contexts/currentUserContext";
 import {
-  auth,
   createMovie,
-  createUser,
   getCurrentUser,
-  getSavedMovies, removeMovie, updateUser,
+  getSavedMovies,
+  removeMovie,
+  updateUser,
 } from "../../utils/MoviesApi";
 import { SHORT_FILTER_MINUTES_DURATION } from "../../utils/constants";
-import Popup from "../Popup/Popup";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import MainPreloader from "../MainPreloader/MainPreloader";
 
@@ -35,6 +34,7 @@ import successImage from "../../images/tooltip/success.svg";
 import failImage from "../../images/tooltip/cross.svg";
 
 function App() {
+
   const [moviesData, setMoviesData] = useState([]); //первоначальные фильмы
   const [savedMovies, setSavedMovies] = useState([]); //сохраненные фильмы
   const [filteredMovies, setFilteredMovies] = useState([]); //массив отфильтрованных фильмов
@@ -57,7 +57,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, [])
+  }, []);
 
   useEffect(() => {
     getSavedMovies()
@@ -66,7 +66,7 @@ function App() {
         setSavedMovies(result);
       })
       .catch((err) => err);
-  }, [userData])
+  }, [userData]);
 
   useEffect(() => {
     checkToken();
@@ -83,7 +83,7 @@ function App() {
   }, [isLoggedIn]);
 
   function checkToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       getCurrentUser()
         .then((userData) => {
@@ -106,13 +106,12 @@ function App() {
         onLogin({ email, password });
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         if (err === 'Ошибка: 409') {
           openTooltip(failImage, 'Такой email уже существует');
-        }  else if (err === 'Ошибка: 500') {
+        } else if (err === 'Ошибка: 500') {
           openTooltip(failImage, 'Ошибка 500: Internal Server Error');
-        }
-        else {
+        } else {
           openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
         }
       })
@@ -124,17 +123,16 @@ function App() {
     moviesApi
       .auth(email, password)
       .then((res) => {
-        localStorage.setItem("token", res.token);
+        localStorage.setItem('token', res.token);
         setIsLoggedIn(true);
-        navigate("/movies");
+        navigate('/movies');
       })
       .catch((err) => {
         if (err === 'Ошибка: 401') {
           openTooltip(failImage, 'Неправильные почта или пароль');
         } else if (err === 'Ошибка: 500') {
           openTooltip(failImage, 'Ошибка 500: Internal Server Error');
-        }
-        else {
+        } else {
           openTooltip(failImage, 'Что-то пошло не так! Попробуйте ещё раз.');
         }
       })
@@ -151,8 +149,8 @@ function App() {
 
   function getInitialMovies() {
     setIsLoading(true);
-    if (localStorage.getItem("moviesData")) {
-      const movies = JSON.parse(localStorage.getItem("moviesData"));
+    if (localStorage.getItem('moviesData')) {
+      const movies = JSON.parse(localStorage.getItem('moviesData'));
       setMoviesData(movies);
       setIsLoading(false);
     } else {
@@ -160,7 +158,7 @@ function App() {
       getMoviesData()
         .then((data) => {
           setMoviesData(data);
-          localStorage.setItem("moviesData", JSON.stringify(data));
+          localStorage.setItem('moviesData', JSON.stringify(data));
           setIsLoading(false);
         })
         .catch((err) => err);
@@ -173,11 +171,14 @@ function App() {
       .then((res) => {
         setUserData(res);
         setIsLoading(false);
-        openTooltip(successImage, `Теперь вас зовут: ${res.name}, а ваша почта ${res.email}`);
+        openTooltip(
+          successImage,
+          `Теперь вас зовут: ${res.name}, а ваша почта ${res.email}`
+        );
       })
       .catch((err) => {
-        console.log(err)
-        setProfileError('Ой, что-то пошло не так')
+        console.log(err);
+        setProfileError('Ой, что-то пошло не так');
       });
   }
 
@@ -191,20 +192,17 @@ function App() {
       return i.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
-
     if (!renderAll) {
-      if (isShortMovie && searchQuery !== '') {
+      if (isShortMovie && searchQuery !== "") {
         return filterMoviesByDuration(filteredMovies);
       }
-
       return searchQuery !== "" ? filteredMovies : [];
     } else {
       if (isShortMovie) {
         return filterMoviesByDuration(filteredMovies);
       }
-      return filteredMovies
+      return filteredMovies;
     }
-
   }
 
   //сохранить фильм
@@ -224,43 +222,46 @@ function App() {
   function handleDeleteMovie(movie) {
     removeMovie(movie._id)
       .then((res) => {
-        const deletedCardIndex = savedMovies.findIndex(m => m._id === movie._id);
+        const deletedCardIndex = savedMovies.findIndex(
+          (m) => m._id === movie._id
+        );
         let newSavedMovies = [...savedMovies];
         newSavedMovies.splice(deletedCardIndex, 1);
         setSavedMovies(newSavedMovies);
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   function handleRemoveSavedMovie(movieId) {
     if (savedMovies.length > 0) {
-      let movie = savedMovies.find(m => m.movieId === movieId);
+      let movie = savedMovies.find((m) => m.movieId === movieId);
       handleDeleteMovie(movie);
     }
   }
 
   function openTooltip(image, text) {
     setTooltipText(text);
-    setTooltipImage(image)
+    setTooltipImage(image);
     setIsTooltipActive(true);
   }
 
   function closeAllPopups() {
     setIsTooltipActive(false);
   }
+
   const isOpen = isTooltipActive;
 
   useEffect(() => {
     const closeByEscape = (evt) => {
-      (evt.key === 'Escape') && closeAllPopups();
+      evt.key === 'Escape' && closeAllPopups();
     };
     if (isOpen) {
       document.addEventListener('keydown', closeByEscape);
       return () => {
         document.removeEventListener('keydown', closeByEscape);
-      }
+      };
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <div>
@@ -270,12 +271,7 @@ function App() {
         pathname === "/profile") && <Header isLoggedIn={isLoggedIn} />}
       <CurrentUserContext.Provider value={userData}>
         <Routes>
-          <Route
-            path="/"
-            element={
-                <Main />
-            }
-          ></Route>
+          <Route path="/" element={<Main />}></Route>
           <Route
             path="/movies"
             element={
@@ -315,7 +311,12 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Profile userData={userData} handleLogout={handleLogout} handleUpdateUser={handleUpdateUser} profileError={profileError} />
+                <Profile
+                  userData={userData}
+                  handleLogout={handleLogout}
+                  handleUpdateUser={handleUpdateUser}
+                  profileError={profileError}
+                />
               </ProtectedRoute>
             }
           ></Route>
@@ -350,10 +351,7 @@ function App() {
         image={tooltipImage}
       />
 
-      {isLoading && pathname !== '/movies' &&
-        <MainPreloader></MainPreloader>
-      }
-
+      {isLoading && pathname !== "/movies" && <MainPreloader></MainPreloader>}
     </div>
   );
 }

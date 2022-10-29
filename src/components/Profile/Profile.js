@@ -1,25 +1,34 @@
-import React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/currentUserContext";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
-
+const Profile = ({ handleLogout, handleUpdateUser, profileError }) => {
   const currentUser = useContext(CurrentUserContext);
   const {
     register,
     handleSubmit,
     watch,
-    formState: { isDirty, errors, isValid, defaultValues, isSubmitted, isSubmitting },
-  } = useForm({ mode: "onChange", defaultValues: {
+    formState: {
+      isDirty,
+      errors,
+      isValid,
+      defaultValues,
+      isSubmitted,
+      isSubmitting,
+    },
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
       name: currentUser.name,
       email: currentUser.email,
-    } });
+    },
+  });
 
-  let [name, email] = watch(['name', 'email']);
+  let [name, email] = watch(["name", "email"]);
 
   useEffect(() => {
-    setDefaultValues()
-  }, [isSubmitted, isSubmitting])
+    setDefaultValues();
+  }, [isSubmitted, isSubmitting]);
 
   function setDefaultValues() {
     defaultValues.name = name;
@@ -27,7 +36,7 @@ const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
   }
 
   function handleFormSubmit() {
-    handleUpdateUser({ name, email })
+    handleUpdateUser({ name, email });
   }
 
   return (
@@ -46,11 +55,14 @@ const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
                 required: "Поле обязательно к заполнению",
                 pattern: {
                   value: /^[а-яА-ЯёЁa-zA-Z0-9 -]+$/i,
-                  message: "Имя может содержать только латиницу, кириллицу, пробел или дефис."
-                }
+                  message:
+                    "Имя может содержать только латиницу, кириллицу, пробел или дефис.",
+                },
               })}
             />
-            {errors.name && <span className="profile__error">{errors.name.message}</span>}
+            {errors.name && (
+              <span className="profile__error">{errors.name.message}</span>
+            )}
             <label htmlFor="profile-name" className="profile__label">
               Имя
             </label>
@@ -66,24 +78,39 @@ const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
                 required: "Поле обязательно к заполнению",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Неправильно введен e-mail"
-                }
+                  message: "Неправильно введен e-mail",
+                },
               })}
             />
-            {errors.email && <span className="profile__error">{errors.email.message}</span>}
+            {errors.email && (
+              <span className="profile__error">{errors.email.message}</span>
+            )}
             <label htmlFor="profile-email" className="profile__label">
               E-mail
             </label>
           </div>
         </fieldset>
         <fieldset className="profile__fields profile__fields--settings">
-
           <input
             onClick={handleSubmit(handleFormSubmit)}
             type="submit"
-            className={ (isValid && defaultValues.name === name && defaultValues.email === email) ? "profile__form-submit" : "profile__btn"}
-            value={(isValid && defaultValues.name === name && defaultValues.email === email) ? "Редактировать" : "Сохранить"}
-            disabled={defaultValues.name === name && defaultValues.email === email}
+            className={
+              isValid &&
+              defaultValues.name === name &&
+              defaultValues.email === email
+                ? "profile__form-submit"
+                : "profile__btn"
+            }
+            value={
+              isValid &&
+              defaultValues.name === name &&
+              defaultValues.email === email
+                ? "Редактировать"
+                : "Сохранить"
+            }
+            disabled={
+              defaultValues.name === name && defaultValues.email === email
+            }
           />
 
           <button
@@ -93,10 +120,7 @@ const Profile = ({handleLogout, handleUpdateUser, profileError}) => {
           >
             Выйти из аккаунта
           </button>
-          <span className="profile__error">
-            {profileError}
-          </span>
-
+          <span className="profile__error">{profileError}</span>
         </fieldset>
       </form>
     </section>

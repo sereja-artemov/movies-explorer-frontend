@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { createMovie, getSavedMovies } from "../../../utils/MoviesApi";
+import React from "react";
 import { MOVIES_SERVER_URL } from "../../../utils/constants";
 import { toHoursAndMinutes } from "../../../utils/timeConverter";
 
@@ -25,6 +23,7 @@ const MoviesCard = ({
   movie,
   handleRemoveSavedMovie
 }) => {
+
   const cardSaveButtonClassName = `movies-card__save ${
     isSaved ? "movies-card__save--saved" : ""
   }`;
@@ -79,7 +78,6 @@ const MoviesCard = ({
           <span className="movies-card__save-text">Сохранить</span>
         </button>
       )}
-
       {isSavePageTemplate && <button onClick={handleDeleteButton} className="movies-card__delete"></button>}
     </li>
   );

@@ -5,7 +5,6 @@ function Popup({ id, isOpen, onClose, content, containerSelector }) {
     <div id={id} className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <div className={`popup__container ${containerSelector}`}>
         {content}
-
         <button
           onClick={onClose}
           type="button"

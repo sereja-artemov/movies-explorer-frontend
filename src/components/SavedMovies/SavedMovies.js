@@ -2,7 +2,6 @@ import React from "react";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import { useEffect, useState } from "react";
-import { getSavedMovies } from "../../utils/MoviesApi";
 
 const SavedMovies = ({
   savedMovies,

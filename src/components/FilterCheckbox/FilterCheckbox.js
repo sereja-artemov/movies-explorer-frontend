@@ -1,8 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 const FilterCheckbox = ({ isShort, setIsShort, inputId, label, name }) => {
-
-
 
   function handleChangeCheckbox() {
     setIsShort(!isShort);
