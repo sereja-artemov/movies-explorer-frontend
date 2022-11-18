@@ -2,7 +2,7 @@
 
 Movies Explorer - фронтенд часть моего дипломного проекта и сервис, в котором можно найти фильмы из коллекции BeatFilm и сохранить в избранном. 
 
-Готовый собранный сайт располагается по [ссылке](https://movies-expl.nomoredomains.sbs)
+https://movies-expl.nomoredomains.sbs
 <br />
 
 ## Функционал 
