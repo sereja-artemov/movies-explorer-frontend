@@ -1,5 +1,8 @@
 # movies-explorer-frontend
 
+<img src="https://sereja-art.ru/upload/movies-explorer-portfolio.png" alt="movies-explorer-frontend" title="movies-explorer-frontend" />
+
+
 Movies Explorer - фронтенд часть моего дипломного проекта и сервис, в котором можно найти фильмы из коллекции BeatFilm и сохранить в избранном. 
 
 <a href="https://movies-expl.nomoredomains.sbs" target="_blank">https://movies-expl.nomoredomains.sbs</a>
